@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'ViscoveryADSDK_Example' do
+  pod 'ViscoveryADSDK', :path => '../'
+
+  target 'ViscoveryADSDK_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
