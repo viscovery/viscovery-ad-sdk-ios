@@ -152,15 +152,11 @@ public class AdsManager {
         let url = URL(string: impression) {
         url.fetch()
       }
-      do {
-        guard let start = try vast["VAST"]["Ad"]["InLine"]["Creatives"]["Creative"]["NonLinearAds"]["TrackingEvents"]["Tracking"].withAttr("event", "start").element else { return }
-        guard
-          let uri = start.text,
-          let url = URL(string: uri) else { return }
-        url.fetch()
-      }
-      catch {
       
+      if let start = try! vast["VAST"]["Ad"]["InLine"]["Creatives"]["Creative"]["NonLinearAds"]["TrackingEvents"]["Tracking"].withAttr("event", "start").element,
+        let text = start.text,
+        let url = URL(string: text){
+        url.fetch()
       }
     }
   }
