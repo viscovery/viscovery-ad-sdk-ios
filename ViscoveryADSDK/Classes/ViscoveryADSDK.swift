@@ -67,7 +67,7 @@ public class AdsManager {
       return
     }
     let url = URL(string: "https://vsp.viscovery.com/api/vmap?api_key=\(apiKey)&video_url=\(videoURL.toBase64)&platform=mobile&debug=0")!
-    // let url = URL(string: "http://www.mocky.io/v2/59140c4a1000001a019a59a3")!
+    //let url = URL(string: "http://www.mocky.io/v2/592266c33700000720fa34a9")!
     
     url.fetch {
       guard
@@ -145,7 +145,7 @@ public class AdsManager {
     nonLinearView.setResourceWithURL(url: resourceURL) {
       if let minDuration: String = nonlinear.element?.value(ofAttribute: "minSuggestedDuration") {
         DispatchQueue.main.asyncAfter(deadline: .now() + (minDuration.toTimeInterval == 0 ? 15 : minDuration.toTimeInterval)) {
-          self.nonLinearView.dismissAds()
+          self.nonLinearView.isAdHidden = true
         }
       }
       if let impression = vast["VAST"]["Ad"]["InLine"]["Impression"].element?.text,
@@ -222,25 +222,33 @@ extension XMLIndexer {
   }
 }
 class ImageView: UIImageView {
-  let width = ConstraintGroup()
+  let imageSize = ConstraintGroup()
   override var bounds: CGRect {
     didSet {
-      layoutImage()
+      layoutSize()
     }
   }
-  func layoutImage() {
-    guard let image = image else { return }
-    let scaleH = image.size.height / bounds.size.height
-    let scaleW = image.size.width / bounds.size.width
-    print("h \(scaleH) , w \(scaleW)")
-//    let scaleWith = image.size.width / scale
-//    constrain(self, replace: width) { view in
-//      view.width == scaleWith
-//    }
-   // print((scale,scaleWith))
+  override var image: UIImage? {
+    didSet {
+      layoutSize()
+    }
+  }
+  func layoutSize() {
+    guard let image = self.image else { return }
+    constrain(self, replace: imageSize) {
+      let size = AVMakeRect(aspectRatio: image.size, insideRect: self.frame).size
+      $0.width == size.width
+      $0.height == size.height
+    }
   }
 }
 class NonLinearView: UIView {
+  var isAdHidden = true {
+    didSet {
+      image.isHidden = isAdHidden
+      close.isHidden = isAdHidden
+    }
+  }
   let image = ImageView()
   let close = UIButton(type: .system)
   let group = ConstraintGroup()
@@ -252,30 +260,34 @@ class NonLinearView: UIView {
   override var bounds: CGRect {
     didSet {
       configureConstrains(with: adParameters)
-      image.layoutImage()
     }
   }
   var clickThroughCallback: (() -> ())?
-  
   func configureConstrains(with adParameters: [String: String]) {
     DispatchQueue.main.async { [image,group] in
       constrain(image,self, replace: group) {
+        guard let positionOffset = adParameters["pos_value"] else { return }
+        guard let alignOffset = adParameters["align_value"] else { return }
+
         if adParameters["position"] == "bottom" {
-          $0.bottom == $1.bottom
+          $0.bottom == $1.bottom - CGFloat(Float(positionOffset) ?? 0)
         } else {
           $0.top == $1.top
         }
         guard let align = adParameters["align"] else { return }
         switch align {
           case "left":
-            $0.left == $1.left
+            $0.left == $1.left + CGFloat(Float(alignOffset) ?? 0)
           case "right":
-            $0.right == $1.right
+            $0.right == $1.right - CGFloat(Float(alignOffset) ?? 0)
           case "center":
             $0.centerX == $1.centerX
         default: break
         }
-        guard let heightPercentage = Float(adParameters["height"] ?? "0") else { return }
+      }
+      guard let heightPercentage = Float(adParameters["height"] ?? "0") else { return }
+      constrain(image, replace: self.image.imageSize) {
+        $0.width == self.bounds.width
         $0.height == self.bounds.height * CGFloat(heightPercentage * 0.01)
       }
     }
@@ -315,14 +327,9 @@ class NonLinearView: UIView {
     fatalError("init(coder:) has not been implemented")
   }
   func setResourceWithURL(url: String, completion: (() -> ())? = nil) {
-    image.setImageWith(link: url, contentMode: .scaleAspectFit) { _ in
-//      let size = AVMakeRect(aspectRatio: $0.size, insideRect: self.image.frame).size
-//      constrain(self.image, self, replace: self.width) { image, view in
-//        image.width == size.width
-//      }
-//      self.layoutIfNeeded()
-      self.close.isHidden = false
-      self.image.isHidden = false
+    image.setImageWith(link: url, contentMode: .scaleAspectFill) { _ in
+      self.configureConstrains(with: self.adParameters)
+      self.isAdHidden = false
       completion?()
     }
   }
