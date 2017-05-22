@@ -67,7 +67,7 @@ public class AdsManager {
       return
     }
     let url = URL(string: "https://vsp.viscovery.com/api/vmap?api_key=\(apiKey)&video_url=\(videoURL.toBase64)&platform=mobile&debug=0")!
-    //let url = URL(string: "http://www.mocky.io/v2/592266c33700000720fa34a9")!
+    // let url = URL(string: "http://www.mocky.io/v2/592266c33700000720fa34a9")!
     
     url.fetch {
       guard
@@ -151,6 +151,16 @@ public class AdsManager {
       if let impression = vast["VAST"]["Ad"]["InLine"]["Impression"].element?.text,
         let url = URL(string: impression) {
         url.fetch()
+      }
+      do {
+        guard let start = try vast["VAST"]["Ad"]["InLine"]["Creatives"]["Creative"]["NonLinearAds"]["TrackingEvents"]["Tracking"].withAttr("event", "start").element else { return }
+        guard
+          let uri = start.text,
+          let url = URL(string: uri) else { return }
+        url.fetch()
+      }
+      catch {
+      
       }
     }
   }
@@ -264,11 +274,11 @@ class NonLinearView: UIView {
   }
   var clickThroughCallback: (() -> ())?
   func configureConstrains(with adParameters: [String: String]) {
-    DispatchQueue.main.async { [image,group] in
-      constrain(image,self, replace: group) {
+    DispatchQueue.main.async { [image, group] in
+      constrain(image, self, replace: group) {
         guard let positionOffset = adParameters["pos_value"] else { return }
         guard let alignOffset = adParameters["align_value"] else { return }
-
+        
         if adParameters["position"] == "bottom" {
           $0.bottom == $1.bottom - CGFloat(Float(positionOffset) ?? 0)
         } else {
@@ -276,12 +286,12 @@ class NonLinearView: UIView {
         }
         guard let align = adParameters["align"] else { return }
         switch align {
-          case "left":
-            $0.left == $1.left + CGFloat(Float(alignOffset) ?? 0)
-          case "right":
-            $0.right == $1.right - CGFloat(Float(alignOffset) ?? 0)
-          case "center":
-            $0.centerX == $1.centerX
+        case "left":
+          $0.left == $1.left + CGFloat(Float(alignOffset) ?? 0)
+        case "right":
+          $0.right == $1.right - CGFloat(Float(alignOffset) ?? 0)
+        case "center":
+          $0.centerX == $1.centerX
         default: break
         }
       }
@@ -296,10 +306,10 @@ class NonLinearView: UIView {
     super.init(frame: frame)
     clipsToBounds = true
     image.clipsToBounds = true
-    //backgroundColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1).withAlphaComponent(0.5)
+    // backgroundColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1).withAlphaComponent(0.5)
     addSubview(image)
-    //image.backgroundColor = #colorLiteral(red: 0.9632971883, green: 0.2329196632, blue: 0.0907504186, alpha: 1).withAlphaComponent(0.5)
-    constrain(image,self, replace: group) {
+    // image.backgroundColor = #colorLiteral(red: 0.9632971883, green: 0.2329196632, blue: 0.0907504186, alpha: 1).withAlphaComponent(0.5)
+    constrain(image, self, replace: group) {
       $0.left == $1.left
       $0.bottom == $1.bottom
     }
