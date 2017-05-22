@@ -138,8 +138,12 @@ public class AdsManager {
     nonLinearView.clickThroughCallback = {
       if let clickThrough = nonlinear["NonLinearClickThrough"].element?.text,
         let clickThroughURL = URL(string: clickThrough),
-        let presenter = UIApplication.shared.keyWindow?.rootViewController {
+        let presenter = UIApplication.shared.keyWindow?.rootViewController,
+        let clickTracking = nonlinear["NonLinearClickTracking"].element?.text,
+        let clickTrackingURL = URL(string: clickTracking)
+        {
         presenter.present(SFSafariViewController(url: clickThroughURL), animated: true)
+        clickTrackingURL.fetch()
       }
     }
     nonLinearView.setResourceWithURL(url: resourceURL) {
