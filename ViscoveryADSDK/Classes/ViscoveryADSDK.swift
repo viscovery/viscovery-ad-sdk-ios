@@ -196,8 +196,7 @@ extension AdsManager: IMAAdsManagerDelegate {
 extension AdsManager: IMAAdsLoaderDelegate {
   public func adsLoader(_: IMAAdsLoader!, adsLoadedWith adsLoadedData: IMAAdsLoadedData!) {
     adsManager = adsLoadedData.adsManager
-    adsManager.delegate = self as! IMAAdsManagerDelegate & NSObjectProtocol
-    
+    adsManager.delegate = self
     // Create ads rendering settings and tell the SDK to use the in-app browser.
     let adsRenderingSettings = IMAAdsRenderingSettings()
     // adsRenderingSettings.webOpenerPresentingController = self
