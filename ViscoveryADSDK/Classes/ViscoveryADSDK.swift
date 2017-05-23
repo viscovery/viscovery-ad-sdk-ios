@@ -306,9 +306,8 @@ class NonLinearView: UIView {
     super.init(frame: frame)
     clipsToBounds = true
     image.clipsToBounds = true
-    // backgroundColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1).withAlphaComponent(0.5)
+    isUserInteractionEnabled = false
     addSubview(image)
-    // image.backgroundColor = #colorLiteral(red: 0.9632971883, green: 0.2329196632, blue: 0.0907504186, alpha: 1).withAlphaComponent(0.5)
     constrain(image, self, replace: group) {
       $0.left == $1.left
       $0.bottom == $1.bottom
