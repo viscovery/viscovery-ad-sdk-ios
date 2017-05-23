@@ -10,7 +10,7 @@
 
 Pod::Spec.new do |s|
 s.name             = 'ViscoveryADSDK'
-s.version          = '1.2.0'
+s.version          = '1.2.1'
 s.summary          = 'Viscovery VidSense SDK'
 
 # This description is used to generate tags and improve search results.
