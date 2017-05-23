@@ -1,6 +1,0 @@
-framework module ViscoveryADSDK {
-  umbrella header "ViscoveryADSDK-umbrella.h"
-
-  export *
-  module * { export * }
-}
