@@ -23,6 +23,9 @@ s.description      = <<-DESC
 Integrate with Google IMA and provide simple APIs.
 DESC
 
+s.requires_arc = true
+s.pod_target_xcconfig = { 'SWIFT_VERSION' => '3.0' }
+
 s.homepage         = 'https://github.com/viscovery/viscovery-ios-ad-sdk'
 s.license          = { :type => 'Apache 2', :file => 'LICENSE' }
 s.author           = { 'boska lee' => 'boska.lee@viscovery.com' }
@@ -34,4 +37,3 @@ s.dependency 'GoogleAds-IMA-iOS-SDK', '~> 3.5'
 s.dependency 'SWXMLHash', '~> 3.0'
 s.dependency 'Cartography', '~> 1.1'
 end
-
