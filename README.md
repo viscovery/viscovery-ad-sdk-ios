@@ -18,7 +18,7 @@ Podfile Example
 use_frameworks!
 
 target 'ViscoveryADSDK_Example' do
-pod 'ViscoveryADSDK', :git => ':git => 'https://github.com/viscovery/viscovery-ios-ad-sdk.git'  
+  pod 'ViscoveryADSDK'
 end
 ```
 then execute
