@@ -4,6 +4,7 @@
 
 + ViscoveryADSDK Account
 + Xcode
++ iOS 9.0
 + [CocoaPods](https://cocoapods.org/)
 
 ```
@@ -14,12 +15,10 @@ $ sudo gem install cocoapods
 ## Adding libraries to the Xcode project
 Podfile Example
 
-```ruby
-use_frameworks!
+Add in your Podfile
 
-target 'ViscoveryADSDK_Example' do
-  pod 'ViscoveryADSDK'
-end
+```ruby
+pod 'ViscoveryADSDK'
 ```
 then execute
 ```
@@ -27,7 +26,6 @@ pod install
 ```
 
 Once the command completed, open the .xcworkspace file in Xcode
-## SDK Classes and lifecycle
 
 ## Step by Step Implemention
 [Link to Full Source Code](#full-example-source-code)
@@ -91,8 +89,8 @@ class ViewController: UIViewController {
 }
 ```
 
-VideoView 
-This class only for demo. you should replace it with any view that has videolayer in it.
+####VideoView
+This class only for demo. you should replace it with any view that has `AVPlayerLayer` in it.
 
 ```swift
 class VideoView: UIView {
@@ -116,4 +114,64 @@ class VideoView: UIView {
     player?.rate == 1.0 ? player?.pause() : player?.play()
   }
 }
+```
+
+## Example Source Code Objective-C
+
+```objective-c
+
+@import ViscoveryADSDK;
+
+@interface AppDelegate ()
+@end
+
+@implementation AppDelegate
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+  AdsManager.apiKey = @"873cbd49-738d-406c-b9bc-e15588567b39";
+  // Override point for customization after application launch.
+  return YES;
+}
+
+@end
+```
+
+
+```objective-c
+
+@import ViscoveryADSDK;
+
+@interface VideoView : UIView
+  @end
+@implementation VideoView
++ (Class) layerClass {
+  return [AVPlayerLayer class];
+}
+  @end
+
+@interface ViewController ()
+@property(nonatomic,weak) IBOutlet VideoView *videoView;
+@property(nonatomic,strong) AVPlayer *contentPlayer;
+@property(nonatomic,strong) AdsManager *adsManager;
+@end
+
+
+@implementation ViewController
+
+- (void)viewDidLoad {
+  [super viewDidLoad];
+  
+  NSURL *url = [[NSURL alloc]initWithString:@"http://viscovery-vsp-dev.s3.amazonaws.com/sdkdemo/Videos/Mobile%20App_Demo%20Video%20(540p).mp4"];
+  
+  self.contentPlayer = [AVPlayer playerWithURL:url];
+  ((AVPlayerLayer *)self.videoView.layer).player = self.contentPlayer;
+  self.adsManager = [[AdsManager alloc] initWithPlayer:self.contentPlayer videoView:self.videoView];
+  
+  [self.adsManager requestAdsWithVideoURL:@"https%3A%2F%2Ftw.yahoo.com%2F"];
+  
+  //[self.adsManager requestAdsWithVideoURL:nil];
+}
+
+@end
+
 ```
