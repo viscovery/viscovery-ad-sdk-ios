@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "Cartography.h"
 
 FOUNDATION_EXPORT double ViscoveryADSDKVersionNumber;
 FOUNDATION_EXPORT const unsigned char ViscoveryADSDKVersionString[];

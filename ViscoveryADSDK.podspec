@@ -35,5 +35,5 @@ s.ios.deployment_target = '9.0'
 s.source_files = 'ViscoveryADSDK/Classes/**/*'
 s.dependency 'GoogleAds-IMA-iOS-SDK', '~> 3.5'
 s.dependency 'SWXMLHash', '~> 3.0'
-s.dependency 'Cartography', '~> 1.1'
+
 end

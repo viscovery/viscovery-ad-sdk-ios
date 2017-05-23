@@ -3,6 +3,10 @@
   "version": "1.2.0",
   "summary": "Viscovery VidSense SDK",
   "description": "Integrate with Google IMA and provide simple APIs.",
+  "requires_arc": true,
+  "pod_target_xcconfig": {
+    "SWIFT_VERSION": "3.0"
+  },
   "homepage": "https://github.com/viscovery/viscovery-ios-ad-sdk",
   "license": {
     "type": "Apache 2",
@@ -25,9 +29,6 @@
     ],
     "SWXMLHash": [
       "~> 3.0"
-    ],
-    "Cartography": [
-      "~> 1.1"
     ]
   }
 }

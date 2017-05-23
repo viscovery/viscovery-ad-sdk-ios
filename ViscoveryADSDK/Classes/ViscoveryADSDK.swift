@@ -10,9 +10,9 @@ import Foundation
 import GoogleInteractiveMediaAds
 import SWXMLHash
 import SafariServices
-import Cartography
+
 typealias Vast = XMLIndexer
-public class AdsManager {
+@objc public class AdsManager: NSObject {
   public static var apiKey: String?
   let contentPlayer: AVPlayer
   let contentPlayhead: IMAAVPlayerContentPlayhead
@@ -24,10 +24,11 @@ public class AdsManager {
   var timeObserver: Any?
   var heightConstrain: NSLayoutConstraint?
   public init(player: AVPlayer, videoView: UIView) {
+    
     contentPlayer = player
     contentPlayhead = IMAAVPlayerContentPlayhead(avPlayer: contentPlayer)
     contentVideoView = videoView
-    
+    super.init()
     for v in contentVideoView.subviews.filter({ $0 is NonLinearView }) {
       v.removeFromSuperview()
     }

@@ -7,194 +7,163 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		02CF91FFA72135464128450EF28C921D /* Pods-ViscoveryADSDK_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 361DAA608EF103AECF9217111F9F2184 /* Pods-ViscoveryADSDK_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		05C1C6C0B246E3C5FDF06B2A0BB63F0D /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20401AE48318AD7944DAF20A56DD6CE /* View.swift */; };
-		067B84F7E9EFBEAFDC824931CAAD2051 /* Align.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF22E4756BF6D2B603B9C3B57B71AC02 /* Align.swift */; };
-		1431619A2565DD8EAB817240E078707C /* LayoutProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075134DAB0DA81F37AC8F38AFC5E841D /* LayoutProxy.swift */; };
-		1DC5B1B1222F7DF5D67994C7A954DB96 /* ViscoveryADSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E46C36D6214C27F56D30A3B641D7ADF /* ViscoveryADSDK.swift */; };
-		22B60CFF6E57EB6DF8CCA5D2CAC3178C /* Priority.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52858D77BEAD422C80DE1D879633615 /* Priority.swift */; };
-		24EF682ACFF8F1CEA8BDDAA340220AC3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CB397FB6657B3640356A2A0F53B72A /* Foundation.framework */; };
-		2A7672CE2EB9204E3B5DF12F7B9F3B14 /* Pods-ViscoveryADSDK_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 614747ECAF2A952D36D72403B2203695 /* Pods-ViscoveryADSDK_Example-dummy.m */; };
-		30B0B9E2117C98E079672E52899A828F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CB397FB6657B3640356A2A0F53B72A /* Foundation.framework */; };
-		3283B6128FE33C445963FFFE8656347C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CB397FB6657B3640356A2A0F53B72A /* Foundation.framework */; };
-		32E2227111572EB7C2C5CD4F535C8A75 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CB397FB6657B3640356A2A0F53B72A /* Foundation.framework */; };
-		3F2391D80C5AE124D6E13AD3FABFFE01 /* Constrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19AB62010F4659B79495F144D2DDD26 /* Constrain.swift */; };
-		42125C9206491CD2F60D2336E144670C /* Cartography.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2BBEB59E24BD555B9CD3D370E35BCD2 /* Cartography.framework */; };
-		56EBA0C77344F63CA6A36265A6496A71 /* LayoutSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBE46BC5C1CC5325DDCAA4F424909A8 /* LayoutSupport.swift */; };
-		5CAA19E0EB7CA9EB6047A3E43EC1FC8F /* ConstraintGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB4D9E4551EA81401582AB883151983 /* ConstraintGroup.swift */; };
-		5F5D3FB5718F4673DC293DA7D97EF046 /* Compound.swift in Sources */ = {isa = PBXBuildFile; fileRef = C192DD199D741CCDB5643BD676974FC8 /* Compound.swift */; };
-		69332739C26487BEF63DD94A6F30237E /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A4E61CD5FEE67CCF9F7EA3AA400AD8 /* SWXMLHash.swift */; };
-		697414FCC3C6F8176768FFDDEC73A108 /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5955A919D7EF312315DB4D4D98E7B7 /* Expression.swift */; };
-		74BD0664EEC77366D314DA22DD4E721F /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F25F5C444E7CA4EC51DB6F82AA4D3A4 /* Size.swift */; };
-		7965A04590F67375EC65249F774B3F6B /* Distribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A4E67E7282FEF7839A0DACE2170744 /* Distribute.swift */; };
-		88B21B225B2D6BFAB3F50B88495299F1 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C0F47E27E739E44CA4EF2D399000E2 /* Point.swift */; };
-		893ED2A1DC387CF1B6FEC07C6051B387 /* SWXMLHash+TypeConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81609EB0E61A527F01FC207A440B61D /* SWXMLHash+TypeConversion.swift */; };
-		8CF5E28D5C575CBB399DF0C5F6E73F9E /* SWXMLHash-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BAF1D530DDE731B39EF0179684ECE37 /* SWXMLHash-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9B71D4856DF9CFE5715EDF4E5B3B2844 /* ViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EF73F9E06213F03D0E43A8B2DB284C /* ViewUtils.swift */; };
-		9C7E8D85506FA06C506A330B200FCEE7 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EADF126C24EB8F2639C1219529D915A /* Context.swift */; };
+		101677C0ED3DFDA4A7DE3698A7570EFD /* Edges.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E7BE44DF5C69A6486346E150952081 /* Edges.swift */; };
+		19364DCE20B8D9B8240F4A4A93DA26B7 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3E8AC57D92EAF050311A513A8BD4FF /* View.swift */; };
+		1A935B529227A3D9BC6EBA45BFF65123 /* ConstraintGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF45021C912FFBEB33A7AE37B63E72B9 /* ConstraintGroup.swift */; };
+		1D943D5B1B0B43F7552062AFE06BE9A9 /* Align.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541A93D9E00966634AFD950ED62A704D /* Align.swift */; };
+		20F8D52F10DCA556BF49CC84C37B5FC3 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359167C947291EFAB0DC6609CAE624BC /* Size.swift */; };
+		215AE247BCDF4686827726A8FF0BAF77 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F09DAFC923E560B5B224B7255480CDD4 /* Foundation.framework */; };
+		2AE605DCAE998915241C4B80950FEEE4 /* Coefficients.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9CF4E95C3491B5B4E32540FDDBC856 /* Coefficients.swift */; };
+		30B0B9E2117C98E079672E52899A828F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F09DAFC923E560B5B224B7255480CDD4 /* Foundation.framework */; };
+		340D4C1F71025BFE5A429A8A8C9C6F03 /* ViscoveryADSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378A0C33D3C672FBADC95378043B8EF8 /* ViscoveryADSDK.swift */; };
+		431D11E3D2220A5F94BD23EC637FC2BB /* Pods-ViscoveryADSDK_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 614747ECAF2A952D36D72403B2203695 /* Pods-ViscoveryADSDK_Example-dummy.m */; };
+		4EE3D2A3CDD1922827C7C88DC0CCFD2D /* SWXMLHash-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 181172F24D6453AD36F3CEDEE97CDF37 /* SWXMLHash-dummy.m */; };
+		506EE9AE1DF675880F83D0D3329B8B5C /* Distribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0C62E24E4D8DF36406C9EAB8C6D9C6 /* Distribute.swift */; };
+		62953D844B802EE117A4C96F91854AC2 /* LayoutProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22006797F50627A9DF9876C63A82F147 /* LayoutProxy.swift */; };
+		70CCC11D35839BBFB229ED9939D1071A /* Cartography.h in Headers */ = {isa = PBXBuildFile; fileRef = 332F2E9F60E6164B4E2AAAEC63528F75 /* Cartography.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		858CBCE6D0D516E1EBD8D3216B9B7DAA /* Constrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA67648AF2100997688C42885EA31217 /* Constrain.swift */; };
+		8870545991C9AC3072A68A550555E9DA /* Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092940425936ECCB94984D194FAABF1F /* Constraint.swift */; };
+		8A60607CFAB250FC3AC84B43D55CBE3F /* Compound.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA873062E00FF30C27A1FB29F9193C0B /* Compound.swift */; };
 		9EFD432BE67C6BDB66AC91B00FEA04AB /* Pods-ViscoveryADSDK_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = EC6C92F825F1066BEEA8B8C2AFC7BAA6 /* Pods-ViscoveryADSDK_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A084DDD7233A950676D60FCB4FA8BE74 /* Edges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFE8C831AA1B884E4F022EAC176D136 /* Edges.swift */; };
-		A27CC56CC98E407F9C8C52C3DE038942 /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBC0E4C92225EA99EE87B6B422451D4C /* SWXMLHash.framework */; };
-		A67286FF819C5C943D027E9C40DF456D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14792E2686402F03B37E25B5D2DCAF99 /* Extensions.swift */; };
-		A7BD4B74A484170A23FF6C7611A11B40 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E65E4727E8A9A8DD9836CA66F5B858 /* Property.swift */; };
-		AE7ACD648B84D1C8645049118FE42D54 /* Cartography-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E0BE3AF433095A91D7D6DE0800F1EED3 /* Cartography-dummy.m */; };
-		C2E2993258D9072061A389E518053F8B /* Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5661E8B0A1C68ADD7B15302AD676361 /* Constraint.swift */; };
-		CD587D5E28B0428E3B4163F1604D26BF /* Edge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A2F3ED68753CD9CB188E16DA5600EB /* Edge.swift */; };
-		D0B2BBA5E1221330C96E2753F619770E /* ViscoveryADSDK-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ECFDC366DA9D1875903DCE376607A12 /* ViscoveryADSDK-dummy.m */; };
-		DBC0D8FEB6A8101C977332E8BC16E641 /* Dimension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5A22BEAF299A51462D066E85AF3A3D /* Dimension.swift */; };
-		DC384EC3683B7B7E5D8C2B5D904219BB /* ViscoveryADSDK-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D65EE892D2224A208FB0BD66510BDBF4 /* ViscoveryADSDK-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E59C1EE8158BBB5B46D219795245953B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2CB397FB6657B3640356A2A0F53B72A /* Foundation.framework */; };
+		A0EBF7FB5BDE02F7DDD0B1CA89433485 /* Pods-ViscoveryADSDK_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 361DAA608EF103AECF9217111F9F2184 /* Pods-ViscoveryADSDK_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A4954978C6A17FE1C8124CA2DFC2B3B8 /* LayoutSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC180E5EBB4C0A4190F925566436BED /* LayoutSupport.swift */; };
+		AD55281E2DFD9799718EAAFC788DAB0D /* Dimension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F6CA685C039D2BC6A8DCDE327F1B50 /* Dimension.swift */; };
+		B1E5865C88E745DDB49ECE78DFC78253 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F09DAFC923E560B5B224B7255480CDD4 /* Foundation.framework */; };
+		B285FBAC14D29F02F8587CF9720ADE41 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2715ACF2D9597565250790415932879 /* Property.swift */; };
+		C5F1EDF9FC3F07F1ADDBDEA43CB3E52A /* Info.plist in Sources */ = {isa = PBXBuildFile; fileRef = B82B8C21AE95A8FE63F03DBEA3273B9B /* Info.plist */; };
+		C64FC296B6DFCC3E0D0B35514EFD3B98 /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B3AF3363AC9EF967A002FAB11C4CECC /* SWXMLHash.framework */; };
+		C73122C1DA66B1EF039C9AF1F7C972F2 /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DF86E823747844C55F97FE0F59DE636 /* Expression.swift */; };
+		D1114D25D4431A9139331B9E7E8EDD8C /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06A8A6EA6BD4387AD6B3983856915CE /* Context.swift */; };
+		D1990CA6E7EE6F114CDB448CE75428AD /* ViscoveryADSDK-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ECFDC366DA9D1875903DCE376607A12 /* ViscoveryADSDK-dummy.m */; };
+		E20356FCA1BFE6B2E9DD987735B04E04 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F09DAFC923E560B5B224B7255480CDD4 /* Foundation.framework */; };
+		E4DD3F66C855385A5B1ED6026B0C8928 /* SWXMLHash-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = AAFE8EAF79A5E37D064E8D2669D49EF5 /* SWXMLHash-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E5538B9A5AC111A3FA36439D70F837FA /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1A7631D205B16F733F943E908048D1 /* Extensions.swift */; };
+		E8D3BABCC8C0A9C0AA11AE2EEE74E600 /* ViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AFB0B3195D06EE8A0C185BB3B2DBF1 /* ViewUtils.swift */; };
+		E918C9DAECAB0F660D62739C5A297EC9 /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1C881C88BF8E9BCF2C9075B7DB14AE /* SWXMLHash.swift */; };
+		F0C35808C85141DA402FC331BDBFAFAF /* Priority.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793ADF9C65ED4062A2D36E0504E67309 /* Priority.swift */; };
+		F0E422F1A9DB9E2B3FCE3997003F559E /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630B21E68B22A918D426B8FC7C7D89C1 /* Point.swift */; };
+		F1F908AD70778C2808D599606BB32C69 /* Edge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FE00BFAE1850B57C4AFE0E2D4B05BB /* Edge.swift */; };
 		F401F3EE3A1E5777B71A7E72783064A3 /* Pods-ViscoveryADSDK_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CA05985D8F129269F0355D134A9BB9B3 /* Pods-ViscoveryADSDK_Tests-dummy.m */; };
-		FC27B916EC313A166CE2704745CB14C0 /* Coefficients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7A6E699DD34F18940039E85AD10CAA /* Coefficients.swift */; };
-		FE4D13CA6A4999D13875761E5100C1A0 /* Cartography-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D635574992B29FE2F934F4246450D058 /* Cartography-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FF032EEB9EA7EC07F3A184AD9884CA60 /* SWXMLHash-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DD95F308E7444E37473093140F805188 /* SWXMLHash-dummy.m */; };
+		F6905262B2E02632547E7B10047C8B23 /* ViscoveryADSDK-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D65EE892D2224A208FB0BD66510BDBF4 /* ViscoveryADSDK-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F7D2335EF5005F5474841A55F4EDACEC /* SWXMLHash+TypeConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC7722F560756F2DF3C3767C2000D9F /* SWXMLHash+TypeConversion.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		51DA4E92E3F1FEE1A0B147D356F9EE9C /* PBXContainerItemProxy */ = {
+		44D879D847861B8EC967A5662E4AF424 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 51BEF65FDBAE4C7AF284643E133C3729;
-			remoteInfo = ViscoveryADSDK;
-		};
-		54860E1E7E093273D00752585EA047FD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B60EED99A79F1265F3EE54AC0061E47E;
+			remoteGlobalIDString = 83DDFF48000CED81C60A23CD0A231A8F;
 			remoteInfo = SWXMLHash;
 		};
-		5D178C79F65D49AB9817D66141D0D6CA /* PBXContainerItemProxy */ = {
+		DC30219697B50C7A0E4D3B3ED0CD4CEC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 544212980401A6DA7806F65EAD8C6637;
-			remoteInfo = Cartography;
+			remoteGlobalIDString = C46A8AA7D7B9388BF29C4C30816089C8;
+			remoteInfo = ViscoveryADSDK;
 		};
-		699A5AA1A1E7ECD73A3EFBA2D803D38D /* PBXContainerItemProxy */ = {
+		DF2F8837B1AB26A165344F17CB62C934 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 544212980401A6DA7806F65EAD8C6637;
-			remoteInfo = Cartography;
-		};
-		F648C215DEE2D4D93264AE063AF2ED1D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B60EED99A79F1265F3EE54AC0061E47E;
+			remoteGlobalIDString = 83DDFF48000CED81C60A23CD0A231A8F;
 			remoteInfo = SWXMLHash;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		01242029318E5A80AF68F5CDBA7AFA7D /* Pods-ViscoveryADSDK_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ViscoveryADSDK_Example-acknowledgements.plist"; sourceTree = "<group>"; };
-		075134DAB0DA81F37AC8F38AFC5E841D /* LayoutProxy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LayoutProxy.swift; path = Cartography/LayoutProxy.swift; sourceTree = "<group>"; };
-		0EADF126C24EB8F2639C1219529D915A /* Context.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Context.swift; path = Cartography/Context.swift; sourceTree = "<group>"; };
+		05F6CA685C039D2BC6A8DCDE327F1B50 /* Dimension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Dimension.swift; sourceTree = "<group>"; };
+		092940425936ECCB94984D194FAABF1F /* Constraint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Constraint.swift; sourceTree = "<group>"; };
 		0EB3224DC668D47E4B77321C28A5C733 /* Pods-ViscoveryADSDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ViscoveryADSDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		14792E2686402F03B37E25B5D2DCAF99 /* Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = Cartography/Extensions.swift; sourceTree = "<group>"; };
 		147EA51CAD130D0015B6433DDB9EAF08 /* Pods-ViscoveryADSDK_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ViscoveryADSDK_Example-frameworks.sh"; sourceTree = "<group>"; };
+		181172F24D6453AD36F3CEDEE97CDF37 /* SWXMLHash-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SWXMLHash-dummy.m"; sourceTree = "<group>"; };
+		1A1C881C88BF8E9BCF2C9075B7DB14AE /* SWXMLHash.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SWXMLHash.swift; path = Source/SWXMLHash.swift; sourceTree = "<group>"; };
+		1B3AF3363AC9EF967A002FAB11C4CECC /* SWXMLHash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SWXMLHash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C7648804AE557DE5E8CFBBC53F599B1 /* ViscoveryADSDK.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ViscoveryADSDK.xcconfig; sourceTree = "<group>"; };
-		1E46C36D6214C27F56D30A3B641D7ADF /* ViscoveryADSDK.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ViscoveryADSDK.swift; sourceTree = "<group>"; };
+		1CC88B61D3FE621290836C8BEAE55356 /* ViscoveryADSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ViscoveryADSDK.framework; path = ViscoveryADSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1ECFDC366DA9D1875903DCE376607A12 /* ViscoveryADSDK-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ViscoveryADSDK-dummy.m"; sourceTree = "<group>"; };
+		22006797F50627A9DF9876C63A82F147 /* LayoutProxy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LayoutProxy.swift; sourceTree = "<group>"; };
 		2965C32EE81BEA44FD31A09286B67620 /* Pods-ViscoveryADSDK_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-ViscoveryADSDK_Tests.modulemap"; sourceTree = "<group>"; };
 		29898CD94487F7CE5FADB00BEAFD48C6 /* ViscoveryADSDK.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = ViscoveryADSDK.modulemap; sourceTree = "<group>"; };
-		29C0F47E27E739E44CA4EF2D399000E2 /* Point.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Point.swift; path = Cartography/Point.swift; sourceTree = "<group>"; };
+		332F2E9F60E6164B4E2AAAEC63528F75 /* Cartography.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Cartography.h; sourceTree = "<group>"; };
+		359167C947291EFAB0DC6609CAE624BC /* Size.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 		361DAA608EF103AECF9217111F9F2184 /* Pods-ViscoveryADSDK_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ViscoveryADSDK_Example-umbrella.h"; sourceTree = "<group>"; };
 		362101486418B32A05667CD02BAF37C7 /* Pods-ViscoveryADSDK_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ViscoveryADSDK_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		387D760BADEF34C7B6733C403641A6B7 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3E7A6E699DD34F18940039E85AD10CAA /* Coefficients.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Coefficients.swift; path = Cartography/Coefficients.swift; sourceTree = "<group>"; };
+		378A0C33D3C672FBADC95378043B8EF8 /* ViscoveryADSDK.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ViscoveryADSDK.swift; sourceTree = "<group>"; };
 		40BFED76C33434053BDF746AF22EA9D3 /* Pods-ViscoveryADSDK_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-ViscoveryADSDK_Example.modulemap"; sourceTree = "<group>"; };
 		45594DD45E62DD61C916604F8443C337 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4CFE8C831AA1B884E4F022EAC176D136 /* Edges.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Edges.swift; path = Cartography/Edges.swift; sourceTree = "<group>"; };
-		4DDF26666978BCBC7B86A92C72BC1536 /* SWXMLHash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SWXMLHash.framework; path = SWXMLHash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E2FF145F28E5AF33D5D1B206A9E73A3 /* Pods-ViscoveryADSDK_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ViscoveryADSDK_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		5D8A337A07474F5A5FF93D48FC0DECE6 /* GoogleInteractiveMediaAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleInteractiveMediaAds.framework; path = GoogleInteractiveMediaAds/GoogleInteractiveMediaAds.framework; sourceTree = "<group>"; };
+		541A93D9E00966634AFD950ED62A704D /* Align.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Align.swift; sourceTree = "<group>"; };
 		614747ECAF2A952D36D72403B2203695 /* Pods-ViscoveryADSDK_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ViscoveryADSDK_Example-dummy.m"; sourceTree = "<group>"; };
-		6BAF1D530DDE731B39EF0179684ECE37 /* SWXMLHash-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SWXMLHash-umbrella.h"; sourceTree = "<group>"; };
-		6F25F5C444E7CA4EC51DB6F82AA4D3A4 /* Size.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Size.swift; path = Cartography/Size.swift; sourceTree = "<group>"; };
-		6FBE46BC5C1CC5325DDCAA4F424909A8 /* LayoutSupport.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LayoutSupport.swift; path = Cartography/LayoutSupport.swift; sourceTree = "<group>"; };
-		702E324FFE3616AB9939199514AB5FCE /* Pods_ViscoveryADSDK_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_ViscoveryADSDK_Example.framework; path = "Pods-ViscoveryADSDK_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		630B21E68B22A918D426B8FC7C7D89C1 /* Point.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
+		6C3E8AC57D92EAF050311A513A8BD4FF /* View.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		6DF86E823747844C55F97FE0F59DE636 /* Expression.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Expression.swift; sourceTree = "<group>"; };
+		75AFB0B3195D06EE8A0C185BB3B2DBF1 /* ViewUtils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ViewUtils.swift; sourceTree = "<group>"; };
+		793ADF9C65ED4062A2D36E0504E67309 /* Priority.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Priority.swift; sourceTree = "<group>"; };
 		8138BC5106A175AC6E42A50612C969D4 /* Pods-ViscoveryADSDK_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ViscoveryADSDK_Tests-resources.sh"; sourceTree = "<group>"; };
-		86A2F3ED68753CD9CB188E16DA5600EB /* Edge.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Edge.swift; path = Cartography/Edge.swift; sourceTree = "<group>"; };
 		880F967070D5120C96236996DF0CA967 /* Pods-ViscoveryADSDK_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ViscoveryADSDK_Tests-frameworks.sh"; sourceTree = "<group>"; };
-		8BD7A05E0A49494A53396ABE3EB9CE03 /* ViscoveryADSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ViscoveryADSDK.framework; path = ViscoveryADSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		92CD78574B3360DB72B96591B2C9DED1 /* Cartography-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Cartography-prefix.pch"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		959FCC35DB0A59E30A53D70D7888EA0A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9C5A03F56C458382E3C94562C7C4406B /* Pods_ViscoveryADSDK_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_ViscoveryADSDK_Tests.framework; path = "Pods-ViscoveryADSDK_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9F5A22BEAF299A51462D066E85AF3A3D /* Dimension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Dimension.swift; path = Cartography/Dimension.swift; sourceTree = "<group>"; };
-		9FB4D9E4551EA81401582AB883151983 /* ConstraintGroup.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintGroup.swift; path = Cartography/ConstraintGroup.swift; sourceTree = "<group>"; };
-		A19AB62010F4659B79495F144D2DDD26 /* Constrain.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Constrain.swift; path = Cartography/Constrain.swift; sourceTree = "<group>"; };
-		A32AE70BD2187B7F92C24951F32802D8 /* Cartography.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Cartography.xcconfig; sourceTree = "<group>"; };
-		A52858D77BEAD422C80DE1D879633615 /* Priority.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Priority.swift; path = Cartography/Priority.swift; sourceTree = "<group>"; };
-		A7A4E67E7282FEF7839A0DACE2170744 /* Distribute.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Distribute.swift; path = Cartography/Distribute.swift; sourceTree = "<group>"; };
-		AA5955A919D7EF312315DB4D4D98E7B7 /* Expression.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Expression.swift; path = Cartography/Expression.swift; sourceTree = "<group>"; };
-		AAC8B26FE28A267C492BD7064D5B4065 /* Cartography.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Cartography.framework; path = Cartography.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BBC0E4C92225EA99EE87B6B422451D4C /* SWXMLHash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SWXMLHash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BCC82CD3B5A5A2F8CC435DFB04ED046B /* SWXMLHash.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SWXMLHash.xcconfig; sourceTree = "<group>"; };
-		C192DD199D741CCDB5643BD676974FC8 /* Compound.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Compound.swift; path = Cartography/Compound.swift; sourceTree = "<group>"; };
-		C20401AE48318AD7944DAF20A56DD6CE /* View.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = View.swift; path = Cartography/View.swift; sourceTree = "<group>"; };
+		99126DCD01F95EF47C706C73EB73EA9B /* Pods_ViscoveryADSDK_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_ViscoveryADSDK_Example.framework; path = "Pods-ViscoveryADSDK_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A1A7631D205B16F733F943E908048D1 /* Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		9B4D5026F8060168B4ADF6BD1B48C617 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9FC180E5EBB4C0A4190F925566436BED /* LayoutSupport.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LayoutSupport.swift; sourceTree = "<group>"; };
+		AAFE8EAF79A5E37D064E8D2669D49EF5 /* SWXMLHash-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SWXMLHash-umbrella.h"; sourceTree = "<group>"; };
+		B1B564D9AE4B2021651E9FC62E8382E3 /* SWXMLHash.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SWXMLHash.xcconfig; sourceTree = "<group>"; };
+		B82B8C21AE95A8FE63F03DBEA3273B9B /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BDC7722F560756F2DF3C3767C2000D9F /* SWXMLHash+TypeConversion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "SWXMLHash+TypeConversion.swift"; path = "Source/SWXMLHash+TypeConversion.swift"; sourceTree = "<group>"; };
+		BF8C55E3A21AE85A292A682616646CB7 /* SWXMLHash-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SWXMLHash-prefix.pch"; sourceTree = "<group>"; };
+		C06A8A6EA6BD4387AD6B3983856915CE /* Context.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
 		C3195685F398D5E110C115776C7A1D28 /* ViscoveryADSDK-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ViscoveryADSDK-prefix.pch"; sourceTree = "<group>"; };
-		C5661E8B0A1C68ADD7B15302AD676361 /* Constraint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Constraint.swift; path = Cartography/Constraint.swift; sourceTree = "<group>"; };
 		CA05985D8F129269F0355D134A9BB9B3 /* Pods-ViscoveryADSDK_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ViscoveryADSDK_Tests-dummy.m"; sourceTree = "<group>"; };
+		CA67648AF2100997688C42885EA31217 /* Constrain.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Constrain.swift; sourceTree = "<group>"; };
 		CA7B857FE5E22E4601CA8113EE140125 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D2CB397FB6657B3640356A2A0F53B72A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		CA873062E00FF30C27A1FB29F9193C0B /* Compound.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Compound.swift; sourceTree = "<group>"; };
+		CB27A6DAA4B0072DA6CB03B4665AE008 /* Pods_ViscoveryADSDK_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_ViscoveryADSDK_Tests.framework; path = "Pods-ViscoveryADSDK_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC0C62E24E4D8DF36406C9EAB8C6D9C6 /* Distribute.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Distribute.swift; sourceTree = "<group>"; };
+		CCFB837FCFBE8F652F9A2FAFE4712228 /* GoogleInteractiveMediaAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleInteractiveMediaAds.framework; path = GoogleInteractiveMediaAds/GoogleInteractiveMediaAds.framework; sourceTree = "<group>"; };
 		D3DBE06EEA6ABE3E2AD88A32645787BA /* Pods-ViscoveryADSDK_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ViscoveryADSDK_Example-resources.sh"; sourceTree = "<group>"; };
-		D635574992B29FE2F934F4246450D058 /* Cartography-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Cartography-umbrella.h"; sourceTree = "<group>"; };
+		D4E7BE44DF5C69A6486346E150952081 /* Edges.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Edges.swift; sourceTree = "<group>"; };
 		D65EE892D2224A208FB0BD66510BDBF4 /* ViscoveryADSDK-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ViscoveryADSDK-umbrella.h"; sourceTree = "<group>"; };
 		D7354B96A7C226C86C80B0D0AB1C0F13 /* Pods-ViscoveryADSDK_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ViscoveryADSDK_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		D81609EB0E61A527F01FC207A440B61D /* SWXMLHash+TypeConversion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "SWXMLHash+TypeConversion.swift"; path = "Source/SWXMLHash+TypeConversion.swift"; sourceTree = "<group>"; };
-		DD95F308E7444E37473093140F805188 /* SWXMLHash-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SWXMLHash-dummy.m"; sourceTree = "<group>"; };
-		DF22E4756BF6D2B603B9C3B57B71AC02 /* Align.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Align.swift; path = Cartography/Align.swift; sourceTree = "<group>"; };
-		E0A4E61CD5FEE67CCF9F7EA3AA400AD8 /* SWXMLHash.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SWXMLHash.swift; path = Source/SWXMLHash.swift; sourceTree = "<group>"; };
-		E0BE3AF433095A91D7D6DE0800F1EED3 /* Cartography-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Cartography-dummy.m"; sourceTree = "<group>"; };
-		E117730603DAA0604C4B68556E4F55A9 /* SWXMLHash-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SWXMLHash-prefix.pch"; sourceTree = "<group>"; };
-		E2BBEB59E24BD555B9CD3D370E35BCD2 /* Cartography.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Cartography.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E2E65E4727E8A9A8DD9836CA66F5B858 /* Property.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Property.swift; path = Cartography/Property.swift; sourceTree = "<group>"; };
-		E3EF73F9E06213F03D0E43A8B2DB284C /* ViewUtils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ViewUtils.swift; path = Cartography/ViewUtils.swift; sourceTree = "<group>"; };
+		DD66750FD35C93631DAFC5E8C5FF7782 /* SWXMLHash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SWXMLHash.framework; path = SWXMLHash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E583DD2CAB0BD24660AC006B13EDEABC /* Pods-ViscoveryADSDK_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ViscoveryADSDK_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		E59EB6BCC06D2DF8A155BB90DDDB6D97 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E64956348090C9E53180FC3552CDFE5A /* SWXMLHash.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = SWXMLHash.modulemap; sourceTree = "<group>"; };
+		EA34F7C70A69F4C507A15969D6792F9F /* SWXMLHash.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = SWXMLHash.modulemap; sourceTree = "<group>"; };
 		EC6C92F825F1066BEEA8B8C2AFC7BAA6 /* Pods-ViscoveryADSDK_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ViscoveryADSDK_Tests-umbrella.h"; sourceTree = "<group>"; };
-		F7178D155642F2B5C92F963BF53660D2 /* Cartography.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Cartography.modulemap; sourceTree = "<group>"; };
+		ED9CF4E95C3491B5B4E32540FDDBC856 /* Coefficients.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Coefficients.swift; sourceTree = "<group>"; };
+		EF45021C912FFBEB33A7AE37B63E72B9 /* ConstraintGroup.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConstraintGroup.swift; sourceTree = "<group>"; };
+		F09DAFC923E560B5B224B7255480CDD4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		F2715ACF2D9597565250790415932879 /* Property.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Property.swift; sourceTree = "<group>"; };
+		F2FE00BFAE1850B57C4AFE0E2D4B05BB /* Edge.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Edge.swift; sourceTree = "<group>"; };
 		FA37CE76E718E43748475F4115D1780C /* Pods-ViscoveryADSDK_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ViscoveryADSDK_Example.release.xcconfig"; sourceTree = "<group>"; };
 		FA92226AB816C4630E207CB005F62FE2 /* Pods-ViscoveryADSDK_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ViscoveryADSDK_Tests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		3938FF0EA4C6BF2CA782911C8A6E2139 /* Frameworks */ = {
+		0CCB0E3F6387836CDD34CAAA007EA204 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				42125C9206491CD2F60D2336E144670C /* Cartography.framework in Frameworks */,
-				E59C1EE8158BBB5B46D219795245953B /* Foundation.framework in Frameworks */,
-				A27CC56CC98E407F9C8C52C3DE038942 /* SWXMLHash.framework in Frameworks */,
+				B1E5865C88E745DDB49ECE78DFC78253 /* Foundation.framework in Frameworks */,
+				C64FC296B6DFCC3E0D0B35514EFD3B98 /* SWXMLHash.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6990470C2F66BA961107FA2395C1385B /* Frameworks */ = {
+		55BCA5B2AC0ACF6A5FADA3CF9368DA6F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				32E2227111572EB7C2C5CD4F535C8A75 /* Foundation.framework in Frameworks */,
+				215AE247BCDF4686827726A8FF0BAF77 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7A4AAE12E09D29DA5F684C9BD8B5FE3B /* Frameworks */ = {
+		BFA2E47F1768BC51A9037FB9047ACC84 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				24EF682ACFF8F1CEA8BDDAA340220AC3 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F4A8B0147D8322403583A7839284BFA5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3283B6128FE33C445963FFFE8656347C /* Foundation.framework in Frameworks */,
+				E20356FCA1BFE6B2E9DD987735B04E04 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,46 +178,52 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1A3D68010B46E70690755E6217FEB2A8 /* Support Files */ = {
+		0121E39077262615F4688657F184ED6D /* SWXMLHash */ = {
 			isa = PBXGroup;
 			children = (
-				F7178D155642F2B5C92F963BF53660D2 /* Cartography.modulemap */,
-				A32AE70BD2187B7F92C24951F32802D8 /* Cartography.xcconfig */,
-				E0BE3AF433095A91D7D6DE0800F1EED3 /* Cartography-dummy.m */,
-				92CD78574B3360DB72B96591B2C9DED1 /* Cartography-prefix.pch */,
-				D635574992B29FE2F934F4246450D058 /* Cartography-umbrella.h */,
-				959FCC35DB0A59E30A53D70D7888EA0A /* Info.plist */,
+				1A1C881C88BF8E9BCF2C9075B7DB14AE /* SWXMLHash.swift */,
+				BDC7722F560756F2DF3C3767C2000D9F /* SWXMLHash+TypeConversion.swift */,
+				BA2B74E032E98F6D7A418E5B8461D3A8 /* Support Files */,
 			);
-			name = "Support Files";
-			path = "../Target Support Files/Cartography";
+			name = SWXMLHash;
+			path = SWXMLHash;
 			sourceTree = "<group>";
 		};
-		2250AE8DFE9EEAF414F9B52B454C5F74 /* iOS */ = {
+		22B5D74A46363B72FDB368AFD08F094C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				D2CB397FB6657B3640356A2A0F53B72A /* Foundation.framework */,
+				4C47DA9CDE27BAE08404BED51FA118B8 /* GoogleAds-IMA-iOS-SDK */,
+				0121E39077262615F4688657F184ED6D /* SWXMLHash */,
 			);
-			name = iOS;
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		352399639A70A75B7F6040A00162A3BA /* ViscoveryADSDK */ = {
+			isa = PBXGroup;
+			children = (
+				C56A7AB05AF07B06A2231BC681872AF0 /* Classes */,
+			);
+			name = ViscoveryADSDK;
+			path = ViscoveryADSDK;
 			sourceTree = "<group>";
 		};
 		38EADE395C51F2C682CD4B0C0CA06F0D /* ViscoveryADSDK */ = {
 			isa = PBXGroup;
 			children = (
 				5F71C11D3DAB718E1637805EB492E829 /* Support Files */,
-				89F48C752D7B684872FB609383FB17A8 /* ViscoveryADSDK */,
+				352399639A70A75B7F6040A00162A3BA /* ViscoveryADSDK */,
 			);
 			name = ViscoveryADSDK;
 			path = ../..;
 			sourceTree = "<group>";
 		};
-		3A5B0F07005335FF031E3E5035ED2FC7 /* Pods */ = {
+		4C47DA9CDE27BAE08404BED51FA118B8 /* GoogleAds-IMA-iOS-SDK */ = {
 			isa = PBXGroup;
 			children = (
-				F9A9A936F984293FE8D7A5C272BF9BB0 /* Cartography */,
-				7A2CDE9C83FD60D7AECF4992C2252012 /* GoogleAds-IMA-iOS-SDK */,
-				916B30BEF2BA3B9D3B7DD2DECA4C91FE /* SWXMLHash */,
+				93DD22A9AD4932C2507293EFFAD983A6 /* Frameworks */,
 			);
-			name = Pods;
+			name = "GoogleAds-IMA-iOS-SDK";
+			path = "GoogleAds-IMA-iOS-SDK";
 			sourceTree = "<group>";
 		};
 		4DD142A2CEF65A9C910BBCC7BF8B72BB /* Pods-ViscoveryADSDK_Example */ = {
@@ -269,21 +244,13 @@
 			path = "Target Support Files/Pods-ViscoveryADSDK_Example";
 			sourceTree = "<group>";
 		};
-		5A5D8564EDFD2E5E07E1664B7D5EB9D7 /* Frameworks */ = {
+		5B2B8810604D242819AFEE7DB977C97B /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				5D8A337A07474F5A5FF93D48FC0DECE6 /* GoogleInteractiveMediaAds.framework */,
+				A486E8CEEC31D068F2516E9C9B45B47D /* Cartography */,
 			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		5C923436FD6901265FB2F1F42A2F7E98 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				1E46C36D6214C27F56D30A3B641D7ADF /* ViscoveryADSDK.swift */,
-			);
-			name = Classes;
-			path = Classes;
+			name = Vendor;
+			path = Vendor;
 			sourceTree = "<group>";
 		};
 		5F71C11D3DAB718E1637805EB492E829 /* Support Files */ = {
@@ -308,13 +275,13 @@
 			name = "Development Pods";
 			sourceTree = "<group>";
 		};
-		7A2CDE9C83FD60D7AECF4992C2252012 /* GoogleAds-IMA-iOS-SDK */ = {
+		7A8797248051A54F948BAEAC68AA66D6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5A5D8564EDFD2E5E07E1664B7D5EB9D7 /* Frameworks */,
+				1B3AF3363AC9EF967A002FAB11C4CECC /* SWXMLHash.framework */,
+				B53121677E33A4A448BC32E7898AF3D0 /* iOS */,
 			);
-			name = "GoogleAds-IMA-iOS-SDK";
-			path = "GoogleAds-IMA-iOS-SDK";
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
@@ -322,53 +289,61 @@
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				690989751FAD5D1BC13E951EA7863EAE /* Development Pods */,
-				A1BE7B4F6BE9C6F9906C259545318D74 /* Frameworks */,
-				3A5B0F07005335FF031E3E5035ED2FC7 /* Pods */,
-				8FE7850AAB4D740B077A577EA12305C6 /* Products */,
+				7A8797248051A54F948BAEAC68AA66D6 /* Frameworks */,
+				22B5D74A46363B72FDB368AFD08F094C /* Pods */,
+				908C16465C9EF54441929D8DE4253748 /* Products */,
 				AC1E0F5C3A71497728D3C611C9893E6C /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		89F48C752D7B684872FB609383FB17A8 /* ViscoveryADSDK */ = {
+		908C16465C9EF54441929D8DE4253748 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5C923436FD6901265FB2F1F42A2F7E98 /* Classes */,
-			);
-			name = ViscoveryADSDK;
-			path = ViscoveryADSDK;
-			sourceTree = "<group>";
-		};
-		8FE7850AAB4D740B077A577EA12305C6 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				AAC8B26FE28A267C492BD7064D5B4065 /* Cartography.framework */,
-				702E324FFE3616AB9939199514AB5FCE /* Pods_ViscoveryADSDK_Example.framework */,
-				9C5A03F56C458382E3C94562C7C4406B /* Pods_ViscoveryADSDK_Tests.framework */,
-				4DDF26666978BCBC7B86A92C72BC1536 /* SWXMLHash.framework */,
-				8BD7A05E0A49494A53396ABE3EB9CE03 /* ViscoveryADSDK.framework */,
+				99126DCD01F95EF47C706C73EB73EA9B /* Pods_ViscoveryADSDK_Example.framework */,
+				CB27A6DAA4B0072DA6CB03B4665AE008 /* Pods_ViscoveryADSDK_Tests.framework */,
+				DD66750FD35C93631DAFC5E8C5FF7782 /* SWXMLHash.framework */,
+				1CC88B61D3FE621290836C8BEAE55356 /* ViscoveryADSDK.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		916B30BEF2BA3B9D3B7DD2DECA4C91FE /* SWXMLHash */ = {
+		93DD22A9AD4932C2507293EFFAD983A6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E0A4E61CD5FEE67CCF9F7EA3AA400AD8 /* SWXMLHash.swift */,
-				D81609EB0E61A527F01FC207A440B61D /* SWXMLHash+TypeConversion.swift */,
-				F690FDE87FE5408A6363BABD61E72849 /* Support Files */,
-			);
-			name = SWXMLHash;
-			path = SWXMLHash;
-			sourceTree = "<group>";
-		};
-		A1BE7B4F6BE9C6F9906C259545318D74 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				E2BBEB59E24BD555B9CD3D370E35BCD2 /* Cartography.framework */,
-				BBC0E4C92225EA99EE87B6B422451D4C /* SWXMLHash.framework */,
-				2250AE8DFE9EEAF414F9B52B454C5F74 /* iOS */,
+				CCFB837FCFBE8F652F9A2FAFE4712228 /* GoogleInteractiveMediaAds.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A486E8CEEC31D068F2516E9C9B45B47D /* Cartography */ = {
+			isa = PBXGroup;
+			children = (
+				541A93D9E00966634AFD950ED62A704D /* Align.swift */,
+				332F2E9F60E6164B4E2AAAEC63528F75 /* Cartography.h */,
+				ED9CF4E95C3491B5B4E32540FDDBC856 /* Coefficients.swift */,
+				CA873062E00FF30C27A1FB29F9193C0B /* Compound.swift */,
+				CA67648AF2100997688C42885EA31217 /* Constrain.swift */,
+				092940425936ECCB94984D194FAABF1F /* Constraint.swift */,
+				EF45021C912FFBEB33A7AE37B63E72B9 /* ConstraintGroup.swift */,
+				C06A8A6EA6BD4387AD6B3983856915CE /* Context.swift */,
+				05F6CA685C039D2BC6A8DCDE327F1B50 /* Dimension.swift */,
+				CC0C62E24E4D8DF36406C9EAB8C6D9C6 /* Distribute.swift */,
+				F2FE00BFAE1850B57C4AFE0E2D4B05BB /* Edge.swift */,
+				D4E7BE44DF5C69A6486346E150952081 /* Edges.swift */,
+				6DF86E823747844C55F97FE0F59DE636 /* Expression.swift */,
+				9A1A7631D205B16F733F943E908048D1 /* Extensions.swift */,
+				B82B8C21AE95A8FE63F03DBEA3273B9B /* Info.plist */,
+				22006797F50627A9DF9876C63A82F147 /* LayoutProxy.swift */,
+				9FC180E5EBB4C0A4190F925566436BED /* LayoutSupport.swift */,
+				630B21E68B22A918D426B8FC7C7D89C1 /* Point.swift */,
+				793ADF9C65ED4062A2D36E0504E67309 /* Priority.swift */,
+				F2715ACF2D9597565250790415932879 /* Property.swift */,
+				359167C947291EFAB0DC6609CAE624BC /* Size.swift */,
+				6C3E8AC57D92EAF050311A513A8BD4FF /* View.swift */,
+				75AFB0B3195D06EE8A0C185BB3B2DBF1 /* ViewUtils.swift */,
+			);
+			name = Cartography;
+			path = Cartography;
 			sourceTree = "<group>";
 		};
 		AC1E0F5C3A71497728D3C611C9893E6C /* Targets Support Files */ = {
@@ -378,6 +353,38 @@
 				F1410F0CB542165850B189DED56C077E /* Pods-ViscoveryADSDK_Tests */,
 			);
 			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		B53121677E33A4A448BC32E7898AF3D0 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				F09DAFC923E560B5B224B7255480CDD4 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		BA2B74E032E98F6D7A418E5B8461D3A8 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				9B4D5026F8060168B4ADF6BD1B48C617 /* Info.plist */,
+				EA34F7C70A69F4C507A15969D6792F9F /* SWXMLHash.modulemap */,
+				B1B564D9AE4B2021651E9FC62E8382E3 /* SWXMLHash.xcconfig */,
+				181172F24D6453AD36F3CEDEE97CDF37 /* SWXMLHash-dummy.m */,
+				BF8C55E3A21AE85A292A682616646CB7 /* SWXMLHash-prefix.pch */,
+				AAFE8EAF79A5E37D064E8D2669D49EF5 /* SWXMLHash-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SWXMLHash";
+			sourceTree = "<group>";
+		};
+		C56A7AB05AF07B06A2231BC681872AF0 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				378A0C33D3C672FBADC95378043B8EF8 /* ViscoveryADSDK.swift */,
+				5B2B8810604D242819AFEE7DB977C97B /* Vendor */,
+			);
+			name = Classes;
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		F1410F0CB542165850B189DED56C077E /* Pods-ViscoveryADSDK_Tests */ = {
@@ -398,82 +405,31 @@
 			path = "Target Support Files/Pods-ViscoveryADSDK_Tests";
 			sourceTree = "<group>";
 		};
-		F690FDE87FE5408A6363BABD61E72849 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				387D760BADEF34C7B6733C403641A6B7 /* Info.plist */,
-				E64956348090C9E53180FC3552CDFE5A /* SWXMLHash.modulemap */,
-				BCC82CD3B5A5A2F8CC435DFB04ED046B /* SWXMLHash.xcconfig */,
-				DD95F308E7444E37473093140F805188 /* SWXMLHash-dummy.m */,
-				E117730603DAA0604C4B68556E4F55A9 /* SWXMLHash-prefix.pch */,
-				6BAF1D530DDE731B39EF0179684ECE37 /* SWXMLHash-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/SWXMLHash";
-			sourceTree = "<group>";
-		};
-		F9A9A936F984293FE8D7A5C272BF9BB0 /* Cartography */ = {
-			isa = PBXGroup;
-			children = (
-				DF22E4756BF6D2B603B9C3B57B71AC02 /* Align.swift */,
-				3E7A6E699DD34F18940039E85AD10CAA /* Coefficients.swift */,
-				C192DD199D741CCDB5643BD676974FC8 /* Compound.swift */,
-				A19AB62010F4659B79495F144D2DDD26 /* Constrain.swift */,
-				C5661E8B0A1C68ADD7B15302AD676361 /* Constraint.swift */,
-				9FB4D9E4551EA81401582AB883151983 /* ConstraintGroup.swift */,
-				0EADF126C24EB8F2639C1219529D915A /* Context.swift */,
-				9F5A22BEAF299A51462D066E85AF3A3D /* Dimension.swift */,
-				A7A4E67E7282FEF7839A0DACE2170744 /* Distribute.swift */,
-				86A2F3ED68753CD9CB188E16DA5600EB /* Edge.swift */,
-				4CFE8C831AA1B884E4F022EAC176D136 /* Edges.swift */,
-				AA5955A919D7EF312315DB4D4D98E7B7 /* Expression.swift */,
-				14792E2686402F03B37E25B5D2DCAF99 /* Extensions.swift */,
-				075134DAB0DA81F37AC8F38AFC5E841D /* LayoutProxy.swift */,
-				6FBE46BC5C1CC5325DDCAA4F424909A8 /* LayoutSupport.swift */,
-				29C0F47E27E739E44CA4EF2D399000E2 /* Point.swift */,
-				A52858D77BEAD422C80DE1D879633615 /* Priority.swift */,
-				E2E65E4727E8A9A8DD9836CA66F5B858 /* Property.swift */,
-				6F25F5C444E7CA4EC51DB6F82AA4D3A4 /* Size.swift */,
-				C20401AE48318AD7944DAF20A56DD6CE /* View.swift */,
-				E3EF73F9E06213F03D0E43A8B2DB284C /* ViewUtils.swift */,
-				1A3D68010B46E70690755E6217FEB2A8 /* Support Files */,
-			);
-			name = Cartography;
-			path = Cartography;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		7FDEFC2D4033D4F44151617D3778C44D /* Headers */ = {
+		15FBFE6A785736A7EC3A031A4DC4EBCD /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8CF5E28D5C575CBB399DF0C5F6E73F9E /* SWXMLHash-umbrella.h in Headers */,
+				A0EBF7FB5BDE02F7DDD0B1CA89433485 /* Pods-ViscoveryADSDK_Example-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CD4D5E43CC944F65E180CF0BAC0BAF21 /* Headers */ = {
+		70140CB6768D05E56209BF3079FEAA2C /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02CF91FFA72135464128450EF28C921D /* Pods-ViscoveryADSDK_Example-umbrella.h in Headers */,
+				E4DD3F66C855385A5B1ED6026B0C8928 /* SWXMLHash-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D42B478583C859297D1A3830409B03A8 /* Headers */ = {
+		AF31DC906A1C9BA300F920F812AD1B4E /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC384EC3683B7B7E5D8C2B5D904219BB /* ViscoveryADSDK-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E66E0C3AA6C50C06CA3BC63165901BDD /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FE4D13CA6A4999D13875761E5100C1A0 /* Cartography-umbrella.h in Headers */,
+				70CCC11D35839BBFB229ED9939D1071A /* Cartography.h in Headers */,
+				F6905262B2E02632547E7B10047C8B23 /* ViscoveryADSDK-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -488,40 +444,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		51BEF65FDBAE4C7AF284643E133C3729 /* ViscoveryADSDK */ = {
+		09AE4EB4A620B57064AC5E2DCF050D54 /* Pods-ViscoveryADSDK_Example */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 556506FE78FDF72D143303D64D3B64A5 /* Build configuration list for PBXNativeTarget "ViscoveryADSDK" */;
+			buildConfigurationList = 0856781527C682E486DB88A50AB6CA23 /* Build configuration list for PBXNativeTarget "Pods-ViscoveryADSDK_Example" */;
 			buildPhases = (
-				CF10453A3890FBB4BFFD2776C65C16A8 /* Sources */,
-				3938FF0EA4C6BF2CA782911C8A6E2139 /* Frameworks */,
-				D42B478583C859297D1A3830409B03A8 /* Headers */,
+				5291690F829B0E67C20DAFB7510E93C7 /* Sources */,
+				BFA2E47F1768BC51A9037FB9047ACC84 /* Frameworks */,
+				15FBFE6A785736A7EC3A031A4DC4EBCD /* Headers */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				DCEBB5904A10B138C410D4E76E937AD3 /* PBXTargetDependency */,
-				76FBC134639D9B3AF2ED1C4E5DBA90E7 /* PBXTargetDependency */,
+				B13D5B5477E2A818D79BD236784BE9A8 /* PBXTargetDependency */,
+				90A32DE659B4CDFA410D6C35F4D7BFAA /* PBXTargetDependency */,
 			);
-			name = ViscoveryADSDK;
-			productName = ViscoveryADSDK;
-			productReference = 8BD7A05E0A49494A53396ABE3EB9CE03 /* ViscoveryADSDK.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		544212980401A6DA7806F65EAD8C6637 /* Cartography */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4640A3FD22DAF78390468CA450BB29DA /* Build configuration list for PBXNativeTarget "Cartography" */;
-			buildPhases = (
-				F8A87B475BE2E0CA1FFEC5F03DEDB801 /* Sources */,
-				7A4AAE12E09D29DA5F684C9BD8B5FE3B /* Frameworks */,
-				E66E0C3AA6C50C06CA3BC63165901BDD /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Cartography;
-			productName = Cartography;
-			productReference = AAC8B26FE28A267C492BD7064D5B4065 /* Cartography.framework */;
+			name = "Pods-ViscoveryADSDK_Example";
+			productName = "Pods-ViscoveryADSDK_Example";
+			productReference = 99126DCD01F95EF47C706C73EB73EA9B /* Pods_ViscoveryADSDK_Example.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		62B0A660645E3CFEE10AA0B1B5D81767 /* Pods-ViscoveryADSDK_Tests */ = {
@@ -538,36 +477,16 @@
 			);
 			name = "Pods-ViscoveryADSDK_Tests";
 			productName = "Pods-ViscoveryADSDK_Tests";
-			productReference = 9C5A03F56C458382E3C94562C7C4406B /* Pods_ViscoveryADSDK_Tests.framework */;
+			productReference = CB27A6DAA4B0072DA6CB03B4665AE008 /* Pods_ViscoveryADSDK_Tests.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		8B3519927B3D197D29556EED6323EA51 /* Pods-ViscoveryADSDK_Example */ = {
+		83DDFF48000CED81C60A23CD0A231A8F /* SWXMLHash */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 154776CA0CDC05A76FAF8334F3EE4F56 /* Build configuration list for PBXNativeTarget "Pods-ViscoveryADSDK_Example" */;
+			buildConfigurationList = 117DADDEB30B962BA29735E08C2C2CF0 /* Build configuration list for PBXNativeTarget "SWXMLHash" */;
 			buildPhases = (
-				E135D985ED35C4FBCDFC4CCB292DD9B0 /* Sources */,
-				F4A8B0147D8322403583A7839284BFA5 /* Frameworks */,
-				CD4D5E43CC944F65E180CF0BAC0BAF21 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				9981656EB52D03158BBA579424DD4056 /* PBXTargetDependency */,
-				C7103F6FC961264895A3705DA69BC844 /* PBXTargetDependency */,
-				73749465DBA58CF41AC35A558950BA2F /* PBXTargetDependency */,
-			);
-			name = "Pods-ViscoveryADSDK_Example";
-			productName = "Pods-ViscoveryADSDK_Example";
-			productReference = 702E324FFE3616AB9939199514AB5FCE /* Pods_ViscoveryADSDK_Example.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		B60EED99A79F1265F3EE54AC0061E47E /* SWXMLHash */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 09C643D6C472EA545614A5CFB9D57464 /* Build configuration list for PBXNativeTarget "SWXMLHash" */;
-			buildPhases = (
-				05C13895B40C3BC283F80FC8BD06AAA9 /* Sources */,
-				6990470C2F66BA961107FA2395C1385B /* Frameworks */,
-				7FDEFC2D4033D4F44151617D3778C44D /* Headers */,
+				04F42D71B5704D64315D2EB52920672B /* Sources */,
+				55BCA5B2AC0ACF6A5FADA3CF9368DA6F /* Frameworks */,
+				70140CB6768D05E56209BF3079FEAA2C /* Headers */,
 			);
 			buildRules = (
 			);
@@ -575,7 +494,25 @@
 			);
 			name = SWXMLHash;
 			productName = SWXMLHash;
-			productReference = 4DDF26666978BCBC7B86A92C72BC1536 /* SWXMLHash.framework */;
+			productReference = DD66750FD35C93631DAFC5E8C5FF7782 /* SWXMLHash.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		C46A8AA7D7B9388BF29C4C30816089C8 /* ViscoveryADSDK */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 80E938822346A0DD2502562398DB2403 /* Build configuration list for PBXNativeTarget "ViscoveryADSDK" */;
+			buildPhases = (
+				E074DF6CB1D0FE4BCE9C9BCC9C2C0671 /* Sources */,
+				0CCB0E3F6387836CDD34CAAA007EA204 /* Frameworks */,
+				AF31DC906A1C9BA300F920F812AD1B4E /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EB7FFA69AA34EFCB17ACD7CBF4C45870 /* PBXTargetDependency */,
+			);
+			name = ViscoveryADSDK;
+			productName = ViscoveryADSDK;
+			productReference = 1CC88B61D3FE621290836C8BEAE55356 /* ViscoveryADSDK.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -595,27 +532,26 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = 8FE7850AAB4D740B077A577EA12305C6 /* Products */;
+			productRefGroup = 908C16465C9EF54441929D8DE4253748 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				544212980401A6DA7806F65EAD8C6637 /* Cartography */,
-				8B3519927B3D197D29556EED6323EA51 /* Pods-ViscoveryADSDK_Example */,
+				09AE4EB4A620B57064AC5E2DCF050D54 /* Pods-ViscoveryADSDK_Example */,
 				62B0A660645E3CFEE10AA0B1B5D81767 /* Pods-ViscoveryADSDK_Tests */,
-				B60EED99A79F1265F3EE54AC0061E47E /* SWXMLHash */,
-				51BEF65FDBAE4C7AF284643E133C3729 /* ViscoveryADSDK */,
+				83DDFF48000CED81C60A23CD0A231A8F /* SWXMLHash */,
+				C46A8AA7D7B9388BF29C4C30816089C8 /* ViscoveryADSDK */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		05C13895B40C3BC283F80FC8BD06AAA9 /* Sources */ = {
+		04F42D71B5704D64315D2EB52920672B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				893ED2A1DC387CF1B6FEC07C6051B387 /* SWXMLHash+TypeConversion.swift in Sources */,
-				FF032EEB9EA7EC07F3A184AD9884CA60 /* SWXMLHash-dummy.m in Sources */,
-				69332739C26487BEF63DD94A6F30237E /* SWXMLHash.swift in Sources */,
+				F7D2335EF5005F5474841A55F4EDACEC /* SWXMLHash+TypeConversion.swift in Sources */,
+				4EE3D2A3CDD1922827C7C88DC0CCFD2D /* SWXMLHash-dummy.m in Sources */,
+				E918C9DAECAB0F660D62739C5A297EC9 /* SWXMLHash.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -627,252 +563,69 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CF10453A3890FBB4BFFD2776C65C16A8 /* Sources */ = {
+		5291690F829B0E67C20DAFB7510E93C7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0B2BBA5E1221330C96E2753F619770E /* ViscoveryADSDK-dummy.m in Sources */,
-				1DC5B1B1222F7DF5D67994C7A954DB96 /* ViscoveryADSDK.swift in Sources */,
+				431D11E3D2220A5F94BD23EC637FC2BB /* Pods-ViscoveryADSDK_Example-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E135D985ED35C4FBCDFC4CCB292DD9B0 /* Sources */ = {
+		E074DF6CB1D0FE4BCE9C9BCC9C2C0671 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A7672CE2EB9204E3B5DF12F7B9F3B14 /* Pods-ViscoveryADSDK_Example-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F8A87B475BE2E0CA1FFEC5F03DEDB801 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				067B84F7E9EFBEAFDC824931CAAD2051 /* Align.swift in Sources */,
-				AE7ACD648B84D1C8645049118FE42D54 /* Cartography-dummy.m in Sources */,
-				FC27B916EC313A166CE2704745CB14C0 /* Coefficients.swift in Sources */,
-				5F5D3FB5718F4673DC293DA7D97EF046 /* Compound.swift in Sources */,
-				3F2391D80C5AE124D6E13AD3FABFFE01 /* Constrain.swift in Sources */,
-				C2E2993258D9072061A389E518053F8B /* Constraint.swift in Sources */,
-				5CAA19E0EB7CA9EB6047A3E43EC1FC8F /* ConstraintGroup.swift in Sources */,
-				9C7E8D85506FA06C506A330B200FCEE7 /* Context.swift in Sources */,
-				DBC0D8FEB6A8101C977332E8BC16E641 /* Dimension.swift in Sources */,
-				7965A04590F67375EC65249F774B3F6B /* Distribute.swift in Sources */,
-				CD587D5E28B0428E3B4163F1604D26BF /* Edge.swift in Sources */,
-				A084DDD7233A950676D60FCB4FA8BE74 /* Edges.swift in Sources */,
-				697414FCC3C6F8176768FFDDEC73A108 /* Expression.swift in Sources */,
-				A67286FF819C5C943D027E9C40DF456D /* Extensions.swift in Sources */,
-				1431619A2565DD8EAB817240E078707C /* LayoutProxy.swift in Sources */,
-				56EBA0C77344F63CA6A36265A6496A71 /* LayoutSupport.swift in Sources */,
-				88B21B225B2D6BFAB3F50B88495299F1 /* Point.swift in Sources */,
-				22B60CFF6E57EB6DF8CCA5D2CAC3178C /* Priority.swift in Sources */,
-				A7BD4B74A484170A23FF6C7611A11B40 /* Property.swift in Sources */,
-				74BD0664EEC77366D314DA22DD4E721F /* Size.swift in Sources */,
-				05C1C6C0B246E3C5FDF06B2A0BB63F0D /* View.swift in Sources */,
-				9B71D4856DF9CFE5715EDF4E5B3B2844 /* ViewUtils.swift in Sources */,
+				1D943D5B1B0B43F7552062AFE06BE9A9 /* Align.swift in Sources */,
+				2AE605DCAE998915241C4B80950FEEE4 /* Coefficients.swift in Sources */,
+				8A60607CFAB250FC3AC84B43D55CBE3F /* Compound.swift in Sources */,
+				858CBCE6D0D516E1EBD8D3216B9B7DAA /* Constrain.swift in Sources */,
+				8870545991C9AC3072A68A550555E9DA /* Constraint.swift in Sources */,
+				1A935B529227A3D9BC6EBA45BFF65123 /* ConstraintGroup.swift in Sources */,
+				D1114D25D4431A9139331B9E7E8EDD8C /* Context.swift in Sources */,
+				AD55281E2DFD9799718EAAFC788DAB0D /* Dimension.swift in Sources */,
+				506EE9AE1DF675880F83D0D3329B8B5C /* Distribute.swift in Sources */,
+				F1F908AD70778C2808D599606BB32C69 /* Edge.swift in Sources */,
+				101677C0ED3DFDA4A7DE3698A7570EFD /* Edges.swift in Sources */,
+				C73122C1DA66B1EF039C9AF1F7C972F2 /* Expression.swift in Sources */,
+				E5538B9A5AC111A3FA36439D70F837FA /* Extensions.swift in Sources */,
+				C5F1EDF9FC3F07F1ADDBDEA43CB3E52A /* Info.plist in Sources */,
+				62953D844B802EE117A4C96F91854AC2 /* LayoutProxy.swift in Sources */,
+				A4954978C6A17FE1C8124CA2DFC2B3B8 /* LayoutSupport.swift in Sources */,
+				F0E422F1A9DB9E2B3FCE3997003F559E /* Point.swift in Sources */,
+				F0C35808C85141DA402FC331BDBFAFAF /* Priority.swift in Sources */,
+				B285FBAC14D29F02F8587CF9720ADE41 /* Property.swift in Sources */,
+				20F8D52F10DCA556BF49CC84C37B5FC3 /* Size.swift in Sources */,
+				19364DCE20B8D9B8240F4A4A93DA26B7 /* View.swift in Sources */,
+				E8D3BABCC8C0A9C0AA11AE2EEE74E600 /* ViewUtils.swift in Sources */,
+				D1990CA6E7EE6F114CDB448CE75428AD /* ViscoveryADSDK-dummy.m in Sources */,
+				340D4C1F71025BFE5A429A8A8C9C6F03 /* ViscoveryADSDK.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		73749465DBA58CF41AC35A558950BA2F /* PBXTargetDependency */ = {
+		90A32DE659B4CDFA410D6C35F4D7BFAA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = ViscoveryADSDK;
-			target = 51BEF65FDBAE4C7AF284643E133C3729 /* ViscoveryADSDK */;
-			targetProxy = 51DA4E92E3F1FEE1A0B147D356F9EE9C /* PBXContainerItemProxy */;
+			target = C46A8AA7D7B9388BF29C4C30816089C8 /* ViscoveryADSDK */;
+			targetProxy = DC30219697B50C7A0E4D3B3ED0CD4CEC /* PBXContainerItemProxy */;
 		};
-		76FBC134639D9B3AF2ED1C4E5DBA90E7 /* PBXTargetDependency */ = {
+		B13D5B5477E2A818D79BD236784BE9A8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = SWXMLHash;
-			target = B60EED99A79F1265F3EE54AC0061E47E /* SWXMLHash */;
-			targetProxy = 54860E1E7E093273D00752585EA047FD /* PBXContainerItemProxy */;
+			target = 83DDFF48000CED81C60A23CD0A231A8F /* SWXMLHash */;
+			targetProxy = 44D879D847861B8EC967A5662E4AF424 /* PBXContainerItemProxy */;
 		};
-		9981656EB52D03158BBA579424DD4056 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Cartography;
-			target = 544212980401A6DA7806F65EAD8C6637 /* Cartography */;
-			targetProxy = 699A5AA1A1E7ECD73A3EFBA2D803D38D /* PBXContainerItemProxy */;
-		};
-		C7103F6FC961264895A3705DA69BC844 /* PBXTargetDependency */ = {
+		EB7FFA69AA34EFCB17ACD7CBF4C45870 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = SWXMLHash;
-			target = B60EED99A79F1265F3EE54AC0061E47E /* SWXMLHash */;
-			targetProxy = F648C215DEE2D4D93264AE063AF2ED1D /* PBXContainerItemProxy */;
-		};
-		DCEBB5904A10B138C410D4E76E937AD3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Cartography;
-			target = 544212980401A6DA7806F65EAD8C6637 /* Cartography */;
-			targetProxy = 5D178C79F65D49AB9817D66141D0D6CA /* PBXContainerItemProxy */;
+			target = 83DDFF48000CED81C60A23CD0A231A8F /* SWXMLHash */;
+			targetProxy = DF2F8837B1AB26A165344F17CB62C934 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		21A915F3B6C778D99E77635DD3950344 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1C7648804AE557DE5E8CFBBC53F599B1 /* ViscoveryADSDK.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/ViscoveryADSDK/ViscoveryADSDK-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/ViscoveryADSDK/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/ViscoveryADSDK/ViscoveryADSDK.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = ViscoveryADSDK;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		2A7461F190DD3B0B6C0553947567811E /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = FA37CE76E718E43748475F4115D1780C /* Pods-ViscoveryADSDK_Example.release.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-ViscoveryADSDK_Example/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-ViscoveryADSDK_Example/Pods-ViscoveryADSDK_Example.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_ViscoveryADSDK_Example;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		397DC911B57ED54246E491176F3F296A /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = BCC82CD3B5A5A2F8CC435DFB04ED046B /* SWXMLHash.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/SWXMLHash/SWXMLHash-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SWXMLHash/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SWXMLHash/SWXMLHash.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = SWXMLHash;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		3BAD1C37595C9564A9E90AF1DB7A81C0 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1C7648804AE557DE5E8CFBBC53F599B1 /* ViscoveryADSDK.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/ViscoveryADSDK/ViscoveryADSDK-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/ViscoveryADSDK/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/ViscoveryADSDK/ViscoveryADSDK.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = ViscoveryADSDK;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		48231957691E46B4697342E285631D61 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A32AE70BD2187B7F92C24951F32802D8 /* Cartography.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Cartography/Cartography-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Cartography/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Cartography/Cartography.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = Cartography;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 		59B042A655B7C20CBAB90E385BF4E4C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -952,39 +705,6 @@
 			};
 			name = Debug;
 		};
-		920AACE68D1A41B13F0EFF6697E16B66 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = BCC82CD3B5A5A2F8CC435DFB04ED046B /* SWXMLHash.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/SWXMLHash/SWXMLHash-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SWXMLHash/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SWXMLHash/SWXMLHash.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = SWXMLHash;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 		99F8EF92CCD39583456626D280AED73C /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FA92226AB816C4630E207CB005F62FE2 /* Pods-ViscoveryADSDK_Tests.release.xcconfig */;
@@ -1019,6 +739,75 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
+		};
+		A20FDA4243EB7C414F592037FA09A7E5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1C7648804AE557DE5E8CFBBC53F599B1 /* ViscoveryADSDK.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/ViscoveryADSDK/ViscoveryADSDK-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/ViscoveryADSDK/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/ViscoveryADSDK/ViscoveryADSDK.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = ViscoveryADSDK;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		A27BCBDC17B942C842EEF0E58E4042C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0EB3224DC668D47E4B77321C28A5C733 /* Pods-ViscoveryADSDK_Example.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-ViscoveryADSDK_Example/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-ViscoveryADSDK_Example/Pods-ViscoveryADSDK_Example.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_ViscoveryADSDK_Example;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
 		};
 		B7324857C38B065FEB1EEE3105C2367A /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -1060,48 +849,47 @@
 			};
 			name = Release;
 		};
-		BCE4FC17A531C9E7C2D0AADD856CBDB1 /* Debug */ = {
+		C1734E1D0DAC136E45DE0C6A2D6035FA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A32AE70BD2187B7F92C24951F32802D8 /* Cartography.xcconfig */;
+			baseConfigurationReference = B1B564D9AE4B2021651E9FC62E8382E3 /* SWXMLHash.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Cartography/Cartography-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Cartography/Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/SWXMLHash/SWXMLHash-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SWXMLHash/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Cartography/Cartography.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = Cartography;
+				MODULEMAP_FILE = "Target Support Files/SWXMLHash/SWXMLHash.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = SWXMLHash;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Debug;
+			name = Release;
 		};
-		C9B1F94ABFC0EF7EE44935C6242E799D /* Debug */ = {
+		CB80417D33B80A881BEE953FD6F90E1C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0EB3224DC668D47E4B77321C28A5C733 /* Pods-ViscoveryADSDK_Example.debug.xcconfig */;
+			baseConfigurationReference = FA37CE76E718E43748475F4115D1780C /* Pods-ViscoveryADSDK_Example.release.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -1114,7 +902,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-ViscoveryADSDK_Example/Pods-ViscoveryADSDK_Example.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -1122,30 +910,94 @@
 				PRODUCT_NAME = Pods_ViscoveryADSDK_Example;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		F6C6C84C73979B31B2710CB23637CADE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B1B564D9AE4B2021651E9FC62E8382E3 /* SWXMLHash.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SWXMLHash/SWXMLHash-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SWXMLHash/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SWXMLHash/SWXMLHash.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = SWXMLHash;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
+		FAAEC01A41794B1D8393EADE4C65A04A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1C7648804AE557DE5E8CFBBC53F599B1 /* ViscoveryADSDK.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/ViscoveryADSDK/ViscoveryADSDK-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/ViscoveryADSDK/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/ViscoveryADSDK/ViscoveryADSDK.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = ViscoveryADSDK;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		09C643D6C472EA545614A5CFB9D57464 /* Build configuration list for PBXNativeTarget "SWXMLHash" */ = {
+		0856781527C682E486DB88A50AB6CA23 /* Build configuration list for PBXNativeTarget "Pods-ViscoveryADSDK_Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				920AACE68D1A41B13F0EFF6697E16B66 /* Debug */,
-				397DC911B57ED54246E491176F3F296A /* Release */,
+				A27BCBDC17B942C842EEF0E58E4042C8 /* Debug */,
+				CB80417D33B80A881BEE953FD6F90E1C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		154776CA0CDC05A76FAF8334F3EE4F56 /* Build configuration list for PBXNativeTarget "Pods-ViscoveryADSDK_Example" */ = {
+		117DADDEB30B962BA29735E08C2C2CF0 /* Build configuration list for PBXNativeTarget "SWXMLHash" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C9B1F94ABFC0EF7EE44935C6242E799D /* Debug */,
-				2A7461F190DD3B0B6C0553947567811E /* Release */,
+				F6C6C84C73979B31B2710CB23637CADE /* Debug */,
+				C1734E1D0DAC136E45DE0C6A2D6035FA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1159,15 +1011,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4640A3FD22DAF78390468CA450BB29DA /* Build configuration list for PBXNativeTarget "Cartography" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				BCE4FC17A531C9E7C2D0AADD856CBDB1 /* Debug */,
-				48231957691E46B4697342E285631D61 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		4993F07268D5F764FD21A522ADCC1376 /* Build configuration list for PBXNativeTarget "Pods-ViscoveryADSDK_Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1177,11 +1020,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		556506FE78FDF72D143303D64D3B64A5 /* Build configuration list for PBXNativeTarget "ViscoveryADSDK" */ = {
+		80E938822346A0DD2502562398DB2403 /* Build configuration list for PBXNativeTarget "ViscoveryADSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3BAD1C37595C9564A9E90AF1DB7A81C0 /* Debug */,
-				21A915F3B6C778D99E77635DD3950344 /* Release */,
+				A20FDA4243EB7C414F592037FA09A7E5 /* Debug */,
+				FAAEC01A41794B1D8393EADE4C65A04A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
