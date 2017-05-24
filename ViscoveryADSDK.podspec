@@ -26,10 +26,10 @@ DESC
 s.requires_arc = true
 s.pod_target_xcconfig = { 'SWIFT_VERSION' => '3.0' }
 
-s.homepage         = 'https://github.com/viscovery/viscovery-ios-ad-sdk'
+s.homepage         = 'https://github.com/viscovery/viscovery-ad-sdk-ios'
 s.license          = { :type => 'Apache 2', :file => 'LICENSE' }
 s.author           = { 'boska lee' => 'boska.lee@viscovery.com' }
-s.source           = { :git => 'https://github.com/viscovery/viscovery-ios-ad-sdk.git', :tag => s.version.to_s }
+s.source           = { :git => 'https://github.com/viscovery/viscovery-ad-sdk-ios.git', :tag => s.version.to_s }
 
 s.ios.deployment_target = '9.0'
 s.source_files = 'ViscoveryADSDK/Classes/**/*'
