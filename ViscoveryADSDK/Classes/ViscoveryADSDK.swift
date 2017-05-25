@@ -231,27 +231,6 @@ extension XMLIndexer {
     return "\(offset) - \(breakId)(\(breakType)) \n\(url)\n\n"
   }
 }
-class ImageView: UIImageView {
-  let imageSize = ConstraintGroup()
-  override var bounds: CGRect {
-    didSet {
-      layoutSize()
-    }
-  }
-  override var image: UIImage? {
-    didSet {
-      layoutSize()
-    }
-  }
-  func layoutSize() {
-    guard let image = self.image else { return }
-    constrain(self, replace: imageSize) {
-      let size = AVMakeRect(aspectRatio: image.size, insideRect: self.frame).size
-      $0.width == size.width
-      $0.height == size.height
-    }
-  }
-}
 class NonLinearView: UIView {
   var isAdHidden = true {
     didSet {
@@ -260,7 +239,7 @@ class NonLinearView: UIView {
     }
   }
   let image = ImageView()
-  let close = UIButton(type: .system)
+  let close = CloseButton(type: .system)
   let group = ConstraintGroup()
   var adParameters: [String: String] = [:] {
     didSet {
@@ -306,7 +285,6 @@ class NonLinearView: UIView {
     super.init(frame: frame)
     clipsToBounds = true
     image.clipsToBounds = true
-    isUserInteractionEnabled = false
     addSubview(image)
     constrain(image, self, replace: group) {
       $0.left == $1.left
@@ -315,16 +293,12 @@ class NonLinearView: UIView {
     
     addSubview(close)
     constrain(close, image) {
-      $0.0.left == $0.1.right
-      $0.0.top == $0.1.top
+      $0.0.centerX == $0.1.right
+      $0.0.centerY == $0.1.top
       $0.0.height == 44
       $0.0.width == 44
     }
-    close.setTitle(" X ", for: .normal)
-    close.setTitleColor(.black, for: .normal)
-    close.titleLabel?.backgroundColor = .white
-    close.contentVerticalAlignment = .top
-    close.contentHorizontalAlignment = .left
+
     close.isHidden = true
     close.addTarget(self, action: #selector(NonLinearView.dismissAds), for: .touchUpInside)
     
@@ -348,6 +322,67 @@ class NonLinearView: UIView {
   }
   func clickThrough() {
     clickThroughCallback?()
+  }
+  override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+    for subview in subviews {
+      if !subview.isHidden && subview.alpha > 0 && subview.isUserInteractionEnabled && subview.point(inside: convert(point, to: subview), with: event) {
+        return true
+      }
+    }
+    return false
+  }
+}
+class ImageView: UIImageView {
+  let imageSize = ConstraintGroup()
+  override var bounds: CGRect {
+    didSet {
+      layoutSize()
+    }
+  }
+  override var image: UIImage? {
+    didSet {
+      layoutSize()
+    }
+  }
+  func layoutSize() {
+    guard let image = self.image else { return }
+    constrain(self, replace: imageSize) {
+      let size = AVMakeRect(aspectRatio: image.size, insideRect: self.frame).size
+      $0.width == size.width
+      $0.height == size.height
+    }
+  }
+}
+class CloseButton: UIButton {
+  override func draw(_ rect: CGRect) {
+    //// Oval Drawing
+    let dx = (rect.size.width - 20) / 2
+    let dy = (rect.size.width - 20) / 2
+    let ovalPath = UIBezierPath(ovalIn: CGRect(x: dx + 0.5, y: dy + 0.5, width: 20, height: 20))
+    UIColor.black.setFill()
+    ovalPath.fill()
+    UIColor.white.setStroke()
+    ovalPath.lineWidth = 1
+    ovalPath.stroke()
+    
+    
+    //// Bezier Drawing
+    let bezierPath = UIBezierPath()
+    bezierPath.move(to: CGPoint(x: dx + 6.5, y: dy + 6.5))
+    bezierPath.addLine(to: CGPoint(x: dx + 14.5, y: dy + 14.5))
+    UIColor.white.setStroke()
+    bezierPath.lineWidth = 1
+    bezierPath.stroke()
+    
+    
+    //// Bezier 2 Drawing
+    let bezier2Path = UIBezierPath()
+    bezier2Path.move(to: CGPoint(x: dx + 14.5, y: dy + 6.5))
+    bezier2Path.addLine(to: CGPoint(x: dx + 6.5, y: dy + 14.5))
+    UIColor.white.setStroke()
+    bezier2Path.lineWidth = 1
+    bezier2Path.stroke()
+
   }
 }
 extension String {

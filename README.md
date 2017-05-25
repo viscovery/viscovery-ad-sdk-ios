@@ -20,6 +20,15 @@ Add in your Podfile
 ```ruby
 pod 'ViscoveryADSDK'
 ```
+
+or use latest version
+
+
+```
+pod 'ViscoveryADSDK', :git => 'https://github.com/viscovery/viscovery-ad-sdk-ios.git'
+
+```
+
 then execute
 ```
 pod install
