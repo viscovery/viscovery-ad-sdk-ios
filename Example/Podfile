@@ -3,7 +3,7 @@ use_frameworks!
 target 'ViscoveryADSDK_Example' do
   pod 'ViscoveryADSDK', :path => '../'
 
-  target 'ViscoveryADSDK_Tests' do
+  target 'ViscoveryADSDKTests' do
     inherit! :search_paths
 
     

@@ -52,6 +52,16 @@
                ReferencedContainer = "container:ViscoveryADSDK.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "8D0615BF1ED6CEEB006444DC"
+               BuildableName = "ViscoveryADSDKTests.xctest"
+               BlueprintName = "ViscoveryADSDKTests"
+               ReferencedContainer = "container:ViscoveryADSDK.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

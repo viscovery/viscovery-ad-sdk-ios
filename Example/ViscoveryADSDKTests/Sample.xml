@@ -1,0 +1,38 @@
+<vmap:VMAP xmlns:vmap="http://www.iab.net/videosuite/vmap" version="1.0">
+  <vmap:AdBreak timeOffset="00:00:00.000" breakType="linear" breakId="preroll">
+    <vmap:AdSource id="preroll-ad-1" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3">
+        <![CDATA[
+          https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/64202484/Viscovery_dev/交通//汽車&cust_params=tos%3Dpre&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&url=[referrer_url]&description_url=[description_url]&correlator=[timestamp]
+        ]]>
+      </vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+  <vmap:AdBreak timeOffset="00:00:50.000" breakType="nonlinear" breakId="midroll-1">
+    <vmap:AdSource id="midroll-ad-1" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3">
+        <![CDATA[
+          https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/64202484/viscovery_test/汽車&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&url=[referrer_url]&description_url=[description_url]&correlator=[timestamp]
+        ]]>
+      </vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+  <vmap:AdBreak timeOffset="00:05:44.000" breakType="nonlinear" breakId="midroll-2">
+    <vmap:AdSource id="midroll-ad-2" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3">
+        <![CDATA[
+          https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/64202484/viscovery_test/手機&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&url=[referrer_url]&description_url=[description_url]&correlator=[timestamp]
+        ]]>
+      </vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+  <vmap:AdBreak timeOffset="00:06:37.000" breakType="linear" breakId="midroll-3">
+    <vmap:AdSource id="midroll-ad-3" allowMultipleAds="false" followRedirects="true">
+      <vmap:AdTagURI templateType="vast3">
+        <![CDATA[
+          https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/64202484/viscovery_test/行李箱&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&url=[referrer_url]&description_url=[description_url]&correlator=[timestamp]
+        ]]>
+      </vmap:AdTagURI>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+</vmap:VMAP>
