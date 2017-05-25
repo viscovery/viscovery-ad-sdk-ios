@@ -1,0 +1,13 @@
+default_platform :ios
+
+lane :ota do
+  cocoapods
+
+  gym(
+      scheme: "ViscoveryADSDK-Example",
+      include_bitcode: false,
+      export_method: "enterprise",
+      clean: false
+  )
+end
+
