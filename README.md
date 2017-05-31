@@ -52,7 +52,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
     return true
 }
 ```
-## 3. Setup ConSenseManager
+## 3. Setup AdsManager
 Before you started you have to setup your AVPlayer and UIView that AVPlayerLayer in it.
 
 ```swift
@@ -60,7 +60,7 @@ var contentPlayer: AVPlayer?
 var adsManager: AdsManager!
 ```
 
-And initialize ConSenseManger
+And initialize AdsManager
 
 ```swift
 adsManager = AdsManager(player: contentPlayer!, videoView: videoContainer)
