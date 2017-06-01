@@ -12,6 +12,7 @@ import AVFoundation
 
 class ViewController: UIViewController {
   @IBOutlet weak var videoContainer: VideoView!
+  @IBOutlet weak var outstreamContainer: UIView!
   var contentPlayer: AVPlayer?
   var adsManager: AdsManager!
   override func viewDidLoad() {
@@ -23,13 +24,11 @@ class ViewController: UIViewController {
     
     contentPlayer = AVPlayer(url: url)
     videoContainer.player = contentPlayer
-    adsManager = AdsManager(player: contentPlayer!, videoView: videoContainer)
+    adsManager = AdsManager(player: contentPlayer!, videoView: videoContainer, outstreamContainerView: outstreamContainer)
     
     contentPlayer?.isMuted = true
-    //Specify video url
-    adsManager.requestAds(videoURL: "https%3A%2F%2Ftw.yahoo.com%2F")
-    //Or from avplayer playitem
-    //adsManager.requestAds()
+    
+    adsManager.requestAds()
     
   }
   func getFileURLFromDocumentFirst() -> URL? {

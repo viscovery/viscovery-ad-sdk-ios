@@ -28,15 +28,26 @@
                                     <constraint firstAttribute="width" secondItem="9fR-ju-Qoz" secondAttribute="height" multiplier="16:9" id="Psa-5S-TYk"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HMG-XV-CRS">
+                                <rect key="frame" x="0.0" y="231" width="375" height="100"/>
+                                <color key="backgroundColor" red="0.97446949602122013" green="0.97446949602122013" blue="0.97446949602122013" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="owr-Jj-7us"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="9fR-ju-Qoz" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="BVw-rc-j3Y"/>
                             <constraint firstAttribute="trailing" secondItem="9fR-ju-Qoz" secondAttribute="trailing" id="JAp-if-0hG"/>
                             <constraint firstItem="9fR-ju-Qoz" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="fdP-Qk-FQM"/>
+                            <constraint firstItem="HMG-XV-CRS" firstAttribute="leading" secondItem="9fR-ju-Qoz" secondAttribute="leading" id="gtq-Gv-4lr"/>
+                            <constraint firstItem="HMG-XV-CRS" firstAttribute="top" secondItem="9fR-ju-Qoz" secondAttribute="bottom" id="yV8-nA-7QO"/>
+                            <constraint firstItem="HMG-XV-CRS" firstAttribute="trailing" secondItem="9fR-ju-Qoz" secondAttribute="trailing" id="ygG-gh-guF"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="outstreamContainer" destination="HMG-XV-CRS" id="wbv-gw-qw1"/>
                         <outlet property="videoContainer" destination="9fR-ju-Qoz" id="SAY-4z-gJz"/>
                     </connections>
                 </viewController>

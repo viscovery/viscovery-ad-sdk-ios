@@ -19,28 +19,43 @@ typealias Vast = XMLIndexer
   static var adsLoader: IMAAdsLoader!
   var adsManager: IMAAdsManager!
   let contentVideoView: UIView
-  let nonLinearView = NonLinearView(frame: .zero)
+  var outstreamContainer: UIView?
+  let instream = NonLinearView(frame: .zero)
+  let outstream = NonLinearView(frame: .zero)
   let correlator = Int(Date().timeIntervalSince1970)
   var timeObserver: Any?
-  var heightConstrain: NSLayoutConstraint?
-  public init(player: AVPlayer, videoView: UIView) {
+
+  public init(player: AVPlayer, videoView: UIView, outstreamContainerView: UIView? = nil) {
     
     contentPlayer = player
     contentPlayhead = IMAAVPlayerContentPlayhead(avPlayer: contentPlayer)
     contentVideoView = videoView
+    outstreamContainer = outstreamContainerView
     super.init()
     for v in contentVideoView.subviews.filter({ $0 is NonLinearView }) {
       v.removeFromSuperview()
     }
-    contentVideoView.addSubview(nonLinearView)
+    contentVideoView.addSubview(instream)
     
-    constrain(nonLinearView, contentVideoView) {
+    constrain(instream, contentVideoView) {
       $0.0.left == $0.1.left
       $0.0.right == $0.1.right
       $0.0.bottom == $0.1.bottom
       $0.0.height == $0.1.height
     }
     
+    if let outstreamContainer = outstreamContainer {
+      for v in outstreamContainer.subviews.filter({ $0 is NonLinearView }) {
+        v.removeFromSuperview()
+      }
+      outstreamContainer.addSubview(outstream)
+      constrain(outstream, outstreamContainer) {
+        $0.0.left == $0.1.left
+        $0.0.right == $0.1.right
+        $0.0.bottom == $0.1.bottom
+        $0.0.height == $0.1.height
+      }
+    }
     AdsManager.adsLoader = IMAAdsLoader()
     AdsManager.adsLoader.delegate = self
     
@@ -68,7 +83,7 @@ typealias Vast = XMLIndexer
       return
     }
     let url = URL(string: "https://vsp.viscovery.com/api/vmap?api_key=\(apiKey)&video_url=\(videoURL.toBase64)&platform=mobile&debug=0")!
-    // let url = URL(string: "http://www.mocky.io/v2/592266c33700000720fa34a9")!
+    //let url = URL(string: "http://www.mocky.io/v2/592e7fd8100000dc24d0dd3b")!
     
     url.fetch {
       guard
@@ -94,25 +109,27 @@ typealias Vast = XMLIndexer
   func createAdTimeObserver(with nonlinears: [Vast]) -> Any? {
     if nonlinears.count == 0 { return nil }
     var times = [NSValue]()
-    var timesAds = [Int: String]()
+    var timesAds = [Int: XMLIndexer]()
     
     for ad in nonlinears {
       if let offset: String = try? ad.value(ofAttribute: "timeOffset") {
         let time = CMTime(seconds: offset.toTimeInterval, preferredTimescale: 1)
-        timesAds[Int(offset.toTimeInterval)] = ad["vmap:AdSource"]["vmap:AdTagURI"].element?.text?.trimmed
+        timesAds[Int(offset.toTimeInterval)] = ad
         times.append(NSValue(time: time))
       }
     }
-    // .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+
     return contentPlayer.addBoundaryTimeObserver(forTimes: times, queue: .main) {
       let interval = Int(CMTimeGetSeconds(self.contentPlayer.currentTime()))
-      guard let tag = timesAds[interval] else { return }
+      guard let ad = timesAds[interval] else { return }
+      guard let tag = ad["vmap:AdSource"]["vmap:AdTagURI"].element?.text?.trimmed else { return }
       guard let url = URL(string: tag.replacingOccurrences(of: "[timestamp]", with: "\(self.correlator)")) else { return }
-      url.fetch {
+      guard let type: String =  try? ad["vmap:Extensions"]["vmap:Extension"].element!.value(ofAttribute: "type") else { return }
+      url.fetch { [type] in
         let vast = SWXMLHash.parse($0)
         switch vast["VAST"]["Ad"] {
         case .Element:
-          self.handleAd(vast: vast)
+          self.handleAd(vast: vast, type: type)
         case .XMLError:
           print("Error: Vast is Empty")
         default:
@@ -122,9 +139,9 @@ typealias Vast = XMLIndexer
     }
   }
   
-  func handleAd(vast: Vast) {
+  func handleAd(vast: Vast, type: String) {
     let nonlinear = vast["VAST"]["Ad"]["InLine"]["Creatives"]["Creative"]["NonLinearAds"]["NonLinear"]
-    
+    let nonlinearView = type == "instream" ? instream : outstream
     guard let error = vast["VAST"]["Ad"]["InLine"]["Error"].element?.text,
       let errorURL = URL(string: error) else {
       return
@@ -134,9 +151,9 @@ typealias Vast = XMLIndexer
       return
     }
     if let adParameters = nonlinear["AdParameters"].element?.text?.toParameters {
-      self.nonLinearView.adParameters = adParameters
+      nonlinearView.adParameters = adParameters
     }
-    nonLinearView.clickThroughCallback = {
+    nonlinearView.clickThroughCallback = {
       if let clickThrough = nonlinear["NonLinearClickThrough"].element?.text,
         let clickThroughURL = URL(string: clickThrough),
         let presenter = UIApplication.shared.keyWindow?.rootViewController,
@@ -147,10 +164,10 @@ typealias Vast = XMLIndexer
         clickTrackingURL.fetch()
       }
     }
-    nonLinearView.setResourceWithURL(url: resourceURL) {
+    nonlinearView.setResourceWithURL(url: resourceURL) {
       if let minDuration: String = nonlinear.element?.value(ofAttribute: "minSuggestedDuration") {
         DispatchQueue.main.asyncAfter(deadline: .now() + (minDuration.toTimeInterval == 0 ? 15 : minDuration.toTimeInterval)) {
-          self.nonLinearView.isAdHidden = true
+          nonlinearView.isAdHidden = true
         }
       }
       if let impression = vast["VAST"]["Ad"]["InLine"]["Impression"].element?.text,
@@ -269,12 +286,12 @@ class NonLinearView: UIView {
           $0.left == $1.left + CGFloat(Float(alignOffset) ?? 0)
         case "right":
           $0.right == $1.right - CGFloat(Float(alignOffset) ?? 0)
-        case "center":
+        case "center", "fullwidth":
           $0.centerX == $1.centerX
         default: break
         }
       }
-      guard let heightPercentage = Float(adParameters["height"] ?? "0") else { return }
+      guard let heightPercentage = Float(adParameters["height"] ?? "85") else { return }
       constrain(image, replace: self.image.imageSize) {
         $0.width == self.bounds.width
         $0.height == self.bounds.height * CGFloat(heightPercentage * 0.01)
