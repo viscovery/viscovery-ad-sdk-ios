@@ -20,8 +20,8 @@ typealias Vast = XMLIndexer
   var adsManager: IMAAdsManager!
   let contentVideoView: UIView
   var outstreamContainer: UIView?
-  let instream = NonLinearView(frame: .zero)
-  let outstream = NonLinearView(frame: .zero)
+  let instream = NonLinearView(type: .instream)
+  let outstream = NonLinearView(type: .outstream)
   let correlator = Int(Date().timeIntervalSince1970)
   var timeObserver: Any?
 
@@ -248,6 +248,10 @@ extension XMLIndexer {
     return "\(offset) - \(breakId)(\(breakType)) \n\(url)\n\n"
   }
 }
+enum AdType {
+  case instream
+  case outstream
+}
 class NonLinearView: UIView {
   var isAdHidden = true {
     didSet {
@@ -256,7 +260,7 @@ class NonLinearView: UIView {
     }
   }
   let image = ImageView()
-  let close = CloseButton(type: .system)
+  var close: UIButton!
   let group = ConstraintGroup()
   var adParameters: [String: String] = [:] {
     didSet {
@@ -291,15 +295,16 @@ class NonLinearView: UIView {
         default: break
         }
       }
-      guard let heightPercentage = Float(adParameters["height"] ?? "85") else { return }
+      guard let heightPercentage = Float(adParameters["height"] ?? "100") else { return }
       constrain(image, replace: self.image.imageSize) {
         $0.width == self.bounds.width
         $0.height == self.bounds.height * CGFloat(heightPercentage * 0.01)
       }
     }
   }
-  override init(frame: CGRect) {
-    super.init(frame: frame)
+  convenience init(type: AdType) {
+    self.init(frame: .zero)
+    close = type == .instream ? CloseButton(type: .system) : SquareCloseButton(type: .system)
     clipsToBounds = true
     image.clipsToBounds = true
     addSubview(image)
@@ -310,18 +315,29 @@ class NonLinearView: UIView {
     
     addSubview(close)
     constrain(close, image) {
-      $0.0.centerX == $0.1.right
-      $0.0.centerY == $0.1.top
-      $0.0.height == 44
-      $0.0.width == 44
+      if type == .instream {
+        $0.0.centerX == $0.1.right
+        $0.0.centerY == $0.1.top
+        $0.0.height == 44
+        $0.0.width == 44
+      } else {
+        $0.0.right == $0.1.right
+        $0.0.top == $0.1.top
+        $0.0.height == 14
+        $0.0.width == 14
+      }
     }
-
+    
     close.isHidden = true
     close.addTarget(self, action: #selector(NonLinearView.dismissAds), for: .touchUpInside)
     
     let tap = UITapGestureRecognizer(target: self, action: #selector(NonLinearView.clickThrough))
     image.isUserInteractionEnabled = true
     image.addGestureRecognizer(tap)
+
+  }
+  override init(frame: CGRect) {
+    super.init(frame: frame)
   }
   required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
@@ -396,6 +412,42 @@ class CloseButton: UIButton {
     let bezier2Path = UIBezierPath()
     bezier2Path.move(to: CGPoint(x: dx + 14.5, y: dy + 6.5))
     bezier2Path.addLine(to: CGPoint(x: dx + 6.5, y: dy + 14.5))
+    UIColor.white.setStroke()
+    bezier2Path.lineWidth = 1
+    bezier2Path.stroke()
+
+  }
+}
+class SquareCloseButton: UIButton {
+  override func draw(_ rect: CGRect) {
+    let color = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
+    
+    //// Rectangle Drawing
+    let rectanglePath = UIBezierPath(rect: CGRect(x: 1, y: 1, width: rect.width - 1, height: rect.height - 1))
+    color.setFill()
+    rectanglePath.fill()
+    UIColor.white.setStroke()
+    rectanglePath.lineWidth = 1
+    rectanglePath.stroke()
+    
+    
+    //// Bezier Drawing
+    let bezierPath = UIBezierPath()
+    bezierPath.move(to: CGPoint(x: 3, y: 11.5))
+    bezierPath.addLine(to: CGPoint(x: 11.5, y: 3))
+    color.setFill()
+    bezierPath.fill()
+    UIColor.white.setStroke()
+    bezierPath.lineWidth = 1
+    bezierPath.stroke()
+    
+    
+    //// Bezier 2 Drawing
+    let bezier2Path = UIBezierPath()
+    bezier2Path.move(to: CGPoint(x: 3, y: 3))
+    bezier2Path.addLine(to: CGPoint(x: 11.5, y: 11.5))
+    color.setFill()
+    bezier2Path.fill()
     UIColor.white.setStroke()
     bezier2Path.lineWidth = 1
     bezier2Path.stroke()
