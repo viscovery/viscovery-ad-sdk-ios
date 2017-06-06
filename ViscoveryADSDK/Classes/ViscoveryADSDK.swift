@@ -21,10 +21,14 @@ typealias Vast = XMLIndexer
   let contentVideoView: UIView
   var outstreamContainer: UIView?
   let instream = NonLinearView(type: .instream)
+  public var instreamOffset: CGFloat = 0 {
+    didSet {
+      self.instream.offset = (0.0...50.0).clamp(instreamOffset)
+    }
+  }
   let outstream = NonLinearView(type: .outstream)
   let correlator = Int(Date().timeIntervalSince1970)
   var timeObserver: Any?
-
   public init(player: AVPlayer, videoView: UIView, outstreamContainerView: UIView? = nil) {
     
     contentPlayer = player
@@ -106,6 +110,7 @@ typealias Vast = XMLIndexer
       AdsManager.adsLoader.requestAds(with: request)
     }
   }
+  
   func createAdTimeObserver(with nonlinears: [Vast]) -> Any? {
     if nonlinears.count == 0 { return nil }
     var times = [NSValue]()
@@ -272,17 +277,23 @@ class NonLinearView: UIView {
       configureConstrains(with: adParameters)
     }
   }
+  var offset: CGFloat = 0.0 {
+    didSet {
+      configureConstrains(with: adParameters)
+    }
+  }
   var clickThroughCallback: (() -> ())?
   func configureConstrains(with adParameters: [String: String]) {
     DispatchQueue.main.async { [image, group] in
       constrain(image, self, replace: group) {
+        //let offset = self.offset
         guard let positionOffset = adParameters["pos_value"] else { return }
         guard let alignOffset = adParameters["align_value"] else { return }
         
         if adParameters["position"] == "bottom" {
-          $0.bottom == $1.bottom - CGFloat(Float(positionOffset) ?? 0)
+          $0.bottom == $1.bottom - ( CGFloat(Float(positionOffset) ?? 0) + self.offset )
         } else {
-          $0.top == $1.top
+          $0.top == $1.top + self.offset
         }
         guard let align = adParameters["align"] else { return }
         switch align {
@@ -493,7 +504,6 @@ extension String {
     return interval
   }
 }
-
 extension UIImageView {
   func setImageWith(url: URL, contentMode mode: UIViewContentMode = .scaleAspectFit, completion: ((UIImage) -> ())? = nil) {
     contentMode = mode
@@ -522,5 +532,12 @@ extension URL {
       else { return }
       completionHandler?(data)
     }.resume()
+  }
+}
+extension ClosedRange {
+  func clamp(_ value : Bound) -> Bound {
+    return self.lowerBound > value ? self.lowerBound
+      : self.upperBound < value ? self.upperBound
+      : value
   }
 }

@@ -94,4 +94,9 @@ class Tests: XCTestCase {
                                               "height": "30"])
   }
   
+  func testClamp() {
+    XCTAssertEqual((0.0...50.0).clamp(-100), 0.0)
+    XCTAssertEqual((0.0...50.0).clamp(100), 50.0)
+    XCTAssertEqual((0.0...50.0).clamp(20), 20.0)
+  }
 }

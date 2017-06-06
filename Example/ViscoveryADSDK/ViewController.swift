@@ -30,6 +30,9 @@ class ViewController: UIViewController {
     
     adsManager.requestAds()
     
+    //you can adjust y-pos of the instream ads (0.0~50.0) in points
+    //adsManager.instreamOffset = 20.0
+    
   }
   func getFileURLFromDocumentFirst() -> URL? {
     let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
