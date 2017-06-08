@@ -58,12 +58,15 @@ Before you started you have to setup your AVPlayer and UIView that AVPlayerLayer
 ```swift
 var contentPlayer: AVPlayer?
 var adsManager: AdsManager!
+@IBOutlet weak var outstreamContainer: UIView!
 ```
 
 And initialize AdsManager
 
 ```swift
-adsManager = AdsManager(player: contentPlayer!, videoView: videoContainer)
+adsManager = AdsManager(player: contentPlayer!, 
+                     videoView: videoContainer, 
+        outstreamContainerView: outstreamContainer)
 ```
 
 The you can request ads the video will start automatically.
@@ -73,31 +76,7 @@ adsManager.requestAds()
 ```
 
 ## Full Example Source Code
-```swift
-import UIKit
-import VidSense
-import AVFoundation
-
-class ViewController: UIViewController {
-  @IBOutlet weak var videoContainer: VideoView!
-  var contentPlayer: AVPlayer?
-  var adsManager: AdsManager!
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    guard let contentURL = URL(string: "http://viscovery-vsp-dev.s3.amazonaws.com/sdkdemo/Videos/Mobile%20App_Demo%20Video%20(540p).mp4") else { return }
-    contentPlayer = AVPlayer(url: contentURL)
-    videoContainer.player = contentPlayer
-    adsManager = AdsManager(player: contentPlayer!, videoView: videoContainer)
-    
-    //Specify video url
-    adsManager.requestAds(videoURL: "https%3A%2F%2Ftw.yahoo.com%2F")
-    //Or from avplayer playitem
-    //adsManager.requestAds()
-
-  }
-}
-```
-
+[Code](https://github.com/viscovery/viscovery-ad-sdk-ios/blob/master/Example/ViscoveryADSDK/ViewController.swift)
 ####VideoView
 This class only for demo. you should replace it with any view that has `AVPlayerLayer` in it.
 
