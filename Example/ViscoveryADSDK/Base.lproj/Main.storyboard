@@ -23,10 +23,27 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9fR-ju-Qoz" customClass="VideoView" customModule="ViscoveryADSDK_Example" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="375" height="211"/>
+                                <subviews>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="8ub-Dt-QQX">
+                                        <rect key="frame" x="8" y="171" width="359" height="31"/>
+                                        <color key="minimumTrackTintColor" red="1" green="0.0" blue="0.0" alpha="0.75297162576687116" colorSpace="calibratedRGB"/>
+                                        <color key="maximumTrackTintColor" red="0.97446949599999999" green="0.97446949599999999" blue="0.97446949599999999" alpha="0.764366851993865" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="thumbTintColor" red="0.94117647059999998" green="0.13725490200000001" blue="0.078431372550000003" alpha="0.74928105828220859" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <action selector="updateWithSender:" destination="9fR-ju-Qoz" eventType="valueChanged" id="bBx-Ng-4d8"/>
+                                        </connections>
+                                    </slider>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="8ub-Dt-QQX" secondAttribute="bottom" constant="10" id="LZO-Uk-C58"/>
+                                    <constraint firstItem="8ub-Dt-QQX" firstAttribute="leading" secondItem="9fR-ju-Qoz" secondAttribute="leading" constant="10" id="Pky-cK-Cef"/>
                                     <constraint firstAttribute="width" secondItem="9fR-ju-Qoz" secondAttribute="height" multiplier="16:9" id="Psa-5S-TYk"/>
+                                    <constraint firstAttribute="trailing" secondItem="8ub-Dt-QQX" secondAttribute="trailing" constant="10" id="g2j-EU-h0Q"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="seekbar" destination="8ub-Dt-QQX" id="iAY-eE-BsO"/>
+                                </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HMG-XV-CRS">
                                 <rect key="frame" x="0.0" y="231" width="375" height="72"/>
