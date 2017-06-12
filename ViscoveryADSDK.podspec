@@ -10,7 +10,7 @@
 
 Pod::Spec.new do |s|
 s.name             = 'ViscoveryADSDK'
-s.version          = '1.2.1'
+s.version          = '1.2.2'
 s.summary          = 'Viscovery VidSense SDK'
 
 # This description is used to generate tags and improve search results.
@@ -34,7 +34,6 @@ s.source           = { :git => 'https://github.com/viscovery/viscovery-ad-sdk-io
 s.ios.deployment_target = '9.0'
 s.ios.frameworks = 'AVFoundation'
 s.source_files = 'ViscoveryADSDK/Classes/**/*'
-s.dependency 'GoogleAds-IMA-iOS-SDK', '~> 3.5'
 s.dependency 'SWXMLHash', '~> 3.0'
 
 end

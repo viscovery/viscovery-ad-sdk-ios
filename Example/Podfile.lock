@@ -1,8 +1,6 @@
 PODS:
-  - GoogleAds-IMA-iOS-SDK (3.5.1)
   - SWXMLHash (3.0.4)
-  - ViscoveryADSDK (1.2.1):
-    - GoogleAds-IMA-iOS-SDK (~> 3.5)
+  - ViscoveryADSDK (1.2.2):
     - SWXMLHash (~> 3.0)
 
 DEPENDENCIES:
@@ -13,9 +11,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  GoogleAds-IMA-iOS-SDK: d9c6ff5acaf34718cde1635e81256370968b856b
   SWXMLHash: 29d20b84692fc319ea8ed933058fe7d8d005139b
-  ViscoveryADSDK: 7ffa8c9bc69280c5655173a159322e3b202d8bab
+  ViscoveryADSDK: 66642074952692f667b96381cc84a59c251d3a3c
 
 PODFILE CHECKSUM: 63e2cf547f86bcf2f0ce1a7cb7a885332a8db951
 

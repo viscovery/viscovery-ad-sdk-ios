@@ -319,12 +319,6 @@ class LinearView: UIView {
   var player: AVPlayer? {
     set {
       (self.layer as! AVPlayerLayer).player = newValue
-      newValue?.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 60) , queue: .main) { _ in
-        guard let player = (self.layer as! AVPlayerLayer).player,
-          let current = player.currentItem
-          else { return }
-//        self.seekbar.value = Float(CMTimeGetSeconds(player.currentTime()) / CMTimeGetSeconds(current.duration))
-      }
     }
     get {
       return (self.layer as! AVPlayerLayer).player
