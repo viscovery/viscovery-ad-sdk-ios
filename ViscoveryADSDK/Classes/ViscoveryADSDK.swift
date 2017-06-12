@@ -7,17 +7,14 @@
 //
 
 import Foundation
-import GoogleInteractiveMediaAds
 import SWXMLHash
 import SafariServices
+import AVFoundation
 
 typealias Vast = XMLIndexer
 @objc public class AdsManager: NSObject {
   public static var apiKey: String?
   let contentPlayer: AVPlayer
-  let contentPlayhead: IMAAVPlayerContentPlayhead
-  static var adsLoader: IMAAdsLoader!
-  var adsManager: IMAAdsManager!
   let contentVideoView: UIView
   var outstreamContainer: UIView?
   let instream = NonLinearView(type: .instream)
@@ -27,12 +24,13 @@ typealias Vast = XMLIndexer
     }
   }
   let outstream = NonLinearView(type: .outstream)
+  let linearView = LinearView()
   let correlator = Int(Date().timeIntervalSince1970)
-  var timeObserver: Any?
+  var nonlinearTimingObserver: Any?
+  var linearTimingObserver: Any?
   public init(player: AVPlayer, videoView: UIView, outstreamContainerView: UIView? = nil) {
     
     contentPlayer = player
-    contentPlayhead = IMAAVPlayerContentPlayhead(avPlayer: contentPlayer)
     contentVideoView = videoView
     outstreamContainer = outstreamContainerView
     super.init()
@@ -60,19 +58,13 @@ typealias Vast = XMLIndexer
         $0.0.height == $0.1.height
       }
     }
-    AdsManager.adsLoader = IMAAdsLoader()
-    AdsManager.adsLoader.delegate = self
     
-    NotificationCenter.default.addObserver(
-      self,
-      selector: #selector(AdsManager.contentDidFinishPlaying(_:)),
-      name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
-      object: contentPlayer.currentItem
-    )
-  }
-  @objc func contentDidFinishPlaying(_ notification: Notification) {
-    if (notification.object as! AVPlayerItem) == contentPlayer.currentItem {
-      AdsManager.adsLoader.contentComplete()
+    contentVideoView.addSubview(linearView)
+    constrain(linearView, contentVideoView) {
+      $0.0.left == $0.1.left
+      $0.0.right == $0.1.right
+      $0.0.bottom == $0.1.bottom
+      $0.0.height == $0.1.height
     }
   }
   public func requestAds(videoURL: String? = nil) {
@@ -98,53 +90,130 @@ typealias Vast = XMLIndexer
         return
       }
       let xml = SWXMLHash.parse(vmap)
-      let nonlinears = xml["vmap:VMAP"]["vmap:AdBreak"].all.filter {
+      
+      let linears = xml["vmap:VMAP"]["vmap:AdBreak"].all.filter {
         print($0.debugDescription)
         let type: String = try! $0.value(ofAttribute: "breakType")
-        return type == "nonlinear"
+        return type == "linear"
       }
       
-      self.timeObserver = self.createAdTimeObserver(with: nonlinears)
+      self.linearTimingObserver = self.linearTimingObserver(with: linears)
       
-      let request = IMAAdsRequest(adsResponse: vmap, adDisplayContainer: IMAAdDisplayContainer(adContainer: self.contentVideoView, companionSlots: nil), contentPlayhead: self.contentPlayhead, userContext: nil)
-      AdsManager.adsLoader.requestAds(with: request)
+      let nonlinears = xml["vmap:VMAP"]["vmap:AdBreak"].all.filter {
+          print($0.debugDescription)
+          let type: String = try! $0.value(ofAttribute: "breakType")
+          return type == "nonlinear"
+      }
+
+      self.nonlinearTimingObserver = self.nonlinearTimingObserver(with: nonlinears)
     }
   }
-  
-  func createAdTimeObserver(with nonlinears: [Vast]) -> Any? {
+  func linearTimingObserver(with linears: [Vast]) -> Any? {
+    var times = [NSValue]()
+    var timesAds = [Int: XMLIndexer]()
+    for ad in linears {
+      if let offset: String = try? ad.value(ofAttribute: "timeOffset") {
+        
+        if offset == "00:00:00.000" {
+          self.fetchAdTagUri(ad: ad, linearType: .preroll)
+        } else {
+          let time = CMTime(seconds: offset.toTimeInterval, preferredTimescale: 1)
+          timesAds[Int(offset.toTimeInterval)] = ad
+          times.append(NSValue(time: time))
+        }
+      }
+    }
+    return contentPlayer.addBoundaryTimeObserver(forTimes: times, queue: .main) {
+      let interval = Int(CMTimeGetSeconds(self.contentPlayer.currentTime()))
+      guard let ad = timesAds[interval] else { return }
+      self.fetchAdTagUri(ad: ad, linearType: .midroll)
+    }
+  }
+  func nonlinearTimingObserver(with nonlinears: [Vast]) -> Any? {
     if nonlinears.count == 0 { return nil }
     var times = [NSValue]()
     var timesAds = [Int: XMLIndexer]()
     
     for ad in nonlinears {
       if let offset: String = try? ad.value(ofAttribute: "timeOffset") {
-        let time = CMTime(seconds: offset.toTimeInterval, preferredTimescale: 1)
-        timesAds[Int(offset.toTimeInterval)] = ad
-        times.append(NSValue(time: time))
+            let time = CMTime(seconds: offset.toTimeInterval, preferredTimescale: 1)
+            timesAds[Int(offset.toTimeInterval)] = ad
+            times.append(NSValue(time: time))
       }
     }
 
     return contentPlayer.addBoundaryTimeObserver(forTimes: times, queue: .main) {
       let interval = Int(CMTimeGetSeconds(self.contentPlayer.currentTime()))
       guard let ad = timesAds[interval] else { return }
-      guard let tag = ad["vmap:AdSource"]["vmap:AdTagURI"].element?.text?.trimmed else { return }
-      guard let url = URL(string: tag.replacingOccurrences(of: "[timestamp]", with: "\(self.correlator)")) else { return }
-      guard let type: String =  try? ad["vmap:Extensions"]["vmap:Extension"].element!.value(ofAttribute: "type") else { return }
-      url.fetch { [type] in
-        let vast = SWXMLHash.parse($0)
-        switch vast["VAST"]["Ad"] {
-        case .Element:
-          self.handleAd(vast: vast, type: type)
-        case .XMLError:
-          print("Error: Vast is Empty")
-        default:
-          print("Error: Vast Error")
+      self.fetchAdTagUri(ad: ad)
+    }
+  }
+  func fetchAdTagUri(ad: Vast, linearType: AdType? = nil) {
+    guard let tag = ad["vmap:AdSource"]["vmap:AdTagURI"].element?.text?.trimmed else { return }
+    guard let url = URL(string: tag.replacingOccurrences(of: "[timestamp]", with: "\(self.correlator)")) else { return }
+    guard let type: String =  try? ad["vmap:Extensions"]["vmap:Extension"].element!.value(ofAttribute: "type") else { return }
+    url.fetch { [type, linearType] in
+      let vast = SWXMLHash.parse($0)
+      switch vast["VAST"]["Ad"] {
+      case .Element:
+        if let linearType = linearType {
+          self.handleLinearAd(vast: vast, type: linearType)
+        } else {
+          self.handleNonLinearAd(vast: vast, type: type)
         }
+      case .XMLError:
+        print("Error: Vast is Empty")
+      default:
+        print("Error: Vast Error")
       }
     }
   }
-  
-  func handleAd(vast: Vast, type: String) {
+  func handleLinearAd(vast: Vast, type: AdType) {
+    guard let mp4 = try? vast["VAST"]["Ad"]["InLine"]["Creatives"]["Creative"]["Linear"]["MediaFiles"]["MediaFile"].withAttr("type", "video/mp4").element?.text,
+      let unwrap = mp4,
+      let url = URL(string:unwrap) else { return }
+    
+    let player = AVPlayer(url: url)
+    linearView.player = player
+    while !player.ready {
+    }
+    contentPlayer.pause()
+    player.play()
+    linearView.isHidden = false
+    
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(AdsManager.adDidFinishPlaying),
+      name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
+      object: linearView.player?.currentItem
+    )
+    
+    guard let skipoffset: String = vast["VAST"]["Ad"]["InLine"]["Creatives"]["Creative"]["Linear"].element?.value(ofAttribute: "skipoffset") else { return }
+    let time = CMTime(seconds: skipoffset.toTimeInterval, preferredTimescale: 1)
+    linearView.player?.addBoundaryTimeObserver(forTimes: [NSValue(time: time)], queue: .main) {
+      self.linearView.skip.isHidden = false
+    }
+    linearView.skipDidTapHandler = {
+      self.linearView.player?.pause()
+      self.linearView.isHidden = true
+      self.contentPlayer.play()
+    }
+    linearView.learnMoreDidTapHandler = {
+      self.linearView.player?.pause()
+      self.linearView.isHidden = true
+    }
+    linearView.player?.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 1) , queue: .main) { _ in
+      guard let player = self.linearView.player ,
+        let current = player.currentItem
+        else { return }
+      self.linearView.duration.text = "Ad - " + (current.duration - player.currentTime()).durationText
+    }
+  }
+  func adDidFinishPlaying() {
+    linearView.isHidden = true;
+    contentPlayer.play()
+  }
+  func handleNonLinearAd(vast: Vast, type: String) {
     let nonlinear = vast["VAST"]["Ad"]["InLine"]["Creatives"]["Creative"]["NonLinearAds"]["NonLinear"]
     let nonlinearView = type == "instream" ? instream : outstream
     guard let error = vast["VAST"]["Ad"]["InLine"]["Error"].element?.text,
@@ -188,48 +257,28 @@ typealias Vast = XMLIndexer
     }
   }
 }
-extension AdsManager: IMAAdsManagerDelegate {
-  public func adsManager(_ adsManager: IMAAdsManager!, didReceive event: IMAAdEvent!) {
-    if event.type == IMAAdEventType.LOADED {
-      // When the SDK notifies us that ads have been loaded, play them.
-      adsManager.start()
+extension CMTime {
+  var durationText:String {
+    let totalSeconds = CMTimeGetSeconds(self)
+    let hours:Int = Int(totalSeconds / 3600)
+    let minutes:Int = Int(totalSeconds.truncatingRemainder(dividingBy: 3600) / 60)
+    let seconds:Int = Int(totalSeconds.truncatingRemainder(dividingBy: 60))
+    
+    if hours > 0 {
+      return String(format: "%i:%02i:%02i", hours, minutes, seconds)
+    } else {
+      return String(format: "%01i:%02i", minutes, seconds)
     }
   }
-  
-  public func adsManager(_: IMAAdsManager!, didReceive error: IMAAdError!) {
-    
-    // Something went wrong with the ads manager after ads were loaded. Log the error and play the
-    // content.
-    print("AdsManager error: \(error.message)")
-    contentPlayer.play()
-  }
-  
-  public func adsManagerDidRequestContentPause(_: IMAAdsManager!) {
-    // The SDK is going to play ads, so pause the content.
-    contentPlayer.pause()
-  }
-  
-  public func adsManagerDidRequestContentResume(_: IMAAdsManager!) {
-    // The SDK is done playing ads (at least for now), so resume the content.
-    contentPlayer.play()
-  }
-  
 }
-extension AdsManager: IMAAdsLoaderDelegate {
-  public func adsLoader(_: IMAAdsLoader!, adsLoadedWith adsLoadedData: IMAAdsLoadedData!) {
-    adsManager = adsLoadedData.adsManager
-    adsManager.delegate = self
-    // Create ads rendering settings and tell the SDK to use the in-app browser.
-    let adsRenderingSettings = IMAAdsRenderingSettings()
-    // adsRenderingSettings.webOpenerPresentingController = self
+extension AVPlayer {
+  var ready:Bool {
+    let timeRange = currentItem?.loadedTimeRanges.first as? CMTimeRange
+    guard let duration = timeRange?.duration else { return false }
+    let timeLoaded = Int(duration.value) / Int(duration.timescale) // value/timescale = seconds
+    let loaded = timeLoaded > 0
     
-    // Initialize the ads manager.
-    adsManager.initialize(with: adsRenderingSettings)
-  }
-  
-  public func adsLoader(_: IMAAdsLoader!, failedWith adErrorData: IMAAdLoadingErrorData!) {
-    print("Error loading ads: \(adErrorData.adError.message)")
-    contentPlayer.play()
+    return status == .readyToPlay && loaded
   }
 }
 extension AdsManager {
@@ -256,6 +305,74 @@ extension XMLIndexer {
 enum AdType {
   case instream
   case outstream
+  case preroll
+  case midroll
+}
+class LinearView: UIView {
+  let learnMore = UIButton(type: .system)
+  let skip = UIButton(type: .system)
+  var skipDidTapHandler: (()->())? = nil
+  var learnMoreDidTapHandler: (()->())? = nil
+
+  var duration = UILabel()
+
+  var player: AVPlayer? {
+    set {
+      (self.layer as! AVPlayerLayer).player = newValue
+      newValue?.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 60) , queue: .main) { _ in
+        guard let player = (self.layer as! AVPlayerLayer).player,
+          let current = player.currentItem
+          else { return }
+//        self.seekbar.value = Float(CMTimeGetSeconds(player.currentTime()) / CMTimeGetSeconds(current.duration))
+      }
+    }
+    get {
+      return (self.layer as! AVPlayerLayer).player
+    }
+  }
+  override class var layerClass: AnyClass {
+    return AVPlayerLayer.self
+  }
+  convenience init() {
+    self.init(frame: .zero)
+    addSubview(skip)
+    constrain(skip,self) {
+      $0.right == $1.right - 20
+      $0.bottom == $1.bottom - 20
+    }
+    skip.setTitleColor(.white, for: .normal)
+    skip.setTitle(" Skip Ad ", for: .normal)
+    skip.layer.borderColor = UIColor.white.cgColor
+    skip.layer.borderWidth = 0.5
+    skip.addTarget(self, action: #selector(LinearView.skipDidTap), for: .touchUpInside)
+    skip.isHidden = true
+    
+    addSubview(learnMore)
+    constrain(learnMore,self) {
+      $0.top == $1.top
+      $0.right == $1.right - 15
+    }
+    
+    learnMore.setTitleColor(.white, for: .normal)
+    learnMore.setTitle("Learn More", for: .normal)
+    learnMore.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+    learnMore.addTarget(self, action: #selector(LinearView.learnMoreDidTap), for: .touchUpInside)
+
+    addSubview(duration)
+    constrain(duration,self) {
+      $0.left == $1.left + 15
+      $0.bottom == $1.bottom -  30
+    }
+    duration.textColor = .white
+    duration.text = "Ad - 0:00"
+    duration.font = UIFont.systemFont(ofSize: 10)
+  }
+  func skipDidTap() {
+    skipDidTapHandler?()
+  }
+  func learnMoreDidTap() {
+    learnMoreDidTapHandler?()
+  }
 }
 class NonLinearView: UIView {
   var isAdHidden = true {

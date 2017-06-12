@@ -32,6 +32,7 @@ s.author           = { 'boska lee' => 'boska.lee@viscovery.com' }
 s.source           = { :git => 'https://github.com/viscovery/viscovery-ad-sdk-ios.git', :tag => s.version.to_s }
 
 s.ios.deployment_target = '9.0'
+s.ios.frameworks = 'AVFoundation'
 s.source_files = 'ViscoveryADSDK/Classes/**/*'
 s.dependency 'GoogleAds-IMA-iOS-SDK', '~> 3.5'
 s.dependency 'SWXMLHash', '~> 3.0'
