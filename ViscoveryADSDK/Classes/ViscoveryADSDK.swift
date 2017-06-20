@@ -498,7 +498,8 @@ class NonLinearView: UIView {
   }
   convenience init(type: AdType) {
     self.init(frame: .zero)
-    close = type == .instream ? CloseButton(type: .system) : SquareCloseButton(type: .system)
+    close = UIButton(type: .custom)
+    close.setImage(UIImage(named: "close", in:  Bundle(for: LinearView.self), compatibleWith: nil), for: .normal)
     clipsToBounds = true
     image.clipsToBounds = true
     addSubview(image)
@@ -509,17 +510,10 @@ class NonLinearView: UIView {
     
     addSubview(close)
     constrain(close, image) {
-      if type == .instream {
-        $0.0.centerX == $0.1.right
-        $0.0.centerY == $0.1.top
-        $0.0.height == 44
-        $0.0.width == 44
-      } else {
-        $0.0.right == $0.1.right
-        $0.0.top == $0.1.top
-        $0.0.height == 14
-        $0.0.width == 14
-      }
+      $0.0.left == $0.1.left
+      $0.0.top == $0.1.top
+      $0.0.height == 20
+      $0.0.width == 20
     }
     
     close.isHidden = true
