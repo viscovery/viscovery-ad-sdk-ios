@@ -175,13 +175,13 @@ typealias Vast = XMLIndexer
     
     contentPlayer.pause()
     
-    DispatchQueue.main.async {
-      self.linearView.isHidden = false
-    }
-    
     let player = AVPlayer(url: url)
     linearView.videoView.player = player
     linearView.videoView.player?.play()
+
+    DispatchQueue.main.async {
+      self.linearView.isHidden = false
+    }
     linearView.skip.isHidden = false
 
     NotificationCenter.default.addObserver(
