@@ -1,0 +1,5 @@
+use_frameworks!
+
+target 'ObjcSwiftTest' do
+  pod 'ViscoveryADSDK', :git => 'https://github.com/viscovery/viscovery-ad-sdk-ios.git'
+end
