@@ -173,21 +173,25 @@ typealias Vast = XMLIndexer
       let unwrap = mp4,
       let url = URL(string:unwrap) else { return }
     
-    let player = AVPlayer(url: url)
-    linearView.player = player
     contentPlayer.pause()
-    linearView.isHidden = false
+    
+    DispatchQueue.main.async {
+      self.linearView.isHidden = false
+    }
+    
+    let player = AVPlayer(url: url)
+    linearView.videoView.player = player
+    linearView.videoView.player?.play()
     linearView.skip.isHidden = false
-    player.play()
 
     NotificationCenter.default.addObserver(
       self,
       selector: #selector(AdsManager.adDidFinishPlaying),
       name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
-      object: linearView.player?.currentItem
+      object: linearView.videoView.player?.currentItem
     )
     linearView.skipDidTapHandler = {
-      self.linearView.player?.pause()
+      self.linearView.videoView.player?.pause()
       self.linearView.isHidden = true
       self.contentPlayer.play()
     }
@@ -203,14 +207,13 @@ typealias Vast = XMLIndexer
       presenter.present(SFSafariViewController(url: clickThroughURL), animated: true)
       clickTrackingURL.fetch()
       
-      self.linearView.player?.pause()
-      self.linearView.isHidden = true
+      self.linearView.videoView.player?.pause()
     }
     guard let skipoffset: String = vast["VAST"]["Ad"]["InLine"]["Creatives"]["Creative"]["Linear"].element?.value(ofAttribute: "skipoffset") else { return }
     let skipTime = CMTime(seconds: skipoffset.toTimeInterval, preferredTimescale: 1)
 
-    linearView.player?.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 1) , queue: .main) { _ in
-      guard let player = self.linearView.player ,
+    linearView.videoView.player?.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 1) , queue: .main) { _ in
+      guard let player = self.linearView.videoView.player ,
         let current = player.currentItem
         else { return }
       
@@ -225,8 +228,8 @@ typealias Vast = XMLIndexer
       }
       self.linearView.duration.text = "Ad · " + (current.duration - player.currentTime()).durationText
     }
-    linearView.player?.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 60) , queue: .main) { _ in
-      guard let player = self.linearView.player ,
+    linearView.videoView.player?.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 60) , queue: .main) { _ in
+      guard let player = self.linearView.videoView.player ,
         let current = player.currentItem
         else { return }
       let progress = CGFloat(CMTimeGetSeconds(player.currentTime()) / CMTimeGetSeconds(current.duration))
@@ -340,17 +343,7 @@ enum AdType {
   case preroll
   case midroll
 }
-class LinearView: UIView {
-  let learnMore = UIButton(type: .custom)
-  let skip = UIButton(type: .custom)
-  let progress = UIView()
-  let progressBackground = UIView()
-  let progressLayout = ConstraintGroup()
-  var skipDidTapHandler: (()->())? = nil
-  var learnMoreDidTapHandler: (()->())? = nil
-
-  var duration = UILabel()
-
+class VideoView: UIView {
   var player: AVPlayer? {
     set {
       (self.layer as! AVPlayerLayer).player = newValue
@@ -362,8 +355,25 @@ class LinearView: UIView {
   override class var layerClass: AnyClass {
     return AVPlayerLayer.self
   }
+}
+class LinearView: UIView {
+  let videoView = VideoView()
+  let learnMore = UIButton(type: .custom)
+  let skip = UIButton(type: .custom)
+  let progress = UIView()
+  let progressBackground = UIView()
+  let progressLayout = ConstraintGroup()
+  var skipDidTapHandler: (()->())? = nil
+  var learnMoreDidTapHandler: (()->())? = nil
+
+  var duration = UILabel()
+
   convenience init() {
     self.init(frame: .zero)
+    addSubview(videoView)
+    constrain(videoView, self) {
+      $0.edges == $1.edges
+    }
     addSubview(skip)
     constrain(skip,self) {
       $0.right == $1.right
@@ -440,7 +450,7 @@ class LinearView: UIView {
     }
   }
   func tap() {
-    player?.rate == 1.0 ? player?.pause() : player?.play()
+    videoView.player?.rate == 1.0 ? videoView.player?.pause() : videoView.player?.play()
   }
 }
 class NonLinearView: UIView {

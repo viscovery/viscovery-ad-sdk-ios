@@ -5,17 +5,17 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.001501">
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.001419">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: cocoapods" time="4.184174">
+      <testcase classname="fastlane.lanes" name="1: cocoapods" time="2.891907">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: gym" time="96.782426">
+      <testcase classname="fastlane.lanes" name="2: gym" time="62.213048">
         
       </testcase>
     
