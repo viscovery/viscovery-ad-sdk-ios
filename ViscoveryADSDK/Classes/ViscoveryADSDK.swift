@@ -230,7 +230,8 @@ typealias Vast = XMLIndexer
         let current = player.currentItem
         else { return }
       let progress = CGFloat(CMTimeGetSeconds(player.currentTime()) / CMTimeGetSeconds(current.duration))
-      self.linearView.updateBar(progress: progress)
+      guard !(progress.isNaN || progress.isInfinite) else { return }
+      self.linearView.updateBar(progress: (0.0...1.0).clamp(progress))
     }
   }
   func adDidFinishPlaying() {
@@ -284,6 +285,7 @@ typealias Vast = XMLIndexer
 extension CMTime {
   var durationText: String {
     let totalSeconds = CMTimeGetSeconds(self)
+    guard !(totalSeconds.isNaN || totalSeconds.isInfinite) else { return "" }
     let hours:Int = Int(totalSeconds / 3600)
     let minutes:Int = Int(totalSeconds.truncatingRemainder(dividingBy: 3600) / 60)
     let seconds:Int = Int(totalSeconds.truncatingRemainder(dividingBy: 60))
@@ -296,6 +298,7 @@ extension CMTime {
   }
   var durationTextOnlySeconds: String {
     let totalSeconds = CMTimeGetSeconds(self)
+    guard !(totalSeconds.isNaN || totalSeconds.isInfinite) else { return "" }
     let seconds:Int = Int(totalSeconds.truncatingRemainder(dividingBy: 60))
     return String(format: "%i", seconds)
   }

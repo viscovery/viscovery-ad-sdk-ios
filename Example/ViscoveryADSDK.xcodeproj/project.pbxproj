@@ -242,6 +242,7 @@
 						CreatedOnToolsVersion = 6.3.1;
 						DevelopmentTeam = LUE595HJUQ;
 						LastSwiftMigration = 0820;
+						ProvisioningStyle = Automatic;
 					};
 					8D0615BF1ED6CEEB006444DC = {
 						CreatedOnToolsVersion = 8.3.2;
@@ -526,6 +527,7 @@
 			baseConfigurationReference = C58539FC0C5CA6A5693B1E5A /* Pods-ViscoveryADSDK_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = LUE595HJUQ;
 				INFOPLIST_FILE = ViscoveryADSDK/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -533,6 +535,7 @@
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = viscovery.demo.vidsense;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -542,6 +545,7 @@
 			baseConfigurationReference = 2F2385FED0B6C245A610C7A8 /* Pods-ViscoveryADSDK_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = LUE595HJUQ;
 				INFOPLIST_FILE = ViscoveryADSDK/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -549,6 +553,7 @@
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = viscovery.demo.vidsense;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
