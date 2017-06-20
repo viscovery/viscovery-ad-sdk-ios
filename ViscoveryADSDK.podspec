@@ -34,6 +34,7 @@ s.source           = { :git => 'https://github.com/viscovery/viscovery-ad-sdk-io
 s.ios.deployment_target = '9.0'
 s.ios.frameworks = 'AVFoundation'
 s.source_files = 'ViscoveryADSDK/Classes/**/*'
+s.resources = 'ViscoveryADSDK/Assets/*.xcassets'
 s.dependency 'SWXMLHash', '~> 3.0'
 
 end

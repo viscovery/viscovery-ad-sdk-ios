@@ -175,38 +175,62 @@ typealias Vast = XMLIndexer
     
     let player = AVPlayer(url: url)
     linearView.player = player
-    while !player.ready {
-    }
     contentPlayer.pause()
-    player.play()
     linearView.isHidden = false
-    
+    linearView.skip.isHidden = false
+    player.play()
+
     NotificationCenter.default.addObserver(
       self,
       selector: #selector(AdsManager.adDidFinishPlaying),
       name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
       object: linearView.player?.currentItem
     )
-    
-    guard let skipoffset: String = vast["VAST"]["Ad"]["InLine"]["Creatives"]["Creative"]["Linear"].element?.value(ofAttribute: "skipoffset") else { return }
-    let time = CMTime(seconds: skipoffset.toTimeInterval, preferredTimescale: 1)
-    linearView.player?.addBoundaryTimeObserver(forTimes: [NSValue(time: time)], queue: .main) {
-      self.linearView.skip.isHidden = false
-    }
     linearView.skipDidTapHandler = {
       self.linearView.player?.pause()
       self.linearView.isHidden = true
       self.contentPlayer.play()
     }
-    linearView.learnMoreDidTapHandler = {
+    linearView.learnMoreDidTapHandler = { [vast] in
+      guard
+        let clickThrough = vast["VAST"]["Ad"]["InLine"]["Creatives"]["Creative"]["Linear"]["VideoClicks"]["ClickThrough"].element?.text,
+        let clickTracking = vast["VAST"]["Ad"]["InLine"]["Creatives"]["Creative"]["Linear"]["VideoClicks"]["ClickTracking"].element?.text,
+        let clickThroughURL = URL(string: clickThrough),
+        let clickTrackingURL = URL(string: clickTracking),
+        let presenter = UIApplication.shared.keyWindow?.rootViewController
+      else { return }
+      
+      presenter.present(SFSafariViewController(url: clickThroughURL), animated: true)
+      clickTrackingURL.fetch()
+      
       self.linearView.player?.pause()
       self.linearView.isHidden = true
     }
+    guard let skipoffset: String = vast["VAST"]["Ad"]["InLine"]["Creatives"]["Creative"]["Linear"].element?.value(ofAttribute: "skipoffset") else { return }
+    let skipTime = CMTime(seconds: skipoffset.toTimeInterval, preferredTimescale: 1)
+
     linearView.player?.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 1) , queue: .main) { _ in
       guard let player = self.linearView.player ,
         let current = player.currentItem
         else { return }
-      self.linearView.duration.text = "Ad - " + (current.duration - player.currentTime()).durationText
+      
+      if player.currentTime() > skipTime {
+        self.linearView.skip.isEnabled = true
+        self.linearView.skip.setImage(UIImage(named: "skip", in:  Bundle(for: LinearView.self), compatibleWith: nil), for: .normal)
+        self.linearView.skip.setTitle("Skip Ad", for: .normal)
+      } else {
+        self.linearView.skip.isEnabled = false
+        self.linearView.skip.setImage(nil, for: .normal)
+        self.linearView.skip.setTitle("You can skip ad in \((skipTime - player.currentTime()).durationTextOnlySeconds)s", for: .normal)
+      }
+      self.linearView.duration.text = "Ad · " + (current.duration - player.currentTime()).durationText
+    }
+    linearView.player?.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 60) , queue: .main) { _ in
+      guard let player = self.linearView.player ,
+        let current = player.currentItem
+        else { return }
+      let progress = CGFloat(CMTimeGetSeconds(player.currentTime()) / CMTimeGetSeconds(current.duration))
+      self.linearView.updateBar(progress: progress)
     }
   }
   func adDidFinishPlaying() {
@@ -258,7 +282,7 @@ typealias Vast = XMLIndexer
   }
 }
 extension CMTime {
-  var durationText:String {
+  var durationText: String {
     let totalSeconds = CMTimeGetSeconds(self)
     let hours:Int = Int(totalSeconds / 3600)
     let minutes:Int = Int(totalSeconds.truncatingRemainder(dividingBy: 3600) / 60)
@@ -269,6 +293,11 @@ extension CMTime {
     } else {
       return String(format: "%01i:%02i", minutes, seconds)
     }
+  }
+  var durationTextOnlySeconds: String {
+    let totalSeconds = CMTimeGetSeconds(self)
+    let seconds:Int = Int(totalSeconds.truncatingRemainder(dividingBy: 60))
+    return String(format: "%i", seconds)
   }
 }
 extension AVPlayer {
@@ -309,8 +338,11 @@ enum AdType {
   case midroll
 }
 class LinearView: UIView {
-  let learnMore = UIButton(type: .system)
-  let skip = UIButton(type: .system)
+  let learnMore = UIButton(type: .custom)
+  let skip = UIButton(type: .custom)
+  let progress = UIView()
+  let progressBackground = UIView()
+  let progressLayout = ConstraintGroup()
   var skipDidTapHandler: (()->())? = nil
   var learnMoreDidTapHandler: (()->())? = nil
 
@@ -331,41 +363,81 @@ class LinearView: UIView {
     self.init(frame: .zero)
     addSubview(skip)
     constrain(skip,self) {
-      $0.right == $1.right - 20
-      $0.bottom == $1.bottom - 20
+      $0.right == $1.right
+      $0.bottom == $1.bottom - 36
+      $0.height == 25
     }
     skip.setTitleColor(.white, for: .normal)
-    skip.setTitle(" Skip Ad ", for: .normal)
-    skip.layer.borderColor = UIColor.white.cgColor
-    skip.layer.borderWidth = 0.5
+    skip.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+    skip.setTitle("", for: .normal)
+    skip.semanticContentAttribute = .forceRightToLeft
+    skip.backgroundColor = #colorLiteral(red: 0.1019607843, green: 0.03921568627, blue: 0.03921568627, alpha: 0.4)
     skip.addTarget(self, action: #selector(LinearView.skipDidTap), for: .touchUpInside)
     skip.isHidden = true
+    skip.centerTextAndImage(spacing: 8)
+    
+    backgroundColor = .black
     
     addSubview(learnMore)
     constrain(learnMore,self) {
-      $0.top == $1.top
-      $0.right == $1.right - 15
+      $0.top == $1.top + 10
+      $0.right == $1.right
+      $0.height == 48
+      $0.width == 160
     }
     
     learnMore.setTitleColor(.white, for: .normal)
-    learnMore.setTitle("Learn More", for: .normal)
-    learnMore.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+    let title = NSAttributedString(string: "Learn More", attributes: [NSUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue, NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont.systemFont(ofSize: 14)])
+    learnMore.setAttributedTitle(title, for: .normal)
+    learnMore.setImage(UIImage(named: "more", in:  Bundle(for: LinearView.self), compatibleWith: nil), for: .normal)
+    learnMore.semanticContentAttribute = .forceRightToLeft
+    learnMore.centerTextAndImage(spacing: 8)
+    learnMore.contentVerticalAlignment = .top
+    learnMore.contentHorizontalAlignment = .right
     learnMore.addTarget(self, action: #selector(LinearView.learnMoreDidTap), for: .touchUpInside)
 
     addSubview(duration)
     constrain(duration,self) {
-      $0.left == $1.left + 15
-      $0.bottom == $1.bottom -  30
+      $0.left == $1.left + 8
+      $0.bottom == $1.bottom - 9
     }
     duration.textColor = .white
-    duration.text = "Ad - 0:00"
-    duration.font = UIFont.systemFont(ofSize: 10)
+    duration.text = ""
+    duration.font = UIFont.systemFont(ofSize: 12)
+    
+    progressBackground.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.6)
+    addSubview(progressBackground)
+    constrain(progressBackground,self) {
+      $0.height == 4
+      $0.left == $1.left
+      $0.right == $1.right
+      $0.bottom == $1.bottom
+    }
+    
+    progress.backgroundColor = #colorLiteral(red: 0.998096168, green: 0.7577474117, blue: 0.003219177248, alpha: 1)
+    progressBackground.addSubview(progress)
+    updateBar(progress: 0.0)
+    
+    let tap = UITapGestureRecognizer(target: self, action: #selector(LinearView.tap))
+    addGestureRecognizer(tap)
+
   }
   func skipDidTap() {
     skipDidTapHandler?()
   }
   func learnMoreDidTap() {
     learnMoreDidTapHandler?()
+  }
+  func updateBar(progress: CGFloat) {
+    constrain(self.progress,self.progressBackground, replace: progressLayout) {
+      $0.left == $1.left
+      $0.top == $1.top
+      $0.bottom == $1.bottom
+      $0.width == $1.width * progress
+    }
+  }
+  func tap() {
+    player?.rate == 1.0 ? player?.pause() : player?.play()
   }
 }
 class NonLinearView: UIView {
@@ -506,6 +578,14 @@ class ImageView: UIImageView {
       $0.width == size.width
       $0.height == size.height
     }
+  }
+}
+extension UIButton {
+  func centerTextAndImage(spacing: CGFloat) {
+    let insetAmount = spacing / 2
+    imageEdgeInsets = UIEdgeInsets(top: 0, left: insetAmount, bottom: 0, right: -insetAmount)
+    titleEdgeInsets = UIEdgeInsets(top: 0, left: -insetAmount, bottom: 0, right: insetAmount)
+    contentEdgeInsets = UIEdgeInsets(top: 0, left: insetAmount + 8, bottom: 0, right: insetAmount + 16)
   }
 }
 class CloseButton: UIButton {
