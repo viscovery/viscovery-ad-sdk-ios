@@ -9,5 +9,6 @@ lane :ota do
       export_method: "enterprise",
       clean: false
   )
-end
 
+  sh "cd .. && s3cmd put --acl-public ViscoveryADSDK_Example.ipa s3://viscovery-vsp-dev/sdkdemo/ViscoveryADSDK_Example.ipa"
+end
