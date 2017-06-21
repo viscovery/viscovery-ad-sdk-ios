@@ -458,6 +458,7 @@ class NonLinearView: UIView {
     didSet {
       image.isHidden = isAdHidden
       close.isHidden = isAdHidden
+      isHidden = isAdHidden
     }
   }
   let image = ImageView()
@@ -535,6 +536,8 @@ class NonLinearView: UIView {
     let tap = UITapGestureRecognizer(target: self, action: #selector(NonLinearView.clickThrough))
     image.isUserInteractionEnabled = true
     image.addGestureRecognizer(tap)
+    
+    isHidden = true
 
   }
   override init(frame: CGRect) {
