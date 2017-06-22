@@ -181,6 +181,7 @@ enum AdType {
     
     DispatchQueue.main.async {
       self.linearView.isHidden = false
+      vast.impression()
     }
     linearView.skip.isHidden = false
     
@@ -244,12 +245,8 @@ enum AdType {
   func handleNonLinearAd(vast: Vast, type: String) {
     let nonlinear = vast["VAST"]["Ad"]["InLine"]["Creatives"]["Creative"]["NonLinearAds"]["NonLinear"]
     let nonlinearView = type == "instream" ? instream : outstream
-    guard let error = vast["VAST"]["Ad"]["InLine"]["Error"].element?.text,
-      let errorURL = URL(string: error) else {
-      return
-    }
     guard let resourceURL = nonlinear["StaticResource"].element?.text else {
-      errorURL.fetch()
+      vast.error()
       return
     }
     if let adParameters = nonlinear["AdParameters"].element?.text?.toParameters {
@@ -271,10 +268,8 @@ enum AdType {
           nonlinearView.isAdHidden = true
         }
       }
-      if let impression = vast["VAST"]["Ad"]["InLine"]["Impression"].element?.text,
-        let url = URL(string: impression) {
-        url.fetch()
-      }
+ 
+      vast.impression()
       
       if let start = try! vast["VAST"]["Ad"]["InLine"]["Creatives"]["Creative"]["NonLinearAds"]["TrackingEvents"]["Tracking"].withAttr("event", "start").element,
         let text = start.text,

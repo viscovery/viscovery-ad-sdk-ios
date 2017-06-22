@@ -146,3 +146,15 @@ extension ClosedRange {
       : value
   }
 }
+extension Vast {
+  func impression() {
+    guard let impression = self["VAST"]["Ad"]["InLine"]["Impression"].element?.text,
+      let url = URL(string: impression) else { return }
+    url.fetch()
+  }
+  func error() {
+    guard let error = self["VAST"]["Ad"]["InLine"]["Error"].element?.text,
+      let url = URL(string: error) else { return }
+    url.fetch()
+  }
+}
