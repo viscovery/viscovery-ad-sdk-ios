@@ -49,31 +49,21 @@ enum AdType {
     contentVideoView.addSubview(instream)
     
     constrain(instream, contentVideoView) {
-      $0.0.left == $0.1.left
-      $0.0.right == $0.1.right
-      $0.0.bottom == $0.1.bottom
-      $0.0.height == $0.1.height
-    }
-    
-    if let outstreamContainer = outstreamContainer {
-      for v in outstreamContainer.subviews.filter({ $0 is NonLinearView }) {
-        v.removeFromSuperview()
-      }
-      outstreamContainer.addSubview(outstream)
-      constrain(outstream, outstreamContainer) {
-        $0.0.left == $0.1.left
-        $0.0.right == $0.1.right
-        $0.0.bottom == $0.1.bottom
-        $0.0.height == $0.1.height
-      }
+      $0.edges == $1.edges
     }
     
     contentVideoView.addSubview(linearView)
     constrain(linearView, contentVideoView) {
-      $0.0.left == $0.1.left
-      $0.0.right == $0.1.right
-      $0.0.bottom == $0.1.bottom
-      $0.0.height == $0.1.height
+      $0.edges == $1.edges
+    }
+    
+    guard let outstreamContainer = outstreamContainer else { return }
+    for v in outstreamContainer.subviews.filter({ $0 is NonLinearView }) {
+      v.removeFromSuperview()
+    }
+    outstreamContainer.addSubview(outstream)
+    constrain(outstream, outstreamContainer) {
+      $0.edges == $1.edges
     }
   }
   public func requestAds(videoURL: String? = nil) {
@@ -117,6 +107,7 @@ enum AdType {
       self.nonlinearTimingObserver = self.nonlinearTimingObserver(with: nonlinears)
     }
   }
+  
   func linearTimingObserver(with linears: [Vast]) -> Any? {
     var times = [NSValue]()
     var timesAds = [Int: XMLIndexer]()

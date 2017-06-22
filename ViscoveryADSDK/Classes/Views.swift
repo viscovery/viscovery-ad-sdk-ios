@@ -7,19 +7,6 @@
 //
 import AVFoundation
 
-class VideoView: UIView {
-  var player: AVPlayer? {
-    set {
-      (self.layer as! AVPlayerLayer).player = newValue
-    }
-    get {
-      return (self.layer as! AVPlayerLayer).player
-    }
-  }
-  override class var layerClass: AnyClass {
-    return AVPlayerLayer.self
-  }
-}
 class LinearView: UIView {
   let videoView = VideoView()
   let learnMore = UIButton(type: .custom)
@@ -158,9 +145,9 @@ class NonLinearView: UIView {
         }
         guard let align = adParameters["align"] else { return }
         switch align {
-        case "left":
-          $0.left == $1.left + CGFloat(Float(alignOffset) ?? 0)
-        case "right":
+//        case "left":
+//          $0.left == $1.left + CGFloat(Float(alignOffset) ?? 0)
+        case "right", "left":
           $0.right == $1.right - CGFloat(Float(alignOffset) ?? 0)
         case "center", "fullwidth":
           $0.centerX == $1.centerX
@@ -231,6 +218,19 @@ class NonLinearView: UIView {
       }
     }
     return false
+  }
+}
+class VideoView: UIView {
+  var player: AVPlayer? {
+    set {
+      (self.layer as! AVPlayerLayer).player = newValue
+    }
+    get {
+      return (self.layer as! AVPlayerLayer).player
+    }
+  }
+  override class var layerClass: AnyClass {
+    return AVPlayerLayer.self
   }
 }
 class ImageView: UIImageView {
