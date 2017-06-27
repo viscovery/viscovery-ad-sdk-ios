@@ -149,17 +149,18 @@ enum AdType {
     }
   }
   func fetchAdTagUri(ad: Vast, linearType: AdType? = nil) {
-    guard let tag = ad["vmap:AdSource"]["vmap:AdTagURI"].element?.text?.trimmed else { return }
-    guard let url = URL(string: tag.replacingOccurrences(of: "[timestamp]", with: "\(self.correlator)")) else { return }
-    guard let type: String = try? ad["vmap:Extensions"]["vmap:Extension"].element!.value(ofAttribute: "type") else { return }
-    url.fetch { [type, linearType] in
+    guard
+      let tag = ad["vmap:AdSource"]["vmap:AdTagURI"].element?.text?.trimmed,
+      let url = URL(string: tag.replacingOccurrences(of: "[timestamp]", with: "\(self.correlator)"))
+    else { return }
+    url.fetch { [linearType] in
       let vast = SWXMLHash.parse($0)
       switch vast["VAST"]["Ad"] {
       case .Element:
         if let linearType = linearType {
           self.handleLinearAd(vast: vast, type: linearType)
         } else {
-          self.handleNonLinearAd(vast: vast, type: type)
+          self.handleNonLinearAd(vast: vast, extensions: ad["vmap:Extensions"])
         }
       case .XMLError:
         print("Error: Vast is Empty")
@@ -242,16 +243,19 @@ enum AdType {
     linearView.isHidden = true
     contentPlayer.play()
   }
-  func handleNonLinearAd(vast: Vast, type: String) {
+  func handleNonLinearAd(vast: Vast, extensions: XMLIndexer) {
     let nonlinear = vast["VAST"]["Ad"]["InLine"]["Creatives"]["Creative"]["NonLinearAds"]["NonLinear"]
-    let nonlinearView = type == "instream" ? instream : outstream
-    guard let resourceURL = nonlinear["StaticResource"].element?.text else {
+    guard
+      let resourceURL = nonlinear["StaticResource"].element?.text,
+      let position = try? extensions["vmap:Extension"].withAttr("type", "position"),
+      let placement: String = position["placement"].value(ofAttribute: "type")
+    else {
       vast.error()
       return
     }
-    if let adParameters = nonlinear["AdParameters"].element?.text?.toParameters {
-      nonlinearView.adParameters = adParameters
-    }
+    
+    let nonlinearView = placement == "instream" ? instream : outstream
+    nonlinearView.extensions = extensions
     nonlinearView.clickThroughCallback = {
       if let clickThrough = nonlinear["NonLinearClickThrough"].element?.text,
         let clickThroughURL = URL(string: clickThrough),
@@ -268,7 +272,7 @@ enum AdType {
           nonlinearView.isAdHidden = true
         }
       }
- 
+      
       vast.impression()
       
       if let start = try! vast["VAST"]["Ad"]["InLine"]["Creatives"]["Creative"]["NonLinearAds"]["TrackingEvents"]["Tracking"].withAttr("event", "start").element,

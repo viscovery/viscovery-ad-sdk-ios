@@ -71,6 +71,15 @@ extension UIButton {
 }
 
 extension String {
+  var toPx: CGFloat {
+    guard let n = NumberFormatter().number(from: self.replacingOccurrences(of: "px", with: "")) else { return 0.0 }
+    return CGFloat(n.doubleValue)
+  }
+  var toPercent: CGFloat {
+    guard let n = NumberFormatter().number(from: self.replacingOccurrences(of: "%", with: "")) else { return 0.0 }
+    
+    return CGFloat(n.doubleValue * 0.01)
+  }
   var toParameters: [String: String] {
     var parameters: [String: String] = [:]
     for kv in components(separatedBy: ",").map({ $0.components(separatedBy: "=") }) {

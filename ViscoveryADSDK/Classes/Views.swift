@@ -6,6 +6,7 @@
 //  Copyright © 2017 Viscovery All rights reserved.
 //
 import AVFoundation
+import SWXMLHash
 
 class LinearView: UIView {
   let videoView = VideoView()
@@ -93,7 +94,7 @@ class LinearView: UIView {
     learnMoreDidTapHandler?()
   }
   func updateBar(progress: CGFloat) {
-    constrain(self.progress, self.progressBackground, replace: progressLayout) {
+    constrain(self.progress, progressBackground, replace: progressLayout) {
       $0.left == $1.left
       $0.top == $1.top
       $0.bottom == $1.bottom
@@ -115,49 +116,73 @@ class NonLinearView: UIView {
   let image = ImageView()
   var close: UIButton!
   let group = ConstraintGroup()
-  var adParameters: [String: String] = [:] {
+  var extensions: XMLIndexer? {
     didSet {
-      configureConstrains(with: adParameters)
+      configureConstrains(with: extensions)
     }
   }
   override var bounds: CGRect {
     didSet {
-      configureConstrains(with: adParameters)
+      configureConstrains(with: extensions)
     }
   }
   var offset: CGFloat = 0.0 {
     didSet {
-      configureConstrains(with: adParameters)
+      configureConstrains(with: extensions)
     }
   }
   var clickThroughCallback: (() -> ())?
-  func configureConstrains(with adParameters: [String: String]) {
+  
+  func configureConstrains(with extensions: XMLIndexer?) {
+    guard
+      let extensions = extensions,
+      let position = try? extensions["vmap:Extension"].withAttr("type", "position"),
+      let size = try? extensions["vmap:Extension"].withAttr("type", "size"),
+      let vPos: String = try? position["vertical"].value(ofAttribute: "type"),
+      let hPos: String = try? position["horizontal"].value(ofAttribute: "type"),
+      let vValue = position["vertical"].element?.text,
+      let hValue = position["horizontal"].element?.text
+    else { return }
     DispatchQueue.main.async { [image, group] in
       constrain(image, self, replace: group) {
-        // let offset = self.offset
-        guard let positionOffset = adParameters["pos_value"] else { return }
-        guard let alignOffset = adParameters["align_value"] else { return }
-        
-        if adParameters["position"] == "bottom" {
-          $0.bottom == $1.bottom - (CGFloat(Float(positionOffset) ?? 0) + self.offset)
-        } else {
-          $0.top == $1.top + self.offset
+        switch (vPos, vValue.contains("%")) {
+        case ("bottom", true):
+          $0.bottom == $1.bottom - (self.bounds.height * vValue.toPercent) - self.offset
+        case ("bottom", false):
+          $0.bottom == $1.bottom - vValue.toPx - self.offset
+        case ("top", true):
+          $0.top == $1.top + (self.bounds.height * vValue.toPercent) + self.offset
+        case ("top", false):
+          $0.top == $1.top + vValue.toPx + self.offset
+        default: break
         }
-        guard let align = adParameters["align"] else { return }
-        switch align {
-//        case "left":
-//          $0.left == $1.left + CGFloat(Float(alignOffset) ?? 0)
-        case "right", "left":
-          $0.right == $1.right - CGFloat(Float(alignOffset) ?? 0)
-        case "center", "fullwidth":
+        switch (hPos, hValue.contains("%")) {
+        case ("left", true):
+          $0.left == $1.left + (self.bounds.width * hValue.toPercent)
+        case ("left", false):
+          $0.left == $1.left + hValue.toPx
+        case ("right", true):
+          $0.right == $1.right - (self.bounds.width * hValue.toPercent)
+        case ("right", false):
+          $0.right == $1.right - hValue.toPx
+        case ("center", _):
           $0.centerX == $1.centerX
         default: break
         }
-      }
-      guard let heightPercentage = Float(adParameters["height"] ?? "100") else { return }
-      constrain(image, replace: self.image.imageSize) {
-        $0.width == self.bounds.width
-        $0.height == self.bounds.height * CGFloat(heightPercentage * 0.01)
+        constrain(image, replace: self.image.imageSize) {
+          if let width = try? size["size"].withAttr("type", "width"),
+            let widthPercent = width.element?.text {
+            $0.width == self.bounds.width * widthPercent.toPercent
+          } else {
+            $0.width == self.bounds.width
+          }
+          if let height = try? size["size"].withAttr("type", "height"),
+            let heightPercent = height.element?.text {
+            $0.height == self.bounds.height * heightPercent.toPercent
+          } else {
+            $0.height == self.bounds.height
+          }
+        }
       }
     }
   }
@@ -199,7 +224,7 @@ class NonLinearView: UIView {
   }
   func setResourceWithURL(url: String, completion: (() -> ())? = nil) {
     image.setImageWith(link: url, contentMode: .scaleAspectFill) { _ in
-      self.configureConstrains(with: self.adParameters)
+      self.configureConstrains(with: self.extensions)
       self.isAdHidden = false
       completion?()
     }
