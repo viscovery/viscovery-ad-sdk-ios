@@ -67,6 +67,7 @@ class Tests: XCTestCase {
   }
   func testTimeInterValConvert() {
     XCTAssertEqual("".toTimeInterval, 0)
+    XCTAssertEqual("0:00:00".toTimeInterval, 0.0)
     XCTAssertEqual("00:00:00.000".toTimeInterval, 0.0)
     XCTAssertEqual("00:00:50.000".toTimeInterval, 50.0)
     XCTAssertEqual("00:00:50.050".toTimeInterval, 50.05)

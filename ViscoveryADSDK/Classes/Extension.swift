@@ -143,7 +143,10 @@ extension URL {
       guard
         let response = $1 as? HTTPURLResponse, response.statusCode == 200,
         let data = $0, $2 == nil
-      else { return }
+      else {
+        AdsManager.current?.adDidFinishPlaying()
+        return
+      }
       completionHandler?(data)
     }.resume()
   }

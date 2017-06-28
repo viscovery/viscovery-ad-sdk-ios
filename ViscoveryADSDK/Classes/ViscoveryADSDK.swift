@@ -22,6 +22,8 @@ enum AdType {
 
 @objc public class AdsManager: NSObject {
   public static var apiKey: String?
+  public static var debug = false
+  public static var current: AdsManager?
   public var instreamOffset: CGFloat = 0 {
     didSet {
       self.instream.offset = (0.0...50.0).clamp(instreamOffset)
@@ -38,11 +40,12 @@ enum AdType {
   var nonlinearTimingObserver: Any?
   var linearTimingObserver: Any?
   public init(player: AVPlayer, videoView: UIView, outstreamContainerView: UIView? = nil) {
-    
     contentPlayer = player
     contentVideoView = videoView
     outstreamContainer = outstreamContainerView
     super.init()
+    AdsManager.current = self
+    
     for v in contentVideoView.subviews.filter({ $0 is NonLinearView }) {
       v.removeFromSuperview()
     }
@@ -67,7 +70,7 @@ enum AdType {
     }
   }
   public func requestAds(videoURL: String? = nil) {
-    guard let videoURL = videoURL ?? videoUrlFromPlayer else {
+    guard let videoURL = videoURL ?? videoUrlFromPlayer?.toBase64 else {
       print("video url error")
       contentPlayer.play()
       return
@@ -77,9 +80,11 @@ enum AdType {
       contentPlayer.play()
       return
     }
-    let url = URL(string: "https://vsp.viscovery.com/api/vmap?api_key=\(apiKey)&video_url=\(videoURL.toBase64)&platform=mobile&debug=0")!
-    // let url = URL(string: "http://www.mocky.io/v2/592e7fd8100000dc24d0dd3b")!
     
+    let endpoint = "https://\(AdsManager.debug ? "vsp-test" :  "vsp").viscovery.com/tag2ad/webapi/ads/v1/vmap?video_id=\(videoURL)&platform=mobile&api_key=\(apiKey)"
+    // let url = URL(string: "http://www.mocky.io/v2/592e7fd8100000dc24d0dd3b")!
+
+    let url = URL(string: endpoint)!
     url.fetch {
       guard
         let json = try? JSONSerialization.jsonObject(with: $0, options: .allowFragments) as! [String: AnyObject],
@@ -114,7 +119,7 @@ enum AdType {
     for ad in linears {
       if let offset: String = try? ad.value(ofAttribute: "timeOffset") {
         
-        if offset == "00:00:00.000" {
+        if offset.toTimeInterval == 0.0 {
           self.fetchAdTagUri(ad: ad, linearType: .preroll)
         } else {
           let time = CMTime(seconds: offset.toTimeInterval, preferredTimescale: 1)
@@ -240,7 +245,9 @@ enum AdType {
     }
   }
   func adDidFinishPlaying() {
-    linearView.isHidden = true
+    DispatchQueue.main.async {
+      self.linearView.isHidden = true
+    }
     contentPlayer.play()
   }
   func handleNonLinearAd(vast: Vast, extensions: XMLIndexer) {
