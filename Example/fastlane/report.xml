@@ -5,22 +5,22 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.003073">
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.001423">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: cocoapods" time="4.650395">
+      <testcase classname="fastlane.lanes" name="1: cocoapods" time="2.667266">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: gym" time="68.427166">
+      <testcase classname="fastlane.lanes" name="2: gym" time="70.90268">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: cd .. &amp;&amp; s3cmd put --acl-public ViscoveryADSDK_Example.ipa s3://viscovery-vsp-dev/sdkdemo/ViscoveryADSDK_Example.ipa" time="12.820043">
+      <testcase classname="fastlane.lanes" name="3: cd .. &amp;&amp; s3cmd put --acl-public ViscoveryADSDK_Example.ipa s3://viscovery-vsp-dev/sdkdemo/ViscoveryADSDK_Example.ipa" time="39.986583">
         
       </testcase>
     

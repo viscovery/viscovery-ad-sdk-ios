@@ -81,7 +81,7 @@ enum AdType {
       return
     }
     
-    let endpoint = "https://\(AdsManager.debug ? "vsp-test" :  "vsp").viscovery.com/tag2ad/webapi/ads/v1/vmap?video_id=\(videoURL)&platform=mobile&api_key=\(apiKey)"
+    let endpoint = "https://\(AdsManager.debug ? "vsp-test" :  "vsp").viscovery.com/tag2ad/webapi/ads/v1/vmap?video_id=\(videoURL)&platform=mobile&api_key=\(apiKey)&cache=\(AdsManager.debug ? "0" :  "1")"
     // let url = URL(string: "http://www.mocky.io/v2/592e7fd8100000dc24d0dd3b")!
 
     let url = URL(string: endpoint)!

@@ -1,6 +1,6 @@
 PODS:
   - SWXMLHash (3.0.4)
-  - ViscoveryADSDK (1.2.2):
+  - ViscoveryADSDK (1.2.3):
     - SWXMLHash (~> 3.0)
 
 DEPENDENCIES:
@@ -12,7 +12,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   SWXMLHash: 29d20b84692fc319ea8ed933058fe7d8d005139b
-  ViscoveryADSDK: 01e7de3908094ed3a4214fd4cff2ee13da7bbca3
+  ViscoveryADSDK: 97139879f89f99990ef84ca0cffa5c583d033dc4
 
 PODFILE CHECKSUM: 63e2cf547f86bcf2f0ce1a7cb7a885332a8db951
 

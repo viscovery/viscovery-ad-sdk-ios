@@ -28,7 +28,7 @@ class ViewController: UIViewController {
     
     contentPlayer?.isMuted = true
     
-    adsManager.requestAds()
+    adsManager.requestAds(videoURL: "00000")
     
     //you can adjust y-pos of the instream ads (0.0~50.0) in points
     adsManager.instreamOffset = 30.0
