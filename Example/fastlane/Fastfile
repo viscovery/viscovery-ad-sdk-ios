@@ -2,13 +2,20 @@ default_platform :ios
 
 lane :ota do
   cocoapods
-
   gym(
       scheme: "ViscoveryADSDK-Example",
       include_bitcode: true,
       export_method: "enterprise",
       clean: false
   )
-
+  	
   sh "cd .. && s3cmd put --acl-public ViscoveryADSDK_Example.ipa s3://viscovery-vsp-dev/sdkdemo/ViscoveryADSDK_Example.ipa"
+
+  slack(
+        message: "demo app successfully released!",
+        payload: {
+                "Build Date" => Time.new.to_s,
+                "Download Link" => "https://viscovery.github.io/viscovery-ad-demo-ios-ota/download.html"
+        }
+  )
 end
