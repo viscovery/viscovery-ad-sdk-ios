@@ -10,6 +10,10 @@
 ```
 $ sudo gem install cocoapods
 ``` 
+## IDFA
+
+
+> Viscovery Ads SDK for iOS utilizes Apple’s advertising identifier (IDFA). The SDK uses IDFA under the guidelines laid out in the iOS developer program license agreement. You must ensure you are in compliance with the iOS developer program license agreement policies governing the use of this identifier.
 
 
 ## Adding libraries to the Xcode project
@@ -73,6 +77,12 @@ The you can request ads the video will start automatically.
 
 ```swift
 adsManager.requestAds()
+```
+
+Or request with videoId
+
+```swift
+adsManager.requestAds(videoURL: "your-video-id")
 ```
 
 ## Full Example Source Code
