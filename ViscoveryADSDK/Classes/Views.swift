@@ -106,6 +106,7 @@ class LinearView: UIView {
   }
 }
 class NonLinearView: UIView {
+  var isOutstream = false
   var isAdHidden = true {
     didSet {
       image.isHidden = isAdHidden
@@ -145,14 +146,16 @@ class NonLinearView: UIView {
     else { return }
     DispatchQueue.main.async { [image, group] in
       constrain(image, self, replace: group) {
-        switch (vPos, vValue.contains("%")) {
-        case ("bottom", true):
+        switch (vPos, vValue.contains("%"), self.isOutstream) {
+        case (_,_, true):
+          $0.top == $1.top
+        case ("bottom", true, _):
           $0.bottom == $1.bottom - (self.bounds.height * vValue.toPercent) - self.offset
-        case ("bottom", false):
+        case ("bottom", false, _):
           $0.bottom == $1.bottom - vValue.toPx - self.offset
-        case ("top", true):
+        case ("top", true, _):
           $0.top == $1.top + (self.bounds.height * vValue.toPercent) + self.offset
-        case ("top", false):
+        case ("top", false, _):
           $0.top == $1.top + vValue.toPx + self.offset
         default: break
         }
@@ -186,8 +189,9 @@ class NonLinearView: UIView {
       }
     }
   }
-  convenience init(type _: AdType) {
+  convenience init(type: AdType) {
     self.init(frame: .zero)
+    isOutstream = type == .outstream
     close = UIButton(type: .custom)
     close.setImage(UIImage(named: "close", in: Bundle(for: LinearView.self), compatibleWith: nil), for: .normal)
     clipsToBounds = true
