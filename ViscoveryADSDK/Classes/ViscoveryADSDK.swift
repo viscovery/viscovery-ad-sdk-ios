@@ -85,7 +85,7 @@ enum AdType {
     // let url = URL(string: "http://www.mocky.io/v2/592e7fd8100000dc24d0dd3b")!
 
     let url = URL(string: endpoint)!
-    url.fetch {
+    url.fetch(closeAdWhenError: true) {
       guard
         let json = try? JSONSerialization.jsonObject(with: $0, options: .allowFragments) as! [String: AnyObject],
         let vmap = json["context"] as? String
@@ -271,6 +271,7 @@ enum AdType {
         let clickTrackingURL = URL(string: clickTracking) {
         presenter.present(SFSafariViewController(url: clickThroughURL), animated: true)
         clickTrackingURL.fetch()
+        self.contentPlayer.pause()
       }
     }
     nonlinearView.setResourceWithURL(url: resourceURL) {

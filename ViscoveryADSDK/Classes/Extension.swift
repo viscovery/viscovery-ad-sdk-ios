@@ -137,14 +137,16 @@ extension UIImageView {
   }
 }
 extension URL {
-  func fetch(completionHandler: ((Data) -> ())? = nil) {
+  func fetch(closeAdWhenError: Bool = false, completionHandler: ((Data) -> ())? = nil) {
     print("Request: \(self)")
     URLSession.shared.dataTask(with: self) {
       guard
         let response = $1 as? HTTPURLResponse, response.statusCode == 200,
         let data = $0, $2 == nil
       else {
-        AdsManager.current?.adDidFinishPlaying()
+        if closeAdWhenError {
+          AdsManager.current?.adDidFinishPlaying()
+        }
         return
       }
       completionHandler?(data)
