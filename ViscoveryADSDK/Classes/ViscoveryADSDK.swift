@@ -187,7 +187,7 @@ enum AdType {
     
     DispatchQueue.main.async {
       self.linearView.isHidden = false
-      vast.impression()
+      vast.tracking.impression()
     }
     linearView.skip.isHidden = false
     
@@ -257,7 +257,7 @@ enum AdType {
       let position = try? extensions["vmap:Extension"].withAttr("type", "position"),
       let placement: String = position["placement"].value(ofAttribute: "type")
     else {
-      vast.error()
+      vast.tracking.error()
       return
     }
     
@@ -281,13 +281,8 @@ enum AdType {
         }
       }
       
-      vast.impression()
-      
-      if let start = try! vast["VAST"]["Ad"]["InLine"]["Creatives"]["Creative"]["NonLinearAds"]["TrackingEvents"]["Tracking"].withAttr("event", "start").element,
-        let text = start.text,
-        let url = URL(string: text) {
-        url.fetch()
-      }
+      vast.tracking.impression()
+      vast.tracking.start()
     }
   }
 }
