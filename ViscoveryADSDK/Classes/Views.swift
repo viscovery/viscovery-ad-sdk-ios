@@ -15,9 +15,11 @@ class LinearView: UIView {
   let progress = UIView()
   let progressBackground = UIView()
   let progressLayout = ConstraintGroup()
-  var skipDidTapHandler: (() -> ())?
-  var learnMoreDidTapHandler: (() -> ())?
-  
+  var skipDidTapCallback: (() -> ())?
+  var learnMoreDidTapCallback: (() -> ())?
+  var didPauseCallback: (() -> ())?
+  var didPlayCallback: (() -> ())?
+
   var duration = UILabel()
   
   convenience init() {
@@ -88,10 +90,10 @@ class LinearView: UIView {
     
   }
   func skipDidTap() {
-    skipDidTapHandler?()
+    skipDidTapCallback?()
   }
   func learnMoreDidTap() {
-    learnMoreDidTapHandler?()
+    learnMoreDidTapCallback?()
   }
   func updateBar(progress: CGFloat) {
     constrain(self.progress, progressBackground, replace: progressLayout) {
@@ -102,7 +104,15 @@ class LinearView: UIView {
     }
   }
   func tap() {
-    videoView.player?.rate == 1.0 ? videoView.player?.pause() : videoView.player?.play()
+    videoView.player?.rate == 1.0 ? pause() : play()
+  }
+  func play() {
+    videoView.player?.play()
+    didPlayCallback?()
+  }
+  func pause() {
+    videoView.player?.pause()
+    didPauseCallback?()
   }
 }
 class NonLinearView: UIView {
@@ -133,7 +143,8 @@ class NonLinearView: UIView {
     }
   }
   var clickThroughCallback: (() -> ())?
-  
+  var closeCallback: (() -> ())?
+
   func configureConstrains(with extensions: XMLIndexer?) {
     guard
       let extensions = extensions,
@@ -234,6 +245,7 @@ class NonLinearView: UIView {
     }
   }
   func dismissAds() {
+    closeCallback?()
     close.isHidden = true
     image.isHidden = true
   }

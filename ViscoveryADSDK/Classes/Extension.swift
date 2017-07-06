@@ -164,6 +164,12 @@ extension Vast {
   var tracking: Vast {
     get { return self }
   }
+  var nonlinear: Vast {
+    get { return self["VAST"]["Ad"]["InLine"]["Creatives"]["Creative"]["NonLinearAds"]["TrackingEvents"]["Tracking"] }
+  }
+  var linear: Vast {
+    get { return self["VAST"]["Ad"]["InLine"]["Creatives"]["Creative"]["Linear"]["TrackingEvents"]["Tracking"] }
+  }
   func impression() {
     guard let impression = self["VAST"]["Ad"]["InLine"]["Impression"].element?.text,
       let url = URL(string: impression) else { return }
@@ -174,11 +180,13 @@ extension Vast {
       let url = URL(string: error) else { return }
     url.fetch()
   }
-  func start() {
-    guard let element = try? self["VAST"]["Ad"]["InLine"]["Creatives"]["Creative"]["NonLinearAds"]["TrackingEvents"]["Tracking"].withAttr("event", "start").element,
-      let trackingURL = element,
-      let text = trackingURL.text,
-      let url = URL(string: text) else {return }
-      url.fetch()
+  func track(event: String) {
+    guard
+      let uri = (try? self.withAttr("event", event))?.element?.text,
+      let url = URL(string: uri)
+    else {
+      return
+    }
+    url.fetch()
   }
 }

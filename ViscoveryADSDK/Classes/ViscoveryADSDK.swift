@@ -185,6 +185,8 @@ enum AdType {
     linearView.videoView.player = player
     linearView.videoView.player?.play()
     
+    vast.linear.track(event: "start")
+    
     DispatchQueue.main.async {
       self.linearView.isHidden = false
       vast.tracking.impression()
@@ -197,12 +199,13 @@ enum AdType {
       name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
       object: linearView.videoView.player?.currentItem
     )
-    linearView.skipDidTapHandler = {
+    linearView.skipDidTapCallback = {
       self.linearView.videoView.player?.pause()
       self.linearView.isHidden = true
       self.contentPlayer.play()
+      vast.linear.track(event: "skip")
     }
-    linearView.learnMoreDidTapHandler = { [vast] in
+    linearView.learnMoreDidTapCallback = { [vast] in
       guard
         let clickThrough = vast["VAST"]["Ad"]["InLine"]["Creatives"]["Creative"]["Linear"]["VideoClicks"]["ClickThrough"].element?.text,
         let clickTracking = vast["VAST"]["Ad"]["InLine"]["Creatives"]["Creative"]["Linear"]["VideoClicks"]["ClickTracking"].element?.text,
@@ -216,13 +219,40 @@ enum AdType {
       
       self.linearView.videoView.player?.pause()
     }
+    linearView.didPauseCallback = { [vast] in
+      vast.linear.track(event: "pause")
+    }
+    linearView.didPlayCallback = { [vast] in
+      vast.linear.track(event: "resume")
+    }
     guard let skipoffset: String = vast["VAST"]["Ad"]["InLine"]["Creatives"]["Creative"]["Linear"].element?.value(ofAttribute: "skipoffset") else { return }
-    let skipTime = CMTime(seconds: skipoffset.toTimeInterval, preferredTimescale: 1)
+    addSkipPointTimeObserver(skipOffset: skipoffset)
+    addProgressBarTimeObserver()
+    addTrackingTimeObserver(vast: vast)
+  }
+  func addTrackingTimeObserver(vast: Vast) {
+    var currentTime = kCMTimeZero
+    guard let asset = linearView.videoView.player?.currentItem?.asset else { return }
+    let interval = CMTimeMultiplyByFloat64(asset.duration, 0.25)
+    let trackingSequence = ["firstQuartile", "midpoint", "thirdQuartile", "complete"]
+    var index = 0
+    while currentTime < asset.duration {
+      currentTime = currentTime + interval
+      linearView.videoView.player?.addBoundaryTimeObserver(forTimes: [NSValue(time:currentTime)], queue: .main) { [index] time in
+        if index < trackingSequence.count {
+          vast.linear.track(event: trackingSequence[index])
+        }
+      }
+      index = index + 1
+    }
+  }
+  func addSkipPointTimeObserver(skipOffset: String) {
+    let skipTime = CMTime(seconds: skipOffset.toTimeInterval, preferredTimescale: 1)
     
     linearView.videoView.player?.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 1), queue: .main) { _ in
       guard let player = self.linearView.videoView.player,
         let current = player.currentItem
-      else { return }
+        else { return }
       
       if player.currentTime() > skipTime {
         self.linearView.skip.isEnabled = true
@@ -235,10 +265,12 @@ enum AdType {
       }
       self.linearView.duration.text = "Ad · " + (current.duration - player.currentTime()).durationText
     }
+  }
+  func addProgressBarTimeObserver() {
     linearView.videoView.player?.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 60), queue: .main) { _ in
       guard let player = self.linearView.videoView.player,
         let current = player.currentItem
-      else { return }
+        else { return }
       let progress = CGFloat(CMTimeGetSeconds(player.currentTime()) / CMTimeGetSeconds(current.duration))
       guard !(progress.isNaN || progress.isInfinite) else { return }
       self.linearView.updateBar(progress: (0.0...1.0).clamp(progress))
@@ -274,15 +306,19 @@ enum AdType {
         self.contentPlayer.pause()
       }
     }
+    nonlinearView.closeCallback = {
+      vast.nonlinear.track(event: "close")
+    }
     nonlinearView.setResourceWithURL(url: resourceURL) {
       if let minDuration: String = nonlinear.element?.value(ofAttribute: "minSuggestedDuration") {
         DispatchQueue.main.asyncAfter(deadline: .now() + (minDuration.toTimeInterval == 0 ? 15 : minDuration.toTimeInterval)) {
           nonlinearView.isAdHidden = true
+          vast.nonlinear.track(event: "complete")
         }
       }
-      
       vast.tracking.impression()
-      vast.tracking.start()
+      vast.nonlinear.track(event: "start")
+      vast.nonlinear.track(event: "creativeView")
     }
   }
 }
