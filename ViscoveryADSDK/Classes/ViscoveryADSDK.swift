@@ -16,8 +16,6 @@ typealias Vast = XMLIndexer
 enum AdType {
   case instream
   case outstream
-  case preroll
-  case midroll
 }
 
 @objc public class AdsManager: NSObject {
@@ -29,7 +27,6 @@ enum AdType {
       self.instream.offset = (0.0...50.0).clamp(instreamOffset)
     }
   }
-  
   let contentPlayer: AVPlayer
   let contentVideoView: UIView
   var outstreamContainer: UIView?
@@ -37,8 +34,8 @@ enum AdType {
   let outstream = NonLinearView(type: .outstream)
   let linearView = LinearView()
   let correlator = Int(Date().timeIntervalSince1970)
-  var nonlinearTimingObserver: Any?
-  var linearTimingObserver: Any?
+  var adBreakTimeObservers: Any?
+  
   public init(player: AVPlayer, videoView: UIView, outstreamContainerView: UIView? = nil) {
     contentPlayer = player
     contentVideoView = videoView
@@ -93,87 +90,59 @@ enum AdType {
         self.adDidFinishPlaying()
         return
       }
-      let xml = SWXMLHash.parse(vmap)
-      
-      let linears = xml["vmap:VMAP"]["vmap:AdBreak"].all.filter {
-        print($0.debugDescription)
-        let type: String = try! $0.value(ofAttribute: "breakType")
-        return type == "linear"
-      }
-      
-      self.linearTimingObserver = self.linearTimingObserver(with: linears)
-      
-      let nonlinears = xml["vmap:VMAP"]["vmap:AdBreak"].all.filter {
-        print($0.debugDescription)
-        let type: String = try! $0.value(ofAttribute: "breakType")
-        return type == "nonlinear"
-      }
-      
-      self.nonlinearTimingObserver = self.nonlinearTimingObserver(with: nonlinears)
+      self.requestAdWith(vmap: vmap)
     }
   }
-  
-  func linearTimingObserver(with linears: [Vast]) -> Any? {
-    var times = [NSValue]()
-    var timesAds = [Int: XMLIndexer]()
-    for ad in linears {
-      if let offset: String = try? ad.value(ofAttribute: "timeOffset") {
-        
-        if offset.toTimeInterval == 0.0 {
-          self.fetchAdTagUri(ad: ad, linearType: .preroll)
-        } else {
-          let time = CMTime(seconds: offset.toTimeInterval, preferredTimescale: 1)
-          timesAds[Int(offset.toTimeInterval)] = ad
-          times.append(NSValue(time: time))
-        }
-      }
-    }
-    return contentPlayer.addBoundaryTimeObserver(forTimes: times, queue: .main) {
-      let interval = Int(CMTimeGetSeconds(self.contentPlayer.currentTime()))
-      guard let ad = timesAds[interval] else { return }
-      self.fetchAdTagUri(ad: ad, linearType: .midroll)
-    }
+  public func requestAdWith(vmap: String) {
+    let xml = SWXMLHash.parse(vmap)
+    adBreakTimeObservers = createAdBreakTimeObservers(adBreaks: xml["vmap:VMAP"]["vmap:AdBreak"].all)
   }
-  func nonlinearTimingObserver(with nonlinears: [Vast]) -> Any? {
-    if nonlinears.count == 0 { return nil }
+  public func requestAdWith(vast: String) {
+    let adBreak = SWXMLHash.parse(vast)
+    fetchAdTagUri(adBreak: adBreak)
+  }
+  func createAdBreakTimeObservers(adBreaks: [Vast]) -> Any? {
     var times = [NSValue]()
     var timesAds = [Int: XMLIndexer]()
-    
-    for ad in nonlinears {
-      if let offset: String = try? ad.value(ofAttribute: "timeOffset") {
+    for adBreak in adBreaks {
+      guard
+        let type: String = try? adBreak.value(ofAttribute: "breakType"),
+        let offset: String = try? adBreak.value(ofAttribute: "timeOffset")
+      else { continue }
+      if type == "linear" && offset.toTimeInterval == 0.0 {
+        fetchAdTagUri(adBreak: adBreak)
+      } else {
         let time = CMTime(seconds: offset.toTimeInterval, preferredTimescale: 1)
-        timesAds[Int(offset.toTimeInterval)] = ad
+        timesAds[Int(offset.toTimeInterval)] = adBreak
         times.append(NSValue(time: time))
       }
     }
-    
     return contentPlayer.addBoundaryTimeObserver(forTimes: times, queue: .main) {
       let interval = Int(CMTimeGetSeconds(self.contentPlayer.currentTime()))
-      guard let ad = timesAds[interval] else { return }
-      self.fetchAdTagUri(ad: ad)
+      guard
+        let adBreak = timesAds[interval]
+      else { return }
+      self.fetchAdTagUri(adBreak: adBreak)
     }
   }
-  func fetchAdTagUri(ad: Vast, linearType: AdType? = nil) {
+  func fetchAdTagUri(adBreak: Vast) {
     guard
-      let tag = ad["vmap:AdSource"]["vmap:AdTagURI"].element?.text?.trimmed,
+      let tag = adBreak["vmap:AdSource"]["vmap:AdTagURI"].element?.text?.trimmed,
+      let type: String = try? adBreak.value(ofAttribute: "breakType"),
       let url = URL(string: tag.replacingOccurrences(of: "[timestamp]", with: "\(self.correlator)"))
     else { return }
-    url.fetch { [linearType] in
+    url.fetch { [type] in
       let vast = SWXMLHash.parse($0)
       switch vast["VAST"]["Ad"] {
       case .Element:
-        if let linearType = linearType {
-          self.handleLinearAd(vast: vast, type: linearType)
-        } else {
-          self.handleNonLinearAd(vast: vast, extensions: ad["vmap:Extensions"])
-        }
+        type == "nonlinear" ? self.handleNonLinearAd(vast: vast, extensions: adBreak["vmap:Extensions"]) : self.handleLinearAd(vast: vast)
       default:
         print("Error: Vast Error")
         self.adDidFinishPlaying()
       }
     }
   }
-  func handleLinearAd(vast: Vast, type _: AdType) {
+  func handleLinearAd(vast: Vast) {
     guard let mp4 = try? vast["VAST"]["Ad"]["InLine"]["Creatives"]["Creative"]["Linear"]["MediaFiles"]["MediaFile"].withAttr("type", "video/mp4").element?.text,
       let unwrap = mp4,
       let url = URL(string: unwrap) else { return }
