@@ -72,12 +72,12 @@ enum AdType {
   public func requestAds(videoURL: String? = nil) {
     guard let videoURL = videoURL ?? videoUrlFromPlayer?.toBase64 else {
       print("video url error")
-      contentPlayer.play()
+      self.adDidFinishPlaying()
       return
     }
     guard let apiKey = AdsManager.apiKey else {
       print("api key is empty")
-      contentPlayer.play()
+      self.adDidFinishPlaying()
       return
     }
     
@@ -90,7 +90,7 @@ enum AdType {
         let json = try? JSONSerialization.jsonObject(with: $0, options: .allowFragments) as! [String: AnyObject],
         let vmap = json["context"] as? String
       else {
-        self.contentPlayer.play()
+        self.adDidFinishPlaying()
         return
       }
       let xml = SWXMLHash.parse(vmap)
@@ -167,10 +167,9 @@ enum AdType {
         } else {
           self.handleNonLinearAd(vast: vast, extensions: ad["vmap:Extensions"])
         }
-      case .XMLError:
-        print("Error: Vast is Empty")
       default:
         print("Error: Vast Error")
+        self.adDidFinishPlaying()
       }
     }
   }
@@ -200,9 +199,7 @@ enum AdType {
       object: linearView.videoView.player?.currentItem
     )
     linearView.skipDidTapCallback = {
-      self.linearView.videoView.player?.pause()
-      self.linearView.isHidden = true
-      self.contentPlayer.play()
+      self.adDidFinishPlaying()
       vast.linear.track(event: "skip")
     }
     linearView.learnMoreDidTapCallback = { [vast] in
@@ -280,6 +277,7 @@ enum AdType {
     DispatchQueue.main.async {
       self.linearView.isHidden = true
     }
+    self.linearView.videoView.player?.pause()
     contentPlayer.play()
   }
   func handleNonLinearAd(vast: Vast, extensions: XMLIndexer) {
