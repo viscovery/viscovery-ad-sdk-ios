@@ -67,4 +67,8 @@ class Tests: XCTestCase {
     }
     XCTAssertEqual(version, "1.2.3")
   }
+  func testTrackingManagerPayload() {
+    print(TrackingManager.shared.payload(event: "event"))
+    XCTAssertEqual(TrackingManager.shared.payload(event: "event")["sdk_version"] as! String, "1.2.3")
+  }
 }
