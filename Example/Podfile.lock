@@ -1,6 +1,8 @@
 PODS:
+  - CryptoSwift (0.6.9)
   - SWXMLHash (3.0.4)
   - ViscoveryADSDK (1.2.3):
+    - CryptoSwift
     - SWXMLHash (~> 3.0)
 
 DEPENDENCIES:
@@ -11,8 +13,9 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
+  CryptoSwift: a22f6ba238e9ce4d26ee7bf45b9ed82e7122d4a0
   SWXMLHash: 29d20b84692fc319ea8ed933058fe7d8d005139b
-  ViscoveryADSDK: 97139879f89f99990ef84ca0cffa5c583d033dc4
+  ViscoveryADSDK: a17b6349d3f8421a6d7ccbf1b7b3d24108cb4860
 
 PODFILE CHECKSUM: 63e2cf547f86bcf2f0ce1a7cb7a885332a8db951
 

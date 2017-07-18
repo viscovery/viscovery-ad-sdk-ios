@@ -35,7 +35,7 @@ enum AdType {
   let linearView = LinearView()
   let correlator = Int(Date().timeIntervalSince1970)
   var adBreakTimeObservers: Any?
-  
+  var currentVideoId: String?
   public init(player: AVPlayer, videoView: UIView, outstreamContainerView: UIView? = nil) {
     contentPlayer = player
     contentVideoView = videoView
@@ -80,7 +80,9 @@ enum AdType {
     
     let endpoint = "https://\(AdsManager.debug ? "vsp-test" :  "vsp").viscovery.com/tag2ad/webapi/ads/v1/vmap?video_id=\(videoURL)&platform=mobile&api_key=\(apiKey)&cache=\(AdsManager.debug ? "0" :  "1")"
     // let url = URL(string: "http://www.mocky.io/v2/592e7fd8100000dc24d0dd3b")!
-
+    
+    currentVideoId = videoURL
+    
     let url = URL(string: endpoint)!
     url.fetch(closeAdWhenError: true) {
       guard
@@ -126,6 +128,7 @@ enum AdType {
     }
   }
   func fetchAdTagUri(adBreak: Vast) {
+    TrackingManager.shared.currentAdBreak = adBreak
     guard
       let tag = adBreak["vmap:AdSource"]["vmap:AdTagURI"].element?.text?.trimmed,
       let type: String = try? adBreak.value(ofAttribute: "breakType"),
@@ -153,7 +156,7 @@ enum AdType {
     linearView.videoView.player = player
     linearView.videoView.player?.play()
     
-    vast.linear.track(event: "start")
+    TrackingManager.shared.track(event: "start", vast: vast)
     
     DispatchQueue.main.async {
       self.linearView.isHidden = false
@@ -169,7 +172,7 @@ enum AdType {
     )
     linearView.skipDidTapCallback = {
       self.adDidFinishPlaying()
-      vast.linear.track(event: "skip")
+      TrackingManager.shared.track(event: "skip", vast: vast)
     }
     linearView.learnMoreDidTapCallback = { [vast] in
       guard
@@ -186,10 +189,11 @@ enum AdType {
       self.linearView.videoView.player?.pause()
     }
     linearView.didPauseCallback = { [vast] in
-      vast.linear.track(event: "pause")
+      TrackingManager.shared.track(event: "pause", vast: vast)
     }
     linearView.didPlayCallback = { [vast] in
-      vast.linear.track(event: "resume")
+      TrackingManager.shared.track(event: "resume", vast: vast)
+
     }
     guard let skipoffset: String = vast["VAST"]["Ad"]["InLine"]["Creatives"]["Creative"]["Linear"].element?.value(ofAttribute: "skipoffset") else { return }
     addSkipPointTimeObserver(skipOffset: skipoffset)
@@ -206,7 +210,7 @@ enum AdType {
       currentTime = currentTime + interval
       linearView.videoView.player?.addBoundaryTimeObserver(forTimes: [NSValue(time:currentTime)], queue: .main) { [index] time in
         if index < trackingSequence.count {
-          vast.linear.track(event: trackingSequence[index])
+          TrackingManager.shared.track(event: trackingSequence[index], vast: vast)
         }
       }
       index = index + 1
@@ -248,6 +252,7 @@ enum AdType {
     }
     self.linearView.videoView.player?.pause()
     contentPlayer.play()
+    TrackingManager.shared.flush()
   }
   func handleNonLinearAd(vast: Vast, extensions: XMLIndexer) {
     let nonlinear = vast["VAST"]["Ad"]["InLine"]["Creatives"]["Creative"]["NonLinearAds"]["NonLinear"]
@@ -274,18 +279,20 @@ enum AdType {
       }
     }
     nonlinearView.closeCallback = {
-      vast.nonlinear.track(event: "close")
+      TrackingManager.shared.track(event: "close", vast: vast)
+      self.adDidFinishPlaying()
     }
     nonlinearView.setResourceWithURL(url: resourceURL) {
       if let minDuration: String = nonlinear.element?.value(ofAttribute: "minSuggestedDuration") {
         DispatchQueue.main.asyncAfter(deadline: .now() + (minDuration.toTimeInterval == 0 ? 15 : minDuration.toTimeInterval)) {
           nonlinearView.isAdHidden = true
-          vast.nonlinear.track(event: "complete")
+          TrackingManager.shared.track(event: "complete", vast: vast)
+          self.adDidFinishPlaying()
         }
       }
       vast.tracking.impression()
-      vast.nonlinear.track(event: "start")
-      vast.nonlinear.track(event: "creativeView")
+      TrackingManager.shared.track(event: "start", vast: vast)
+      TrackingManager.shared.track(event: "creativeView", vast: vast)
     }
   }
 }

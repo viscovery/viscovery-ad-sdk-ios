@@ -36,5 +36,6 @@ s.ios.frameworks = 'AVFoundation'
 s.source_files = 'ViscoveryADSDK/Classes/**/*'
 s.resources = 'ViscoveryADSDK/Assets/*.xcassets'
 s.dependency 'SWXMLHash', '~> 3.0'
+s.dependency 'CryptoSwift'
 
 end
