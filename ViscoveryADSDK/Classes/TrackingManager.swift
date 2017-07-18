@@ -9,6 +9,7 @@
 import Foundation
 import CoreLocation
 import AdSupport
+import CryptoSwift
 
 class TrackingManager: NSObject {
   static let shared = TrackingManager()
@@ -51,7 +52,7 @@ class TrackingManager: NSObject {
       
       guard let mp4 = try? vast["VAST"]["Ad"]["InLine"]["Creatives"]["Creative"]["Linear"]["MediaFiles"]["MediaFile"].withAttr("type", "video/mp4").element?.text,
         let unwrap = mp4 else { return }
-      eventPayload["creative_url"] = unwrap
+      eventPayload["creative_url"] = [unwrap]
       vast.linear.track(event: event)
     } else {
       let nonlinear = vast["VAST"]["Ad"]["InLine"]["Creatives"]["Creative"]["NonLinearAds"]["NonLinear"]
@@ -63,7 +64,7 @@ class TrackingManager: NSObject {
         let minDuration: String = nonlinear.element?.value(ofAttribute: "minSuggestedDuration")
       else { return }
       eventPayload["ad_format"] = "\(placement)_nonlinear_\(hPos == "center" ? "banner" : "corner")"
-      eventPayload["creative_url"] = resourceURL
+      eventPayload["creative_url"] = [resourceURL]
       eventPayload["ad_ts"] = minDuration.toTimeInterval
       vast.nonlinear.track(event: event)
     }
@@ -101,15 +102,40 @@ class TrackingManager: NSObject {
       payload["ip"] = ip
     }
     if let idfa = IDFA.shared.identifier {
-      payload["user_id"] = ["type": "idfa", "id": idfa]
+      payload["user"] = ["type": "idfa", "id": idfa]
     }
     
     guard
       let data = try? JSONSerialization.data(withJSONObject: payload, options: .prettyPrinted),
       let body = String(data: data, encoding: .utf8)
     else { return }
-    events.removeAll()
+    
     print(body)
+
+    guard let key = AdsManager.apiKey else { return }
+    let secretString = ["A^HJ))jYpL", ")*&NnVvT#s"].sample()
+    let secretNumber = ["44357", "84437", "99989"].sample()
+    let message = key.substring(with: 1..<9) + secretNumber
+    let bytes = Array(message.utf8)
+    
+    let hmac = try! HMAC(key: secretString, variant: .sha256).authenticate(bytes).toBase64()!
+
+    let url = URL(string: "http://192.168.7.55:9999/v1/app")!
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    request.httpBody = data
+    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    request.addValue(key, forHTTPHeaderField: "X-SDK-Key")
+    request.addValue(hmac, forHTTPHeaderField: "X-SDK-Auth")
+
+    let task = URLSession.shared.dataTask(with: request) {
+      guard
+        let response = $1 as? HTTPURLResponse, response.statusCode == 200,
+        let _ = $0, $2 == nil
+      else { return }
+      self.events.removeAll()
+    }
+    task.resume()
   }
   var sharedPayload: [String: Any] = [
     "sdk_version": Bundle.init(for: AdsManager.self).infoDictionary?["CFBundleShortVersionString"] as? String ?? "",
@@ -145,5 +171,34 @@ class IDFA {
   var identifier: String? {
     guard !limited else { return nil }
     return ASIdentifierManager.shared().advertisingIdentifier.uuidString
+  }
+}
+
+extension Array {
+  func sample() -> Element {
+    let index = Int(arc4random_uniform(UInt32(self.count)))
+    return self[index]
+  }
+}
+
+extension String {
+  func index(from: Int) -> Index {
+    return self.index(startIndex, offsetBy: from)
+  }
+  
+  func substring(from: Int) -> String {
+    let fromIndex = index(from: from)
+    return substring(from: fromIndex)
+  }
+  
+  func substring(to: Int) -> String {
+    let toIndex = index(from: to)
+    return substring(to: toIndex)
+  }
+  
+  func substring(with r: Range<Int>) -> String {
+    let startIndex = index(from: r.lowerBound)
+    let endIndex = index(from: r.upperBound)
+    return substring(with: startIndex..<endIndex)
   }
 }
