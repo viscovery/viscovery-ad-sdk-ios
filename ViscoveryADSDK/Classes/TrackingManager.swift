@@ -160,6 +160,7 @@ class TrackingManager: NSObject {
 extension TrackingManager: CLLocationManagerDelegate {
   func locationManager(_: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     currentLocation = locations.first
+    locationManager.stopUpdatingLocation()
   }
 }
 
