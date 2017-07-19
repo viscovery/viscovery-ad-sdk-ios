@@ -29,11 +29,16 @@ class TrackingManager: NSObject {
     guard
       let adBreak = currentAdBreak,
       let type: String = try? adBreak.value(ofAttribute: "breakType"),
-      let offset: String = try? adBreak.value(ofAttribute: "timeOffset")
+      let offset: String = try? adBreak.value(ofAttribute: "timeOffset"),
+      let tag = adBreak["vmap:AdSource"]["vmap:AdTagURI"].element?.text?.trimmed
     else { return }
+    
+    let inventory_category = try! NSRegularExpression(pattern: "%3D(\\w+)").matches(in:tag, range:NSMakeRange(0, tag.utf16.count)).map {
+      "dfp:" + (tag as NSString).substring(with: $0.rangeAt(1))
+    }
     var eventPayload: [String: Any] = [
       "event_type": event,
-      "inventory_category": [],
+      "inventory_category": inventory_category,
       "inventory_tag": [],
       "ad_pos": offset.toTimeInterval,
       "ad_ts": Int(Date().timeIntervalSince1970 * 1000)
@@ -201,3 +206,4 @@ extension String {
     return substring(with: startIndex..<endIndex)
   }
 }
+
