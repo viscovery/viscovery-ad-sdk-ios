@@ -35,7 +35,8 @@ class TrackingManager: NSObject {
       "event_type": event,
       "inventory_category": [],
       "inventory_tag": [],
-      "ad_pos": offset.toTimeInterval
+      "ad_pos": offset.toTimeInterval,
+      "ad_ts": Int(Date().timeIntervalSince1970 * 1000)
     ]
     
     if let videoId = AdsManager.current?.currentVideoId {
@@ -47,8 +48,6 @@ class TrackingManager: NSObject {
     }
     if type == "linear" {
       eventPayload["ad_format"] = "instream_linear"
-      guard let duration = vast["VAST"]["Ad"]["InLine"]["Creatives"]["Creative"]["Linear"]["Duration"].element?.text else { return }
-      eventPayload["ad_ts"] = duration.toTimeInterval
       
       guard let mp4 = try? vast["VAST"]["Ad"]["InLine"]["Creatives"]["Creative"]["Linear"]["MediaFiles"]["MediaFile"].withAttr("type", "video/mp4").element?.text,
         let unwrap = mp4 else { return }
@@ -60,12 +59,11 @@ class TrackingManager: NSObject {
         let resourceURL = nonlinear["StaticResource"].element?.text,
         let position = try? adBreak["vmap:Extensions"]["vmap:Extension"].withAttr("type", "position"),
         let placement: String = position["placement"].value(ofAttribute: "type"),
-        let hPos: String = try? position["horizontal"].value(ofAttribute: "type"),
-        let minDuration: String = nonlinear.element?.value(ofAttribute: "minSuggestedDuration")
+        let hPos: String = try? position["horizontal"].value(ofAttribute: "type")
       else { return }
+      
       eventPayload["ad_format"] = "\(placement)_nonlinear_\(hPos == "center" ? "banner" : "corner")"
       eventPayload["creative_url"] = [resourceURL]
-      eventPayload["ad_ts"] = minDuration.toTimeInterval
       vast.nonlinear.track(event: event)
     }
     events.append(eventPayload)
