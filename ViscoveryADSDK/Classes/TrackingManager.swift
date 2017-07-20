@@ -123,7 +123,7 @@ class TrackingManager: NSObject {
     
     let hmac = try! HMAC(key: secretString, variant: .sha256).authenticate(bytes).toBase64()!
 
-    let url = URL(string: "http://192.168.7.55:9999/v1/app")!
+    let url = URL(string: "https://\(AdsManager.debug ? "tracking-dev" : "tracking" ).track.viscovery.com/v1/app")!
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
     request.httpBody = data
