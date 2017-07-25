@@ -133,8 +133,11 @@ enum AdType {
       let tag = adBreak["vmap:AdSource"]["vmap:AdTagURI"].element?.text?.trimmed,
       let type: String = try? adBreak.value(ofAttribute: "breakType"),
       let url = URL(string: tag.replacingOccurrences(of: "[timestamp]", with: "\(self.correlator)"))
-    else { return }
-    url.fetch { [type] in
+    else {
+      self.adDidFinishPlaying()
+      return
+    }
+    url.fetch(closeAdWhenError: true) { [type] in
       let vast = SWXMLHash.parse($0)
       switch vast["VAST"]["Ad"] {
       case .Element:
@@ -152,10 +155,16 @@ enum AdType {
     
     contentPlayer.pause()
     
-    let player = AVPlayer(url: url)
+    let item = AVPlayerItem(url: url)
+    let player = AVPlayer(playerItem: item)
     linearView.videoView.player = player
     linearView.videoView.player?.play()
     
+    delay(15) { [player] in
+      if player.currentItem?.status == .failed {
+        self.adDidFinishPlaying()
+      }
+    }
     TrackingManager.shared.track(event: "start", vast: vast)
     
     DispatchQueue.main.async {
