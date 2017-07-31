@@ -36,6 +36,7 @@ enum AdType {
   let correlator = Int(Date().timeIntervalSince1970)
   var adBreakTimeObservers: Any?
   var currentVideoId: String?
+  let linearAdCountDown = UILabel()
   public init(player: AVPlayer, videoView: UIView, outstreamContainerView: UIView? = nil) {
     contentPlayer = player
     contentVideoView = videoView
@@ -57,6 +58,13 @@ enum AdType {
       $0.edges == $1.edges
     }
     
+    contentVideoView.addSubview(linearAdCountDown)
+    linearAdCountDown.textColor = .white
+    linearAdCountDown.font = UIFont.systemFont(ofSize: 12)
+    constrain(linearAdCountDown, contentVideoView) {
+      $0.left == $1.left
+      $0.bottom == $1.bottom - instreamOffset
+    }
     guard let outstreamContainer = outstreamContainer else { return }
     for v in outstreamContainer.subviews.filter({ $0 is NonLinearView }) {
       v.removeFromSuperview()
@@ -106,6 +114,7 @@ enum AdType {
   func createAdBreakTimeObservers(adBreaks: [Vast]) -> Any? {
     var times = [NSValue]()
     var timesAds = [Int: XMLIndexer]()
+    var linearTimes = [NSValue]()
     for adBreak in adBreaks {
       guard
         let type: String = try? adBreak.value(ofAttribute: "breakType"),
@@ -117,8 +126,23 @@ enum AdType {
         let time = CMTime(seconds: offset.toTimeInterval, preferredTimescale: 1)
         timesAds[Int(offset.toTimeInterval)] = adBreak
         times.append(NSValue(time: time))
+        if type == "linear" {
+          linearTimes.append(NSValue(time: time))
+        }
       }
     }
+    contentPlayer.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 1), queue: .main) { _ in
+      self.linearAdCountDown.isHidden = true
+      guard let nearestLinear = linearTimes.filter({ $0.timeValue > self.contentPlayer.currentTime()}).first else {
+        return
+      }
+      let countDown = CMTimeGetSeconds(nearestLinear.timeValue - self.contentPlayer.currentTime())
+      if countDown <= 10 {
+        self.linearAdCountDown.isHidden = false
+        self.linearAdCountDown.text = "Ad Starts in \(Int(countDown))s"
+      }
+    }
+
     return contentPlayer.addBoundaryTimeObserver(forTimes: times, queue: .main) {
       let interval = Int(CMTimeGetSeconds(self.contentPlayer.currentTime()))
       guard
