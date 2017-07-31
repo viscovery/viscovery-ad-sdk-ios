@@ -19,7 +19,13 @@ class LinearView: UIView {
   var learnMoreDidTapCallback: (() -> ())?
   var didPauseCallback: (() -> ())?
   var didPlayCallback: (() -> ())?
-
+  
+  var isMute = false {
+    didSet {
+      videoView.player?.isMuted = isMute
+    }
+  }
+  
   var duration = UILabel()
   
   convenience init() {
