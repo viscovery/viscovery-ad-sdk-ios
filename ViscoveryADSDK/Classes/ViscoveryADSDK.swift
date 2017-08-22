@@ -108,9 +108,15 @@ enum AdType {
     let xml = SWXMLHash.parse(vmap)
     adBreakTimeObservers = createAdBreakTimeObservers(adBreaks: xml["vmap:VMAP"]["vmap:AdBreak"].all)
   }
-  public func requestAdWith(vast: String) {
+  public func requestAdWith(vast: String, nonlinearExtensions: String? = nil) {
     let adBreak = SWXMLHash.parse(vast)
-    handleLinearAd(vast: adBreak)
+    if let nonlinearExtensions = nonlinearExtensions {
+      let extensions = SWXMLHash.parse(nonlinearExtensions)
+      handleNonLinearAd(vast: adBreak, extensions: extensions)
+      self.adDidFinishPlaying()
+    } else {
+      handleLinearAd(vast: adBreak)
+    }
   }
   func createAdBreakTimeObservers(adBreaks: [Vast]) -> Any? {
     var times = [NSValue]()
@@ -320,9 +326,10 @@ enum AdType {
       let placement: String = position["placement"].value(ofAttribute: "type")
     else {
       vast.tracking.error()
+      self.adDidFinishPlaying()
       return
     }
-    
+  
     let nonlinearView = placement == "instream" ? instream : outstream
     nonlinearView.extensions = extensions
     nonlinearView.clickThroughCallback = {
