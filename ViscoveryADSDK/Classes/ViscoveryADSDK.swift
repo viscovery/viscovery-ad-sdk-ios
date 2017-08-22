@@ -20,6 +20,7 @@ enum AdType {
 
 @objc public class AdsManager: NSObject {
   public static var apiKey: String?
+  public static var iTunesId: String?
   public static var debug = false
   public static var current: AdsManager?
   public var instreamOffset: CGFloat = 0 {
@@ -109,12 +110,15 @@ enum AdType {
   }
   public func requestAdWith(vast: String) {
     let adBreak = SWXMLHash.parse(vast)
-    fetchAdTagUri(adBreak: adBreak)
+    handleLinearAd(vast: adBreak)
   }
   func createAdBreakTimeObservers(adBreaks: [Vast]) -> Any? {
     var times = [NSValue]()
     var timesAds = [Int: XMLIndexer]()
     var linearTimes = [NSValue]()
+    
+    var isPreroll = false
+    
     for adBreak in adBreaks {
       guard
         let type: String = try? adBreak.value(ofAttribute: "breakType"),
@@ -122,6 +126,7 @@ enum AdType {
       else { continue }
       if type == "linear" && offset.toTimeInterval == 0.0 {
         fetchAdTagUri(adBreak: adBreak)
+        isPreroll = true
       } else {
         let time = CMTime(seconds: offset.toTimeInterval, preferredTimescale: 1)
         timesAds[Int(offset.toTimeInterval)] = adBreak
@@ -131,6 +136,11 @@ enum AdType {
         }
       }
     }
+    
+    if !isPreroll {
+      self.adDidFinishPlaying()
+    }
+    
     contentPlayer.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 1), queue: .main) { _ in
       self.linearAdCountDown.isHidden = true
       guard let nearestLinear = linearTimes.filter({ $0.timeValue > self.contentPlayer.currentTime()}).first else {
@@ -142,7 +152,6 @@ enum AdType {
         self.linearAdCountDown.text = "Ad Starts in \(Int(countDown))s"
       }
     }
-
     return contentPlayer.addBoundaryTimeObserver(forTimes: times, queue: .main) {
       let interval = Int(CMTimeGetSeconds(self.contentPlayer.currentTime()))
       guard
@@ -155,12 +164,28 @@ enum AdType {
     TrackingManager.shared.currentAdBreak = adBreak
     guard
       let tag = adBreak["vmap:AdSource"]["vmap:AdTagURI"].element?.text?.trimmed,
-      let type: String = try? adBreak.value(ofAttribute: "breakType"),
-      let url = URL(string: tag.replacingOccurrences(of: "[timestamp]", with: "\(self.correlator)"))
+      let ssp: String = try? adBreak["vmap:AdSource"]["vmap:AdTagURI"].value(ofAttribute: "ssp"),
+      let type: String = try? adBreak.value(ofAttribute: "breakType")
     else {
       self.adDidFinishPlaying()
       return
     }
+    
+    var urlString = tag
+    
+    switch ssp {
+    case "quadas":
+      urlString = urlString.replacingOccurrences(of: "[IDFA]", with: IDFA.shared.identifier ?? "[IDFA]")
+      urlString = urlString.replacingOccurrences(of: "[APPID]", with: AdsManager.iTunesId ?? "[APPID]")
+    default:
+      urlString = urlString.replacingOccurrences(of: "[timestamp]", with: "\(self.correlator)")
+    }
+    
+    guard let url = URL(string: urlString) else {
+      self.adDidFinishPlaying()
+      return
+    }
+    
     url.fetch(closeAdWhenError: true) { [type] in
       let vast = SWXMLHash.parse($0)
       switch vast["VAST"]["Ad"] {
