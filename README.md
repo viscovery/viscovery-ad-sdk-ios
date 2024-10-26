@@ -1,22 +1,22 @@
-# iOS ViscoveryADSDK Integration
+# 🚀 iOS ViscoveryADSDK Integration
 
-## Prerequisites
+## 🚧 Prerequisites
 
-+ ViscoveryADSDK Account
-+ Xcode
-+ iOS 9.0
-+ [CocoaPods](https://cocoapods.org/)
++ 🚀 ViscoveryADSDK Account
++ 🖥️ Xcode
++ 📱 iOS 9.0
++ 🚀 [CocoaPods](https://cocoapods.org/)
 
 ```
 $ sudo gem install cocoapods
 ``` 
-## IDFA
+## 🚫 IDFA
 
 
-> Viscovery Ads SDK for iOS utilizes Apple’s advertising identifier (IDFA). The SDK uses IDFA under the guidelines laid out in the iOS developer program license agreement. You must ensure you are in compliance with the iOS developer program license agreement policies governing the use of this identifier.
+> 🚨 Viscovery Ads SDK for iOS utilizes Apple’s advertising identifier (IDFA). The SDK uses IDFA under the guidelines laid out in the iOS developer program license agreement. You must ensure you are in compliance with the iOS developer program license agreement policies governing the use of this identifier.
 
 
-## Adding libraries to the Xcode project
+## 🚧 Adding libraries to the Xcode project
 Podfile Example
 
 Add in your Podfile
@@ -40,7 +40,7 @@ pod install
 
 Once the command completed, open the .xcworkspace file in Xcode
 
-## Step by Step Implemention
+## 🚀 Step by Step Implemention
 [Link to Full Source Code](#full-example-source-code)
 ## 1. Import SDK
 ```swift
@@ -85,7 +85,7 @@ Or request with videoId
 adsManager.requestAds(videoURL: "your-video-id")
 ```
 
-## Full Example Source Code
+## 🚀 Full Example Source Code
 [Code](https://github.com/viscovery/viscovery-ad-sdk-ios/blob/master/Example/ViscoveryADSDK/ViewController.swift)
 ####VideoView
 This class only for demo. you should replace it with any view that has `AVPlayerLayer` in it.
@@ -114,7 +114,7 @@ class VideoView: UIView {
 }
 ```
 
-## Example Source Code Objective-C
+## 🚀 Example Source Code Objective-C
 
 ```objective-c
 
